@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<!-- saved from url=(0058)https://nbisweden.github.io/workshop-r/2611/lab_loops.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+
+
+
+<title>R lab: Loops, Conditions & Functions</title>
+
+<script src="./L5 Loops, Conditions &amp; Functions_files/jquery-3.6.0.min.js"></script><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./L5 Loops, Conditions &amp; Functions_files/bootstrap.min.css" rel="stylesheet">
+<script src="./L5 Loops, Conditions &amp; Functions_files/bootstrap.min.js"></script>
+<script src="./L5 Loops, Conditions &amp; Functions_files/html5shiv.min.js"></script>
+<script src="./L5 Loops, Conditions &amp; Functions_files/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="./L5 Loops, Conditions &amp; Functions_files/jquery-ui.min.js"></script>
+<link href="./L5 Loops, Conditions &amp; Functions_files/jquery.tocify.css" rel="stylesheet">
+<script src="./L5 Loops, Conditions &amp; Functions_files/jquery.tocify.js"></script>
+<script src="./L5 Loops, Conditions &amp; Functions_files/tabsets.js"></script>
+<link href="./L5 Loops, Conditions &amp; Functions_files/textmate.css" rel="stylesheet">
+<script src="./L5 Loops, Conditions &amp; Functions_files/highlight.js"></script>
+<link href="./L5 Loops, Conditions &amp; Functions_files/all.min.css" rel="stylesheet">
+<link href="./L5 Loops, Conditions &amp; Functions_files/v4-shims.min.css" rel="stylesheet">
+<link id="font-awesome-1-attachment" rel="attachment" href="https://nbisweden.github.io/workshop-r/2611/site_libs/font-awesome-6.4.2/fonts/fontawesome-webfont.ttf">
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="./L5 Loops, Conditions &amp; Functions_files/lab.css" type="text/css">
+
+
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+#TOC {
+  display: none !important;
+}
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+<script type="text/javascript" src="./L5 Loops, Conditions &amp; Functions_files/MathJax.js"></script><style>body {padding-top: 64.9844px; padding-bottom: 40px; }
+.section h1{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h2{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h3{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h4{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h5{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h6{ padding-top: 64.9844px; margin-top: -64.9844px; }
+</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888; display: contents}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style id="speed-flow-style"></style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+
+<div class="container-fluid main-container">
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">L5 Loops, Conditions & Functions</h1>
+
+</div>
+
+
+<!-- rmd lab header -->
+<p><br></p>
+<div id="introduction" class="section level1" number="1">
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
+<p>In programming languages loop structures, either with or without conditions, are used to repeat commands over multiple entities. <code>for</code> and <code>while</code> loops as well as <code>if-else</code> statements are also often used in R, but not as often as in many other programming languages. The reason for this is that many needs of the loops are already addressed using vectorization or via apply functions.</p>
+<p>This means that we can multiply all values in a vector in R by two by calling</p>
+<pre class="r"><code class="hljs">vec.a &lt;- c(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>, <span class="hljs-number">4</span>)
+vec.a * <span class="hljs-number">2</span></code></pre>
+<pre><code class="hljs">## [1] 2 4 6 8</code></pre>
+<p>In many other and languages as well as in R, you can also create this with a loop instead</p>
+<pre class="r"><code class="hljs"><span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> seq_along(vec.a)) {
+  vec.a[i] &lt;- vec.a[i] * <span class="hljs-number">2</span>
+}
+
+vec.a</code></pre>
+<pre><code class="hljs">## [1] 2 4 6 8</code></pre>
+<p>This is far less efficient and not by any means easier to type and we hence tend to avoid loops when possible.</p>
+<details>
+<summary>
+<strong>Extra: Demonstration of time lapse comparison between vectorization and loop</strong>
+</summary>
+<p>Let us compare the time of execution of the vectorized version (vector with 10,000 elements):</p>
+<pre class="r"><code class="hljs">vec &lt;- c(<span class="hljs-number">1</span>:<span class="hljs-number">1000000</span>)
+ptm &lt;- proc.time()
+vec &lt;- vec + <span class="hljs-number">1</span>
+proc.time() - ptm <span class="hljs-comment"># vectorized</span></code></pre>
+<pre><code class="hljs">##    user  system elapsed 
+##   0.002   0.000   0.002</code></pre>
+<p>–</p>
+<p>to the loop version:</p>
+<pre class="r"><code class="hljs">vec &lt;- c(<span class="hljs-number">1</span>:<span class="hljs-number">1000000</span>)
+ptm &lt;- proc.time()
+<span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> seq_along(vec)) {
+  vec[i] &lt;- vec[i] + <span class="hljs-number">1</span>
+}
+proc.time() - ptm <span class="hljs-comment"># for-loop</span></code></pre>
+<pre><code class="hljs">##    user  system elapsed 
+##   0.064   0.002   0.065</code></pre>
+</details>
+<p><br></p>
+<p>After this exercise you should know:</p>
+<ul>
+<li>What are the most common loop structures in R</li>
+<li>Some common alternatives to using loops in R</li>
+<li>How one can convert a short script to a function.</li>
+<li>Use that new function in R.</li>
+</ul>
+</div>
+<div id="exercises" class="section level1" number="2">
+<div name="2_Exercises" data-unique="2_Exercises"></div><h1><span class="header-section-number">2</span> Exercises</h1>
+<ol style="list-style-type: decimal">
+<li>Create a 100000 by 10 matrix with the numbers 1:1000000. Make a for-loop that calculates the sum for each row of the matrix. Verify that your results are consistent with what you obtain with the <code>apply()</code> function to calculate row sums as well as with the built-in <code>rowSums()</code> function. These functions were discussed in the lecture <strong>Matrices, data frames, and lists</strong>.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812010293" aria-expanded="false" aria-controls="acc2026052812010293">
+</button>
+</p>
+<div id="acc2026052812010293" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">X &lt;- matrix(<span class="hljs-number">1</span>:<span class="hljs-number">1000000</span>, nrow = <span class="hljs-number">100000</span>, ncol = <span class="hljs-number">10</span>)
+for.sum &lt;- vector(mode = <span class="hljs-string">'numeric'</span>)
+<span class="hljs-comment"># Note that this loop is much faster if you outside the loop create an empty vector of the right size.</span>
+<span class="hljs-comment"># rwmeans &lt;- vector('numeric', 100000)</span>
+<span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:nrow(X)) {
+    for.sum[i] &lt;- sum(X[i,])
+}
+head(for.sum)</code></pre>
+<pre><code class="hljs">## [1] 4500010 4500020 4500030 4500040 4500050 4500060</code></pre>
+<pre class="r"><code class="hljs">app.sum &lt;- apply(X, MARGIN = <span class="hljs-number">1</span>, sum)
+head(app.sum)</code></pre>
+<pre><code class="hljs">## [1] 4500010 4500020 4500030 4500040 4500050 4500060</code></pre>
+<pre class="r"><code class="hljs">rowSums.sum &lt;- rowSums(X)
+head(rowSums.sum)</code></pre>
+<pre><code class="hljs">## [1] 4500010 4500020 4500030 4500040 4500050 4500060</code></pre>
+<pre class="r"><code class="hljs">identical(for.sum, app.sum)</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+<pre class="r"><code class="hljs">identical(for.sum, rowSums.sum)</code></pre>
+<pre><code class="hljs">## [1] TRUE</code></pre>
+<pre class="r"><code class="hljs">identical(for.sum, as.integer(rowSums.sum))</code></pre>
+<pre><code class="hljs">## [1] FALSE</code></pre>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>As you saw in the lecture, another common loop structure that is used is the while loop, which functions much like a for loop, but will only run as long as a test condition is TRUE. Modify your for loop from exercise 1 and make it into a while loop.
+<details>
+<summary>
+<strong>Tip?</strong>
+</summary>
+You can use the number of rows in the matrix as a condition for the while loop.
+</details></li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812012628" aria-expanded="false" aria-controls="acc2026052812012628">
+</button>
+</p>
+<div id="acc2026052812012628" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">x &lt;- <span class="hljs-number">1</span>
+while.sum &lt;- vector(<span class="hljs-string">"numeric"</span>, <span class="hljs-number">100000</span>)
+<span class="hljs-keyword">while</span> (x &lt;= <span class="hljs-number">100000</span>) {
+  while.sum[x] &lt;- sum(X[x,])
+  x &lt;- x + <span class="hljs-number">1</span>
+}
+head(while.sum)</code></pre>
+<pre><code class="hljs">## [1] 4500010 4500020 4500030 4500040 4500050 4500060</code></pre>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Create a data frame with two numeric and one character columns. Write a loop that loops over the columns and reports the sum of the column values if it is numeric and the total number of characters if it is a character vector.
+<details>
+<summary>
+<strong>Tip?</strong>
+</summary>
+To count number of characters, you can use <code>nchar</code> function.
+</details></li>
+</ol>
+<ul>
+<li>Do it first using only if clauses</li>
+</ul>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812019767" aria-expanded="false" aria-controls="acc2026052812019767">
+</button>
+</p>
+<div id="acc2026052812019767" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">vector1 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">10</span>
+vector2 &lt;- c(<span class="hljs-string">"Odd"</span>, <span class="hljs-string">"Loop"</span>, letters[<span class="hljs-number">1</span>:<span class="hljs-number">8</span>])
+vector3 &lt;- rnorm(<span class="hljs-number">10</span>, sd = <span class="hljs-number">10</span>)
+dfr1 &lt;- data.frame(vector1, vector2, vector3, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+sum.vec &lt;- vector()
+<span class="hljs-keyword">for</span>(i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:ncol(dfr1)) {
+  <span class="hljs-keyword">if</span> (is.numeric(dfr1[,i])) {
+      sum.vec[i] &lt;- sum(dfr1[,i])
+  } 
+  <span class="hljs-keyword">if</span> (is.character(dfr1[,i])) {
+      sum.vec[i] &lt;- sum(nchar(dfr1[,i]))
+  }
+}
+sum.vec</code></pre>
+<pre><code class="hljs">## [1] 55.00000 15.00000 29.66217</code></pre>
+</div>
+</div>
+<ul>
+<li>And then modify the loop to use if-else clauses</li>
+</ul>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812010843" aria-expanded="false" aria-controls="acc2026052812010843">
+</button>
+</p>
+<div id="acc2026052812010843" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">sum.vec &lt;- vector()
+<span class="hljs-keyword">for</span>(i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:ncol(dfr1)) {
+  <span class="hljs-keyword">if</span> (is.numeric(dfr1[,i])) {
+      sum.vec[i] &lt;- sum(dfr1[,i])
+  } <span class="hljs-keyword">else</span> {
+      sum.vec[i] &lt;- sum(nchar(dfr1[,i]))
+  }
+}
+sum.vec</code></pre>
+<pre><code class="hljs">## [1] 55.00000 15.00000 29.66217</code></pre>
+</div>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>In question 3 you generated a loop to go over a data frame. Try to convert this code to a function in R. The function should take a single data frame name as argument.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812010060" aria-expanded="false" aria-controls="acc2026052812010060">
+</button>
+</p>
+<div id="acc2026052812010060" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">dfr.info &lt;- <span class="hljs-keyword">function</span>(dfr) {
+  sum.vec &lt;- vector()
+  <span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:ncol(dfr)) {
+    <span class="hljs-keyword">if</span> (is.numeric(dfr[,i])) {
+        sum.vec[i] &lt;- sum(dfr[,i])
+    } <span class="hljs-keyword">else</span> {
+        sum.vec[i] &lt;- sum(nchar(dfr[,i]))
+    }
+  }
+  sum.vec
+}
+<span class="hljs-comment">#Execute the function</span>
+
+dfr.info(dfr1)</code></pre>
+<pre><code class="hljs">## [1] 55.00000 15.00000 29.66217</code></pre>
+</div>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li><strong>Extra exercise-loops</strong>. A variation of exercise 3: Create a data frame with three columns: one numeric, one logical, and one character vector. Write a loop that loops over the columns and reports the sum of the column values if it is numeric, the total number of <code>TRUE</code>s when is logical and the total number of characters if it is a character vector.
+<details>
+<summary>
+<strong>Tips?</strong>
+</summary>
+To count number of characters, you can use <code>nchar</code> function. <br>
+To count number of <code>TRUE</code> values, you can use <code>sum</code> function.<br>
+Inside the loop, you may want to use the if-else-if structure.<br>
+</details></li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812014752" aria-expanded="false" aria-controls="acc2026052812014752">
+</button>
+</p>
+<div id="acc2026052812014752" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">vector1 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">10</span>
+vector2 &lt;- c(<span class="hljs-string">"Odd"</span>, <span class="hljs-string">"Loop"</span>, letters[<span class="hljs-number">1</span>:<span class="hljs-number">8</span>])
+vector3 &lt;- c(<span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">TRUE</span>, <span class="hljs-literal">FALSE</span>)
+dfr2 &lt;- data.frame(vector1, vector2, vector3, stringsAsFactors = <span class="hljs-literal">FALSE</span>)
+sum.vec &lt;- vector()
+<span class="hljs-keyword">for</span>(i <span class="hljs-keyword">in</span> <span class="hljs-number">1</span>:ncol(dfr2)) {
+  <span class="hljs-keyword">if</span> (is.numeric(dfr2[,i])) {
+      sum.vec[i] &lt;- sum(dfr2[,i])
+  } <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (is.logical(dfr2[,i])) {
+      sum.vec[i] &lt;- sum(dfr2[,i])
+  } <span class="hljs-keyword">else</span> {
+      sum.vec[i]&lt;-sum(nchar(dfr2[,i]))
+  }
+}
+sum.vec</code></pre>
+<pre><code class="hljs">## [1] 55 15  6</code></pre>
+</div>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li><strong>Extra exercise-functions</strong>. Create a function that will convert time in hours to time in minutes. The function should take a single argument, a numeric value of hours, and return a numeric value of minutes. Add an if clause inside of the function that will stop running the function and give an error if the hours provided are negative.
+<details>
+<summary>
+<strong>Tip?</strong>
+</summary>
+You can read the documentation of the <code>stop()</code> function by typing <code>?stop</code> in the R console.
+</details></li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812011954" aria-expanded="false" aria-controls="acc2026052812011954">
+</button>
+</p>
+<div id="acc2026052812011954" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">hours_to_mins &lt;- <span class="hljs-keyword">function</span>(hours) {
+  <span class="hljs-keyword">if</span> (hours &lt; <span class="hljs-number">0</span>) {
+    <span class="hljs-keyword">stop</span>(<span class="hljs-string">"Hours cannot be negative"</span>)
+  }
+  minutes &lt;- hours * <span class="hljs-number">60</span>
+  <span class="hljs-keyword">return</span>(minutes)
+}
+
+hours_to_mins(<span class="hljs-number">3.2</span>)
+<span class="hljs-comment">#Now test it with a negative hour value</span>
+hours_to_mins(-<span class="hljs-number">3.26</span>)</code></pre>
+<pre><code class="hljs">## Error in hours_to_mins(-3.26): Hours cannot be negative</code></pre>
+<pre><code class="hljs">## [1] 192</code></pre>
+</div>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li>In all loops that we tried out we have created the variable where the output is saved outside the loop. Why is this?
+<br>
+<br></li>
+</ol>
+</div>
+<div id="cheatsheet" class="section level1" number="3">
+<div name="4_Cheatsheet" data-unique="4_Cheatsheet"></div><h1><span class="header-section-number">3</span> Cheatsheet</h1>
+<table style="width:100%;" class="table table-condensed">
+<colgroup>
+<col width="25%">
+<col width="22%">
+<col width="30%">
+<col width="22%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Key Points</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>nrow()</code></td>
+<td>Number of rows</td>
+<td>Works on data frames, matrices</td>
+<td><code>nrow(df)</code></td>
+</tr>
+<tr class="even">
+<td><code>ncol()</code></td>
+<td>Number of columns</td>
+<td>Works on data frames, matrices</td>
+<td><code>ncol(df)</code></td>
+</tr>
+<tr class="odd">
+<td><code>dim()</code></td>
+<td>Dimensions (rows, cols)</td>
+<td>Returns vector <code>c(nrow, ncol)</code></td>
+<td><code>dim(df)</code></td>
+</tr>
+<tr class="even">
+<td><code>nchar()</code></td>
+<td>Number of characters in strings</td>
+<td>Vectorised over character vectors</td>
+<td><code>nchar(c("abc", "hello"))</code></td>
+</tr>
+<tr class="odd">
+<td><code>sum()</code></td>
+<td>Sum of values</td>
+<td><code>na.rm = TRUE</code> to ignore NA</td>
+<td><code>sum(c(1, 2, NA), na.rm = TRUE)</code></td>
+</tr>
+<tr class="even">
+<td><code>rowSums()</code></td>
+<td>Sum of each row</td>
+<td>Works on numeric matrices/data frames</td>
+<td><code>rowSums(df)</code></td>
+</tr>
+<tr class="odd">
+<td><code>apply()</code></td>
+<td>Apply function over rows/columns</td>
+<td><code>apply(X, MARGIN, FUN)</code> where <code>MARGIN = 1</code> (rows) or <code>2</code> (cols)</td>
+<td><code>apply(df, 2, mean)</code></td>
+</tr>
+<tr class="even">
+<td><code>sapply()</code></td>
+<td>Simplifying lapply output</td>
+<td>Returns vector/matrix if possible</td>
+<td><code>sapply(df, class)</code></td>
+</tr>
+<tr class="odd">
+<td><code>lapply()</code></td>
+<td>Apply function to each element of a list</td>
+<td>Returns a list</td>
+<td><code>lapply(df, mean)</code></td>
+</tr>
+<tr class="even">
+<td><code>identical()</code></td>
+<td>Check exact equality</td>
+<td>Stricter than <code>==</code>, checks type + value</td>
+<td><code>identical(1, 1L)</code></td>
+</tr>
+<tr class="odd">
+<td><code>is.numeric()</code></td>
+<td>Check if an object is numeric</td>
+<td>Returns TRUE/FALSE</td>
+<td><code>is.numeric(3.14)</code></td>
+</tr>
+<tr class="even">
+<td><code>data.frame()</code></td>
+<td>Create a data frame</td>
+<td><code>stringsAsFactors=FALSE</code> for R &lt; 4.0</td>
+<td><code>data.frame(x=1:3, y=c("a","b","c"))</code></td>
+</tr>
+</tbody>
+</table>
+<!--
+7. <i class="fas fa-exclamation-circle"></i> **Advanced:** At the lecture an approach to calculate factorials were implemented using recursion (function calling itself). Here we instead will have a go at generating Fibonacci numbers. A fibonacci number is part of a series of number with the following properties:
+
+The first two numbers in the Fibonacci sequence are either 1 and 1, or 0 and 1, depending on the chosen starting point of the sequence, and each subsequent number is the sum of the previous two. Hence:
+
+`0, 1, 1, 2, 3, 5, 8, 13, 21, ...`
+
+or
+
+`1, 1, 2, 3, 5, 8, 13, 21, ...`
+
+Try to generate such a series using a recursive approach.
+-->
+</div>
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>

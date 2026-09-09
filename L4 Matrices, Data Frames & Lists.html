@@ -1,0 +1,2098 @@
+<!DOCTYPE html>
+<!-- saved from url=(0063)https://nbisweden.github.io/workshop-r/2611/lab_dataframes.html -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+
+<meta name="generator" content="pandoc">
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE">
+
+
+
+
+<title>R lab: Matrices, Data Frames & lists</title>
+
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/jquery-3.6.0.min.js"></script><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link href="./L4 Matrices, Data Frames &amp; Lists_files/bootstrap.min.css" rel="stylesheet">
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/bootstrap.min.js"></script>
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/html5shiv.min.js"></script>
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/jquery-ui.min.js"></script>
+<link href="./L4 Matrices, Data Frames &amp; Lists_files/jquery.tocify.css" rel="stylesheet">
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/jquery.tocify.js"></script>
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/tabsets.js"></script>
+<link href="./L4 Matrices, Data Frames &amp; Lists_files/textmate.css" rel="stylesheet">
+<script src="./L4 Matrices, Data Frames &amp; Lists_files/highlight.js"></script>
+<link href="./L4 Matrices, Data Frames &amp; Lists_files/all.min.css" rel="stylesheet">
+<link href="./L4 Matrices, Data Frames &amp; Lists_files/v4-shims.min.css" rel="stylesheet">
+<link id="font-awesome-1-attachment" rel="attachment" href="https://nbisweden.github.io/workshop-r/2611/site_libs/font-awesome-6.4.2/fonts/fontawesome-webfont.ttf">
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+<link rel="stylesheet" href="./L4 Matrices, Data Frames &amp; Lists_files/lab.css" type="text/css">
+
+
+
+<style type="text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+details > summary > p:only-child {
+  display: inline;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark the anchor link active (and if it's in a dropdown, also mark that active)
+  var dropdown = menuAnchor.closest('li.dropdown');
+  if (window.bootstrap) { // Bootstrap 4+
+    menuAnchor.addClass('active');
+    dropdown.find('> .dropdown-toggle').addClass('active');
+  } else { // Bootstrap 3
+    menuAnchor.parent().addClass('active');
+    dropdown.addClass('active');
+  }
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before, .tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "\e259";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "\e258";
+  font-family: 'Glyphicons Halflings';
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+#TOC {
+  display: none !important;
+}
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+<script type="text/javascript" src="./L4 Matrices, Data Frames &amp; Lists_files/MathJax.js"></script><style>body {padding-top: 64.9844px; padding-bottom: 40px; }
+.section h1{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h2{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h3{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h4{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h5{ padding-top: 64.9844px; margin-top: -64.9844px; }
+.section h6{ padding-top: 64.9844px; margin-top: -64.9844px; }
+</style><style type="text/css">.MathJax_Hover_Frame {border-radius: .25em; -webkit-border-radius: .25em; -moz-border-radius: .25em; -khtml-border-radius: .25em; box-shadow: 0px 0px 15px #83A; -webkit-box-shadow: 0px 0px 15px #83A; -moz-box-shadow: 0px 0px 15px #83A; -khtml-box-shadow: 0px 0px 15px #83A; border: 1px solid #A6D ! important; display: inline-block; position: absolute}
+.MathJax_Menu_Button .MathJax_Hover_Arrow {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 4px; -webkit-border-radius: 4px; -moz-border-radius: 4px; -khtml-border-radius: 4px; font-family: 'Courier New',Courier; font-size: 9px; color: #F0F0F0}
+.MathJax_Menu_Button .MathJax_Hover_Arrow span {display: block; background-color: #AAA; border: 1px solid; border-radius: 3px; line-height: 0; padding: 4px}
+.MathJax_Hover_Arrow:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_Hover_Arrow:hover span {background-color: #CCC!important}
+</style><style type="text/css">#MathJax_About {position: fixed; left: 50%; width: auto; text-align: center; border: 3px outset; padding: 1em 2em; background-color: #DDDDDD; color: black; cursor: default; font-family: message-box; font-size: 120%; font-style: normal; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 15px; -webkit-border-radius: 15px; -moz-border-radius: 15px; -khtml-border-radius: 15px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_About.MathJax_MousePost {outline: none}
+.MathJax_Menu {position: absolute; background-color: white; color: black; width: auto; padding: 5px 0px; border: 1px solid #CCCCCC; margin: 0; cursor: default; font: menu; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; z-index: 201; border-radius: 5px; -webkit-border-radius: 5px; -moz-border-radius: 5px; -khtml-border-radius: 5px; box-shadow: 0px 10px 20px #808080; -webkit-box-shadow: 0px 10px 20px #808080; -moz-box-shadow: 0px 10px 20px #808080; -khtml-box-shadow: 0px 10px 20px #808080; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+.MathJax_MenuItem {padding: 1px 2em; background: transparent}
+.MathJax_MenuArrow {position: absolute; right: .5em; padding-top: .25em; color: #666666; font-size: .75em}
+.MathJax_MenuActive .MathJax_MenuArrow {color: white}
+.MathJax_MenuArrow.RTL {left: .5em; right: auto}
+.MathJax_MenuCheck {position: absolute; left: .7em}
+.MathJax_MenuCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuRadioCheck {position: absolute; left: .7em}
+.MathJax_MenuRadioCheck.RTL {right: .7em; left: auto}
+.MathJax_MenuLabel {padding: 1px 2em 3px 1.33em; font-style: italic}
+.MathJax_MenuRule {border-top: 1px solid #DDDDDD; margin: 4px 3px}
+.MathJax_MenuDisabled {color: GrayText}
+.MathJax_MenuActive {background-color: #606872; color: white}
+.MathJax_MenuDisabled:focus, .MathJax_MenuLabel:focus {background-color: #E8E8E8}
+.MathJax_ContextMenu:focus {outline: none}
+.MathJax_ContextMenu .MathJax_MenuItem:focus {outline: none}
+#MathJax_AboutClose {top: .2em; right: .2em}
+.MathJax_Menu .MathJax_MenuClose {top: -10px; left: -10px}
+.MathJax_MenuClose {position: absolute; cursor: pointer; display: inline-block; border: 2px solid #AAA; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; font-family: 'Courier New',Courier; font-size: 24px; color: #F0F0F0}
+.MathJax_MenuClose span {display: block; background-color: #AAA; border: 1.5px solid; border-radius: 18px; -webkit-border-radius: 18px; -moz-border-radius: 18px; -khtml-border-radius: 18px; line-height: 0; padding: 8px 0 6px}
+.MathJax_MenuClose:hover {color: white!important; border: 2px solid #CCC!important}
+.MathJax_MenuClose:hover span {background-color: #CCC!important}
+.MathJax_MenuClose:hover:focus {outline: none}
+</style><style type="text/css">.MathJax_Preview .MJXf-math {color: inherit!important}
+</style><style type="text/css">.MJX_Assistive_MathML {position: absolute!important; top: 0; left: 0; clip: rect(1px, 1px, 1px, 1px); padding: 1px 0 0 0!important; border: 0!important; height: 1px!important; width: 1px!important; overflow: hidden!important; display: block!important; -webkit-touch-callout: none; -webkit-user-select: none; -khtml-user-select: none; -moz-user-select: none; -ms-user-select: none; user-select: none}
+.MJX_Assistive_MathML.MJX_Assistive_MathML_Block {width: 100%!important}
+</style><style type="text/css">#MathJax_Zoom {position: absolute; background-color: #F0F0F0; overflow: auto; display: block; z-index: 301; padding: .5em; border: 1px solid black; margin: 0; font-weight: normal; font-style: normal; text-align: left; text-indent: 0; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; -webkit-box-sizing: content-box; -moz-box-sizing: content-box; box-sizing: content-box; box-shadow: 5px 5px 15px #AAAAAA; -webkit-box-shadow: 5px 5px 15px #AAAAAA; -moz-box-shadow: 5px 5px 15px #AAAAAA; -khtml-box-shadow: 5px 5px 15px #AAAAAA; filter: progid:DXImageTransform.Microsoft.dropshadow(OffX=2, OffY=2, Color='gray', Positive='true')}
+#MathJax_ZoomOverlay {position: absolute; left: 0; top: 0; z-index: 300; display: inline-block; width: 100%; height: 100%; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+#MathJax_ZoomFrame {position: relative; display: inline-block; height: 0; width: 0}
+#MathJax_ZoomEventTrap {position: absolute; left: 0; top: 0; z-index: 302; display: inline-block; border: 0; padding: 0; margin: 0; background-color: white; opacity: 0; filter: alpha(opacity=0)}
+</style><style type="text/css">.MathJax_Preview {color: #888; display: contents}
+#MathJax_Message {position: fixed; left: 1em; bottom: 1.5em; background-color: #E6E6E6; border: 1px solid #959595; margin: 0px; padding: 2px 8px; z-index: 102; color: black; font-size: 80%; width: auto; white-space: nowrap}
+#MathJax_MSIE_Frame {position: absolute; top: 0; left: 0; width: 0px; z-index: 101; border: 0px; margin: 0px; padding: 0px}
+.MathJax_Error {color: #CC0000; font-style: italic}
+</style><style id="speed-flow-style"></style><style type="text/css">.MJXp-script {font-size: .8em}
+.MJXp-right {-webkit-transform-origin: right; -moz-transform-origin: right; -ms-transform-origin: right; -o-transform-origin: right; transform-origin: right}
+.MJXp-bold {font-weight: bold}
+.MJXp-italic {font-style: italic}
+.MJXp-scr {font-family: MathJax_Script,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-frak {font-family: MathJax_Fraktur,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-sf {font-family: MathJax_SansSerif,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-cal {font-family: MathJax_Caligraphic,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-mono {font-family: MathJax_Typewriter,'Times New Roman',Times,STIXGeneral,serif}
+.MJXp-largeop {font-size: 150%}
+.MJXp-largeop.MJXp-int {vertical-align: -.2em}
+.MJXp-math {display: inline-block; line-height: 1.2; text-indent: 0; font-family: 'Times New Roman',Times,STIXGeneral,serif; white-space: nowrap; border-collapse: collapse}
+.MJXp-display {display: block; text-align: center; margin: 1em 0}
+.MJXp-math span {display: inline-block}
+.MJXp-box {display: block!important; text-align: center}
+.MJXp-box:after {content: " "}
+.MJXp-rule {display: block!important; margin-top: .1em}
+.MJXp-char {display: block!important}
+.MJXp-mo {margin: 0 .15em}
+.MJXp-mfrac {margin: 0 .125em; vertical-align: .25em}
+.MJXp-denom {display: inline-table!important; width: 100%}
+.MJXp-denom > * {display: table-row!important}
+.MJXp-surd {vertical-align: top}
+.MJXp-surd > * {display: block!important}
+.MJXp-script-box > *  {display: table!important; height: 50%}
+.MJXp-script-box > * > * {display: table-cell!important; vertical-align: top}
+.MJXp-script-box > *:last-child > * {vertical-align: bottom}
+.MJXp-script-box > * > * > * {display: block!important}
+.MJXp-mphantom {visibility: hidden}
+.MJXp-munderover, .MJXp-munder {display: inline-table!important}
+.MJXp-over {display: inline-block!important; text-align: center}
+.MJXp-over > * {display: block!important}
+.MJXp-munderover > *, .MJXp-munder > * {display: table-row!important}
+.MJXp-mtable {vertical-align: .25em; margin: 0 .125em}
+.MJXp-mtable > * {display: inline-table!important; vertical-align: middle}
+.MJXp-mtr {display: table-row!important}
+.MJXp-mtd {display: table-cell!important; text-align: center; padding: .5em 0 0 .5em}
+.MJXp-mtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-mlabeledtr {display: table-row!important}
+.MJXp-mlabeledtr > .MJXp-mtd:first-child {padding-left: 0}
+.MJXp-mlabeledtr:first-child > .MJXp-mtd {padding-top: 0}
+.MJXp-merror {background-color: #FFFF88; color: #CC0000; border: 1px solid #CC0000; padding: 1px 3px; font-style: normal; font-size: 90%}
+.MJXp-scale0 {-webkit-transform: scaleX(.0); -moz-transform: scaleX(.0); -ms-transform: scaleX(.0); -o-transform: scaleX(.0); transform: scaleX(.0)}
+.MJXp-scale1 {-webkit-transform: scaleX(.1); -moz-transform: scaleX(.1); -ms-transform: scaleX(.1); -o-transform: scaleX(.1); transform: scaleX(.1)}
+.MJXp-scale2 {-webkit-transform: scaleX(.2); -moz-transform: scaleX(.2); -ms-transform: scaleX(.2); -o-transform: scaleX(.2); transform: scaleX(.2)}
+.MJXp-scale3 {-webkit-transform: scaleX(.3); -moz-transform: scaleX(.3); -ms-transform: scaleX(.3); -o-transform: scaleX(.3); transform: scaleX(.3)}
+.MJXp-scale4 {-webkit-transform: scaleX(.4); -moz-transform: scaleX(.4); -ms-transform: scaleX(.4); -o-transform: scaleX(.4); transform: scaleX(.4)}
+.MJXp-scale5 {-webkit-transform: scaleX(.5); -moz-transform: scaleX(.5); -ms-transform: scaleX(.5); -o-transform: scaleX(.5); transform: scaleX(.5)}
+.MJXp-scale6 {-webkit-transform: scaleX(.6); -moz-transform: scaleX(.6); -ms-transform: scaleX(.6); -o-transform: scaleX(.6); transform: scaleX(.6)}
+.MJXp-scale7 {-webkit-transform: scaleX(.7); -moz-transform: scaleX(.7); -ms-transform: scaleX(.7); -o-transform: scaleX(.7); transform: scaleX(.7)}
+.MJXp-scale8 {-webkit-transform: scaleX(.8); -moz-transform: scaleX(.8); -ms-transform: scaleX(.8); -o-transform: scaleX(.8); transform: scaleX(.8)}
+.MJXp-scale9 {-webkit-transform: scaleX(.9); -moz-transform: scaleX(.9); -ms-transform: scaleX(.9); -o-transform: scaleX(.9); transform: scaleX(.9)}
+.MathJax_PHTML .noError {vertical-align: ; font-size: 90%; text-align: left; color: black; padding: 1px 3px; border: 1px solid}
+</style></head>
+
+<body><div id="MathJax_Message" style="display: none;"></div>
+
+
+<div class="container-fluid main-container">
+
+
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">L4 Matrices, Data Frames & Lists</h1>
+
+</div>
+
+
+<!-- rmd lab header -->
+<p><br></p>
+<div id="introduction" class="section level1" number="1">
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
+<p>A data set that has more than one dimension is conceptually hard to
+store as a vector. For these two-dimensional data sets the solution is to instead use matrices or data frames. As with vectors, all values
+in a matrix have to be of the same type (e.g.&nbsp;you cannot mix characters and numerics in the same matrix. I mean, you can, but they will get coerced to characters). For data frames this homogeneity is not a requirement and different columns can have different data types, but all columns in a data frame must have the same number of entries. In addition to these, R also have objects named lists that can store any type of data set and are not restricted by types or dimensions.</p>
+<p>In this exercise you will learn how to:</p>
+<ul>
+<li>Create and work with matrices, data frames and lists<br>
+</li>
+<li>Perform basic math on matrices<br>
+</li>
+<li>Use functions to summarize information from data frames<br>
+</li>
+<li>Extract subsets of data from matrices, data frames and lists</li>
+</ul>
+</div>
+<div id="matrices" class="section level1" number="2">
+<div name="2_Matrices" data-unique="2_Matrices"></div><h1><span class="header-section-number">2</span> Matrices</h1>
+<p>The command to create a matrix in R is <code>matrix()</code>. As input it takes a vector of values, the number of rows and/or the number of columns.</p>
+<pre class="r"><code class="hljs">X &lt;- matrix(<span class="hljs-number">1</span>:<span class="hljs-number">12</span>, nrow = <span class="hljs-number">4</span>, ncol = <span class="hljs-number">3</span>)
+X</code></pre>
+<pre><code class="hljs">##      [,1] [,2] [,3]
+## [1,]    1    5    9
+## [2,]    2    6   10
+## [3,]    3    7   11
+## [4,]    4    8   12</code></pre>
+<p>Note that if you only specify the number of rows or the number of columns, but not both, R will infer the size of the matrix automatically using the size of the input vector and the option given. The default way of filling the matrix is column-wise, so the first values from the vector ends up in column 1 of the matrix. If you instead wants to fill the matrix row by row you can set the byrow flag to TRUE.</p>
+<pre class="r"><code class="hljs">X &lt;- matrix(<span class="hljs-number">1</span>:<span class="hljs-number">12</span>, nrow = <span class="hljs-number">4</span>, ncol = <span class="hljs-number">3</span>, byrow = <span class="hljs-literal">TRUE</span>)
+X</code></pre>
+<pre><code class="hljs">##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9
+## [4,]   10   11   12</code></pre>
+<p>Subsetting a matrix is done the same way as for vectors, but you have
+two dimensions to specify. So you specify the rows and
+columns you want.</p>
+<pre class="r"><code class="hljs">X[<span class="hljs-number">1</span>,<span class="hljs-number">2</span>]</code></pre>
+<pre><code class="hljs">## [1] 2</code></pre>
+<p>If one wants all values in a column or a row this can be specified by
+leaving the other dimension empty. For e.g.&nbsp;this code will print all
+values in the second column.</p>
+<pre class="r"><code class="hljs">X[,<span class="hljs-number">2</span>]</code></pre>
+<pre><code class="hljs">## [1]  2  5  8 11</code></pre>
+<p>Note that if the retrieved part of a matrix can be represented as a
+vector (e.g.&nbsp;has a single dimension) R will convert it
+to a vector. Otherwise it will still be a matrix.</p>
+<div id="exercise" class="section level2" number="2.1">
+<div name="21_Exercise" data-unique="21_Exercise"></div><h2><span class="header-section-number">2.1</span> Exercise</h2>
+<p> Create a matrix containing the numbers 1 through 12 with 4 rows and 3 columns, similar to the matrix X shown above.</p>
+<ol style="list-style-type: decimal">
+<li>How do you find out the length of the matrix?</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812235025" aria-expanded="false" aria-controls="acc2026052812235025">
+</button>
+</p>
+<div id="acc2026052812235025" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">length(X)</code></pre>
+<pre><code class="hljs">## [1] 12</code></pre>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Extract/subset all the values in the matrix that are larger than 6.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812234375" aria-expanded="false" aria-controls="acc2026052812234375">
+</button>
+</p>
+<div id="acc2026052812234375" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">X[X&gt;<span class="hljs-number">6</span>]</code></pre>
+<pre><code class="hljs">## [1]  7 10  8 11  9 12</code></pre>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Swap the positions of column 1 and 3 in the matrix X</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812232464" aria-expanded="false" aria-controls="acc2026052812232464">
+</button>
+</p>
+<div id="acc2026052812232464" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">X[,c(<span class="hljs-number">3</span>,<span class="hljs-number">2</span>,<span class="hljs-number">1</span>)]</code></pre>
+<pre><code class="hljs">##      [,1] [,2] [,3]
+## [1,]    3    2    1
+## [2,]    6    5    4
+## [3,]    9    8    7
+## [4,]   12   11   10</code></pre>
+</div>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>We can use <code>rbind</code> to add rows to a matrix, or <code>cbind</code> to add columns. How would you add a vector with three zeros as a fifth row to the matrix?</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812235258" aria-expanded="false" aria-controls="acc2026052812235258">
+</button>
+</p>
+<div id="acc2026052812235258" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">X.2 &lt;- rbind(X, rep(<span class="hljs-number">0</span>, <span class="hljs-number">3</span>))
+X.2</code></pre>
+<pre><code class="hljs">##      [,1] [,2] [,3]
+## [1,]    1    2    3
+## [2,]    4    5    6
+## [3,]    7    8    9
+## [4,]   10   11   12
+## [5,]    0    0    0</code></pre>
+</div>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Replace all values in the first two columns in your matrix with <code>NA</code>.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812237310" aria-expanded="false" aria-controls="acc2026052812237310">
+</button>
+</p>
+<div id="acc2026052812237310" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">X[,<span class="hljs-number">1</span>:<span class="hljs-number">2</span>] &lt;- <span class="hljs-literal">NA</span>
+X</code></pre>
+<pre><code class="hljs">##      [,1] [,2] [,3]
+## [1,]   NA   NA    3
+## [2,]   NA   NA    6
+## [3,]   NA   NA    9
+## [4,]   NA   NA   12</code></pre>
+</div>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li>Replace all values in the matrix with 0 and convert it to a vector</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812236812" aria-expanded="false" aria-controls="acc2026052812236812">
+</button>
+</p>
+<div id="acc2026052812236812" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">X[] &lt;- <span class="hljs-number">0</span>
+as.vector(X)</code></pre>
+<pre><code class="hljs">##  [1] 0 0 0 0 0 0 0 0 0 0 0 0</code></pre>
+</div>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li>In the the vector exercises, you created a vector with the names of the type Geno_a_1, Geno_a_2, Geno_a_3, Geno_b_1, Geno_b_2…, Geno_s_3 using vectors. We have previously mentioned a function named <code>outer()</code> that generates matrices based on the combination of two datasets. Try to generate the same vector as before, but this time using <code>outer()</code>. This function is very powerful, but can be hard to wrap your head around, so try to follow the logic, perhaps by creating a simple example to start with.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812237378" aria-expanded="false" aria-controls="acc2026052812237378">
+</button>
+</p>
+<div id="acc2026052812237378" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">letnum &lt;- outer(paste(<span class="hljs-string">"Geno"</span>,letters[<span class="hljs-number">1</span>:<span class="hljs-number">19</span>], sep = <span class="hljs-string">"_"</span>), <span class="hljs-number">1</span>:<span class="hljs-number">3</span>, paste, sep = <span class="hljs-string">"_"</span>)
+class(letnum)
+sort(as.vector(letnum))</code></pre>
+<pre><code class="hljs">## [1] "matrix" "array" 
+##  [1] "Geno_a_1" "Geno_a_2" "Geno_a_3" "Geno_b_1" "Geno_b_2" "Geno_b_3"
+##  [7] "Geno_c_1" "Geno_c_2" "Geno_c_3" "Geno_d_1" "Geno_d_2" "Geno_d_3"
+## [13] "Geno_e_1" "Geno_e_2" "Geno_e_3" "Geno_f_1" "Geno_f_2" "Geno_f_3"
+## [19] "Geno_g_1" "Geno_g_2" "Geno_g_3" "Geno_h_1" "Geno_h_2" "Geno_h_3"
+## [25] "Geno_i_1" "Geno_i_2" "Geno_i_3" "Geno_j_1" "Geno_j_2" "Geno_j_3"
+## [31] "Geno_k_1" "Geno_k_2" "Geno_k_3" "Geno_l_1" "Geno_l_2" "Geno_l_3"
+## [37] "Geno_m_1" "Geno_m_2" "Geno_m_3" "Geno_n_1" "Geno_n_2" "Geno_n_3"
+## [43] "Geno_o_1" "Geno_o_2" "Geno_o_3" "Geno_p_1" "Geno_p_2" "Geno_p_3"
+## [49] "Geno_q_1" "Geno_q_2" "Geno_q_3" "Geno_r_1" "Geno_r_2" "Geno_r_3"
+## [55] "Geno_s_1" "Geno_s_2" "Geno_s_3"</code></pre>
+</div>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li>Create two different 2 by 2 matrices named A and B. <strong>A</strong> should contain the values 1-4 and <strong>B</strong> the values 5-8. Try out the following commands and by looking at the results see if you can figure out what is going on.</li>
+</ol>
+<pre><code class="hljs">A. A * B
+B. A / B
+C. A + B
+D. A - B
+E. A == B</code></pre>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812232702" aria-expanded="false" aria-controls="acc2026052812232702">
+</button>
+</p>
+<div id="acc2026052812232702" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">A &lt;- matrix(<span class="hljs-number">1</span>:<span class="hljs-number">4</span>, ncol = <span class="hljs-number">2</span>, nrow = <span class="hljs-number">2</span>)
+B &lt;- matrix(<span class="hljs-number">5</span>:<span class="hljs-number">8</span>, ncol = <span class="hljs-number">2</span>, nrow = <span class="hljs-number">2</span>)
+A
+B
+
+A * B
+A / B
+A %x% B
+A + B
+A - B
+A == B</code></pre>
+<pre><code class="hljs">##      [,1] [,2]
+## [1,]    1    3
+## [2,]    2    4
+##      [,1] [,2]
+## [1,]    5    7
+## [2,]    6    8
+##      [,1] [,2]
+## [1,]    5   21
+## [2,]   12   32
+##           [,1]      [,2]
+## [1,] 0.2000000 0.4285714
+## [2,] 0.3333333 0.5000000
+##      [,1] [,2] [,3] [,4]
+## [1,]    5    7   15   21
+## [2,]    6    8   18   24
+## [3,]   10   14   20   28
+## [4,]   12   16   24   32
+##      [,1] [,2]
+## [1,]    6   10
+## [2,]    8   12
+##      [,1] [,2]
+## [1,]   -4   -4
+## [2,]   -4   -4
+##       [,1]  [,2]
+## [1,] FALSE FALSE
+## [2,] FALSE FALSE</code></pre>
+</div>
+</div>
+<ol start="9" style="list-style-type: decimal">
+<li>Generate a 10 by 10 matrix with random numbers. Add row and column names and calculate mean and median over rows and save these in a new matrix.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812236944" aria-expanded="false" aria-controls="acc2026052812236944">
+</button>
+</p>
+<div id="acc2026052812236944" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">e &lt;- rnorm(n = <span class="hljs-number">100</span>)
+E &lt;- matrix(e, nrow = <span class="hljs-number">10</span>, ncol = <span class="hljs-number">10</span>)
+colnames(E) &lt;- LETTERS[<span class="hljs-number">1</span>:<span class="hljs-number">10</span>]
+rownames(E) &lt;- colnames(E)
+E.means &lt;- rowMeans(E)
+E.medians &lt;- apply(E, MARGIN = <span class="hljs-number">1</span>, median)
+E.mm &lt;- rbind(E.means, E.medians)
+E.mm</code></pre>
+<pre><code class="hljs">##                      A         B         C          D           E           F
+## E.means   -0.004607363 0.2935787 0.1812125 0.06692969 -0.16399752 -0.24646162
+## E.medians  0.455695801 0.2893744 0.2989559 0.42379164  0.04301965 -0.04955295
+##                    G         H           I          J
+## E.means   -0.2581022 0.2148089  0.12802988 -0.1246757
+## E.medians -0.4360033 0.2226771 -0.03212988 -0.1454032</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="dataframes" class="section level1" number="3">
+<div name="3_Dataframes" data-unique="3_Dataframes"></div><h1><span class="header-section-number">3</span> Dataframes</h1>
+<p>Even though vectors are the basic data structures of R, data frames are very central as they are the most common way to import data into R (e.g.&nbsp;<code>read.table()</code> will create a data frame). A data frame consists of a set of equally long vectors. As data frames can contain several different data types the command <code>str()</code> is very useful to get an overview of data frames.</p>
+<pre class="r"><code class="hljs">vector1 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">10</span>
+vector2 &lt;- letters[<span class="hljs-number">1</span>:<span class="hljs-number">10</span>]
+vector3 &lt;- rnorm(<span class="hljs-number">10</span>, sd = <span class="hljs-number">10</span>)
+dfr &lt;- data.frame(vector1, vector2, vector3)
+str(dfr)</code></pre>
+<pre><code class="hljs">## 'data.frame':    10 obs. of  3 variables:
+##  $ vector1: int  1 2 3 4 5 6 7 8 9 10
+##  $ vector2: chr  "a" "b" "c" "d" ...
+##  $ vector3: num  -4.52 -6.62 3.36 3.52 -15.85 ...</code></pre>
+<p>In the above example, we can see that the dataframe <strong>dfr</strong> contains 10 observations for three variables that all have different classes, column 1 is an integer vector, column 2 a character vector, and column 3 a numeric vector.</p>
+<div id="exercise-1" class="section level2" number="3.1">
+<div name="31_Exercise" data-unique="31_Exercise"></div><h2><span class="header-section-number">3.1</span> Exercise</h2>
+<ol style="list-style-type: decimal">
+<li>Figure out how many columns and rows are present in the data frame.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812232478" aria-expanded="false" aria-controls="acc2026052812232478">
+</button>
+</p>
+<div id="acc2026052812232478" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">dim(dfr)
+<span class="hljs-comment"># or</span>
+ncol(dfr)
+nrow(dfr)</code></pre>
+<pre><code class="hljs">## [1] 10  3
+## [1] 3
+## [1] 10</code></pre>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>One can select columns from a data frame using either the name or the position. Use both methods to print the last two columns from the <strong>dfr</strong> data frame.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812234508" aria-expanded="false" aria-controls="acc2026052812234508">
+</button>
+</p>
+<div id="acc2026052812234508" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">dfr[,<span class="hljs-number">2</span>:<span class="hljs-number">3</span>]
+dfr[,c(<span class="hljs-string">"vector2"</span>, <span class="hljs-string">"vector3"</span>)]</code></pre>
+<pre><code class="hljs">##    vector2    vector3
+## 1        a  -4.520192
+## 2        b  -6.620111
+## 3        c   3.362571
+## 4        d   3.521448
+## 5        e -15.849843
+## 6        f -12.374214
+## 7        g   4.970946
+## 8        h  11.526037
+## 9        i  -2.765654
+## 10       j -13.280382
+##    vector2    vector3
+## 1        a  -4.520192
+## 2        b  -6.620111
+## 3        c   3.362571
+## 4        d   3.521448
+## 5        e -15.849843
+## 6        f -12.374214
+## 7        g   4.970946
+## 8        h  11.526037
+## 9        i  -2.765654
+## 10       j -13.280382</code></pre>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Print all letters in the <strong>vector2</strong> column of the data frame where the <strong>vector3</strong> column has a positive value.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812238634" aria-expanded="false" aria-controls="acc2026052812238634">
+</button>
+</p>
+<div id="acc2026052812238634" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">dfr[dfr$vector3&gt;<span class="hljs-number">0</span>,<span class="hljs-number">2</span>]
+dfr$vector2[dfr$vector3&gt;<span class="hljs-number">0</span>]</code></pre>
+<pre><code class="hljs">## [1] "c" "d" "g" "h"
+## [1] "c" "d" "g" "h"</code></pre>
+</div>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a new vector combining all columns of <strong>dfr</strong> and separate them by a underscore.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812234834" aria-expanded="false" aria-controls="acc2026052812234834">
+</button>
+</p>
+<div id="acc2026052812234834" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">paste(dfr$vector1, dfr$vector2, dfr$vector3, sep = <span class="hljs-string">"_"</span>)</code></pre>
+<pre><code class="hljs">##  [1] "1_a_-4.52019229014098" "2_b_-6.62011124303477" "3_c_3.36257101952119" 
+##  [4] "4_d_3.52144836178928"  "5_e_-15.8498433251248" "6_f_-12.3742142300476"
+##  [7] "7_g_4.97094579612827"  "8_h_11.526037207902"   "9_i_-2.76565359674664"
+## [10] "10_j_-13.280382219451"</code></pre>
+</div>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>There is a data frame of car information that comes with the base installation of R. Have a look at this data by typing <code>mtcars</code>. How many rows and columns does it have?</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812236548" aria-expanded="false" aria-controls="acc2026052812236548">
+</button>
+</p>
+<div id="acc2026052812236548" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">dim(mtcars)
+ncol(mtcars)
+nrow(mtcars)</code></pre>
+<pre><code class="hljs">## [1] 32 11
+## [1] 11
+## [1] 32</code></pre>
+</div>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li>Re-arrange (shuffle) the <strong>row names</strong> of this data frame and save the result as a vector.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812238588" aria-expanded="false" aria-controls="acc2026052812238588">
+</button>
+</p>
+<div id="acc2026052812238588" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">car.names &lt;- sample(row.names(mtcars))</code></pre>
+</div>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li>Create a data frame containing the vector from the previous question and two vectors with random numbers named random1 and random2.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812238079" aria-expanded="false" aria-controls="acc2026052812238079">
+</button>
+</p>
+<div id="acc2026052812238079" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">random1 &lt;- rnorm(length(car.names))
+random2 &lt;- rnorm(length(car.names))
+mtcars2 &lt;- data.frame(car.names, random1, random2)
+mtcars2</code></pre>
+<pre><code class="hljs">##              car.names     random1      random2
+## 1              Valiant  0.08392806 -1.087979110
+## 2             Merc 230 -0.49206371  1.206681299
+## 3            Merc 280C -0.14417110 -1.824683261
+## 4          Merc 450SLC -1.71921717  0.502445228
+## 5        Toyota Corona -0.71216600 -0.254496482
+## 6            Mazda RX4  2.34138022 -1.265217902
+## 7     Pontiac Firebird -0.63224777  0.500239429
+## 8          Honda Civic  1.48190962  0.435740598
+## 9         Lotus Europa -2.12169331 -0.775520686
+## 10          Duster 360 -0.30492349 -0.009923513
+## 11       Porsche 914-2  1.55908141 -1.402474593
+## 12          Camaro Z28  0.40719335  0.166370231
+## 13       Maserati Bora -0.06164912  0.058389994
+## 14      Toyota Corolla -1.42854551  3.293274609
+## 15            Fiat 128  0.32574483  0.280088527
+## 16 Lincoln Continental -0.52069071 -0.782902247
+## 17          Volvo 142E  0.60962934 -1.585985806
+## 18          Merc 450SL  0.91796045 -1.384123569
+## 19       Mazda RX4 Wag  0.64814616  1.329559130
+## 20   Hornet Sportabout  1.59451808 -0.609034678
+## 21            Merc 280 -0.32350285  1.089107550
+## 22         AMC Javelin  0.42356888 -0.139382832
+## 23           Merc 240D  0.11885302  0.895307117
+## 24          Datsun 710 -1.33083304 -0.954353123
+## 25           Fiat X1-9 -1.94738331 -1.408149549
+## 26   Chrysler Imperial -0.08254988  0.541784126
+## 27      Hornet 4 Drive -0.06438329 -1.243239121
+## 28  Cadillac Fleetwood  1.59969638 -2.035629362
+## 29          Merc 450SE -0.13573299  0.024699735
+## 30      Ford Pantera L -1.02519847 -0.479092641
+## 31        Ferrari Dino  0.03998284  0.400509360
+## 32    Dodge Challenger -0.69441719  0.185555545</code></pre>
+</div>
+</div>
+<ol start="8" style="list-style-type: decimal">
+<li>Now you have two data frames that both contains information on a set of cars. A collaborator asks you to create a new data frame with all this information combined. Create a merged data frame ensuring that rows match correctly.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812238738" aria-expanded="false" aria-controls="acc2026052812238738">
+</button>
+</p>
+<div id="acc2026052812238738" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">mt.merged &lt;- merge(mtcars, mtcars2, by.x = <span class="hljs-string">"row.names"</span>, by.y = <span class="hljs-string">"car.names"</span>)
+mt.merged</code></pre>
+<pre><code class="hljs">##              Row.names  mpg cyl  disp  hp drat    wt  qsec vs am gear carb
+## 1          AMC Javelin 15.2   8 304.0 150 3.15 3.435 17.30  0  0    3    2
+## 2   Cadillac Fleetwood 10.4   8 472.0 205 2.93 5.250 17.98  0  0    3    4
+## 3           Camaro Z28 13.3   8 350.0 245 3.73 3.840 15.41  0  0    3    4
+## 4    Chrysler Imperial 14.7   8 440.0 230 3.23 5.345 17.42  0  0    3    4
+## 5           Datsun 710 22.8   4 108.0  93 3.85 2.320 18.61  1  1    4    1
+## 6     Dodge Challenger 15.5   8 318.0 150 2.76 3.520 16.87  0  0    3    2
+## 7           Duster 360 14.3   8 360.0 245 3.21 3.570 15.84  0  0    3    4
+## 8         Ferrari Dino 19.7   6 145.0 175 3.62 2.770 15.50  0  1    5    6
+## 9             Fiat 128 32.4   4  78.7  66 4.08 2.200 19.47  1  1    4    1
+## 10           Fiat X1-9 27.3   4  79.0  66 4.08 1.935 18.90  1  1    4    1
+## 11      Ford Pantera L 15.8   8 351.0 264 4.22 3.170 14.50  0  1    5    4
+## 12         Honda Civic 30.4   4  75.7  52 4.93 1.615 18.52  1  1    4    2
+## 13      Hornet 4 Drive 21.4   6 258.0 110 3.08 3.215 19.44  1  0    3    1
+## 14   Hornet Sportabout 18.7   8 360.0 175 3.15 3.440 17.02  0  0    3    2
+## 15 Lincoln Continental 10.4   8 460.0 215 3.00 5.424 17.82  0  0    3    4
+## 16        Lotus Europa 30.4   4  95.1 113 3.77 1.513 16.90  1  1    5    2
+## 17       Maserati Bora 15.0   8 301.0 335 3.54 3.570 14.60  0  1    5    8
+## 18           Mazda RX4 21.0   6 160.0 110 3.90 2.620 16.46  0  1    4    4
+## 19       Mazda RX4 Wag 21.0   6 160.0 110 3.90 2.875 17.02  0  1    4    4
+## 20            Merc 230 22.8   4 140.8  95 3.92 3.150 22.90  1  0    4    2
+## 21           Merc 240D 24.4   4 146.7  62 3.69 3.190 20.00  1  0    4    2
+## 22            Merc 280 19.2   6 167.6 123 3.92 3.440 18.30  1  0    4    4
+## 23           Merc 280C 17.8   6 167.6 123 3.92 3.440 18.90  1  0    4    4
+## 24          Merc 450SE 16.4   8 275.8 180 3.07 4.070 17.40  0  0    3    3
+## 25          Merc 450SL 17.3   8 275.8 180 3.07 3.730 17.60  0  0    3    3
+## 26         Merc 450SLC 15.2   8 275.8 180 3.07 3.780 18.00  0  0    3    3
+## 27    Pontiac Firebird 19.2   8 400.0 175 3.08 3.845 17.05  0  0    3    2
+## 28       Porsche 914-2 26.0   4 120.3  91 4.43 2.140 16.70  0  1    5    2
+## 29      Toyota Corolla 33.9   4  71.1  65 4.22 1.835 19.90  1  1    4    1
+## 30       Toyota Corona 21.5   4 120.1  97 3.70 2.465 20.01  1  0    3    1
+## 31             Valiant 18.1   6 225.0 105 2.76 3.460 20.22  1  0    3    1
+## 32          Volvo 142E 21.4   4 121.0 109 4.11 2.780 18.60  1  1    4    2
+##        random1      random2
+## 1   0.42356888 -0.139382832
+## 2   1.59969638 -2.035629362
+## 3   0.40719335  0.166370231
+## 4  -0.08254988  0.541784126
+## 5  -1.33083304 -0.954353123
+## 6  -0.69441719  0.185555545
+## 7  -0.30492349 -0.009923513
+## 8   0.03998284  0.400509360
+## 9   0.32574483  0.280088527
+## 10 -1.94738331 -1.408149549
+## 11 -1.02519847 -0.479092641
+## 12  1.48190962  0.435740598
+## 13 -0.06438329 -1.243239121
+## 14  1.59451808 -0.609034678
+## 15 -0.52069071 -0.782902247
+## 16 -2.12169331 -0.775520686
+## 17 -0.06164912  0.058389994
+## 18  2.34138022 -1.265217902
+## 19  0.64814616  1.329559130
+## 20 -0.49206371  1.206681299
+## 21  0.11885302  0.895307117
+## 22 -0.32350285  1.089107550
+## 23 -0.14417110 -1.824683261
+## 24 -0.13573299  0.024699735
+## 25  0.91796045 -1.384123569
+## 26 -1.71921717  0.502445228
+## 27 -0.63224777  0.500239429
+## 28  1.55908141 -1.402474593
+## 29 -1.42854551  3.293274609
+## 30 -0.71216600 -0.254496482
+## 31  0.08392806 -1.087979110
+## 32  0.60962934 -1.585985806</code></pre>
+
+</div>
+</div>
+<div id="lists" class="section level1" number="4">
+<div name="4_Lists" data-unique="4_Lists"></div><h1><span class="header-section-number">4</span> Lists</h1>
+<p>The last data structure that we will explore are <strong>lists</strong>, which are very flexible data structures. Lists can combine elements of different types and they do not have to be of equal dimensions. The elements of a list can be pretty much anything, including vectors, matrices, data frames, and even other lists. The drawback with a flexible structure is that it requires a bit more work to interact with.</p>
+<p>The syntax to create a list is similar to creation of the other data structures in R.</p>
+<pre class="r"><code class="hljs">l &lt;- list(<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>)</code></pre>
+<p>As with the data frames the <code>str()</code> command is very useful for the sometimes fairly complex lists instances.</p>
+<pre class="r"><code class="hljs">str(l)</code></pre>
+<pre><code class="hljs">## List of 3
+##  $ : num 1
+##  $ : num 2
+##  $ : num 3</code></pre>
+<p>This example of a list containing only a numeric vector is not very exciting, so let’s create a more complex example.</p>
+<pre class="r"><code class="hljs">vec1 &lt;- letters
+vec2 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">4</span>
+mat1 &lt;- matrix(<span class="hljs-number">1</span>:<span class="hljs-number">100</span>, nrow = <span class="hljs-number">5</span>)
+df1 &lt;- as.data.frame(cbind(<span class="hljs-number">10</span>:<span class="hljs-number">1</span>, <span class="hljs-number">91</span>:<span class="hljs-number">100</span>))
+mylist &lt;- list(vec1, vec2, mat1, df1, l)</code></pre>
+<p>As you can see a list can not only contain other data structures, but can also contain other lists.</p>
+<p>Looking at the <code>str()</code> command reveals much of the details of a list</p>
+<pre class="r"><code class="hljs">str(mylist)</code></pre>
+<pre><code class="hljs">## List of 5
+##  $ : chr [1:26] "a" "b" "c" "d" ...
+##  $ : int [1:4] 1 2 3 4
+##  $ : int [1:5, 1:20] 1 2 3 4 5 6 7 8 9 10 ...
+##  $ :'data.frame':    10 obs. of  2 variables:
+##   ..$ V1: int [1:10] 10 9 8 7 6 5 4 3 2 1
+##   ..$ V2: int [1:10] 91 92 93 94 95 96 97 98 99 100
+##  $ :List of 3
+##   ..$ : num 1
+##   ..$ : num 2
+##   ..$ : num 3</code></pre>
+<p>With this more complex object, subsetting/selecting is slightly trickier than with the other more homogeneous objects we have looked at so far.</p>
+<p>You can think of the R <strong>List</strong> as a <strong>Pea Pod</strong>.</p>
+<ul>
+<li>Each <strong>individual pea</strong> inside the pod represents one <strong>element</strong> of the list.</li>
+<li>The <strong>position</strong> of the pea (1st, 2nd, 3rd) is its <strong>index</strong>.</li>
+<li>Any <strong>label</strong> on a pea (e.g., “Sweet”) is the element’s <strong>name</strong>. Just like we can name vector elements.</li>
+</ul>
+<p>The core of list subsetting is understanding the difference between the two operators, <code>[]</code> and <code>[[]]</code>. The single square bracket operator <code>[]</code> is like using a <strong>kitchen knife to cut a piece off the pod</strong>.</p>
+<p><code>[]</code> always returns a <strong>new, smaller pea pod</strong> (a <strong>new list</strong>) containing the elements you selected. The integrity of the container is preserved.</p>
+<table class="table table-condensed">
+<colgroup>
+<col width="33%">
+<col width="33%">
+<col width="33%">
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">R Code</th>
+<th align="left">Analogy</th>
+<th align="left">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><code>my_list[c(1, 3)]</code></td>
+<td align="left"><strong>Cutting out</strong> the 1st and 3rd sections of the pod.</td>
+<td align="left">A <strong>new list</strong> containing only the 1st and 3rd elements.</td>
+</tr>
+<tr class="even">
+<td align="left"><code>my_list["B"]</code></td>
+<td align="left">Cutting out the section labeled “B”.</td>
+<td align="left">A <strong>new list</strong> containing just the element named “B”.</td>
+</tr>
+</tbody>
+</table>
+<p>The output of this operation is still a list, which means it retains the structure and associated attributes of the original list.</p>
+<pre class="r"><code class="hljs">mylist[<span class="hljs-number">1</span>]
+str(mylist[<span class="hljs-number">1</span>])</code></pre>
+<pre><code class="hljs">## [[1]]
+##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+## [20] "t" "u" "v" "w" "x" "y" "z"
+## 
+## List of 1
+##  $ : chr [1:26] "a" "b" "c" "d" ...</code></pre>
+<p>The double square bracket operator <code>[[]]</code> (or the dollar sign <code>$</code>) is like opening the pod and taking the pea out with your hand. <code>[[]]</code> allows you to access the contents of a single element, returning the pea itself (the actual data stored in that element).</p>
+<pre class="r"><code class="hljs">mylist[[<span class="hljs-number">1</span>]]
+str(mylist[[<span class="hljs-number">1</span>]])</code></pre>
+<pre><code class="hljs">##  [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" "q" "r" "s"
+## [20] "t" "u" "v" "w" "x" "y" "z"
+##  chr [1:26] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j" "k" "l" "m" "n" "o" "p" ...</code></pre>
+<p>This means that the syntax to extract a specific value from a data structure stored in a list can be daunting. Below we extract the second column of a data frame stored at position 4 in the list <strong>mylist</strong>.</p>
+<pre class="r"><code class="hljs">mylist[[<span class="hljs-number">4</span>]][,<span class="hljs-number">2</span>]</code></pre>
+<pre><code class="hljs">##  [1]  91  92  93  94  95  96  97  98  99 100</code></pre>
+<div id="exercise-2" class="section level2" number="4.1">
+<div name="41_Exercise" data-unique="41_Exercise"></div><h2><span class="header-section-number">4.1</span> Exercise</h2>
+<ol style="list-style-type: decimal">
+<li>Create a list containing 1 character vector, a numeric vector, and a character matrix.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812231535" aria-expanded="false" aria-controls="acc2026052812231535">
+</button>
+</p>
+<div id="acc2026052812231535" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">list.2 &lt;- list(vec1 = c(<span class="hljs-string">"hi"</span>, <span class="hljs-string">"ho"</span>, <span class="hljs-string">"merry"</span>, <span class="hljs-string">"christmas"</span>),
+               vec2 = <span class="hljs-number">4</span>:<span class="hljs-number">19</span>,
+               mat1 = matrix(as.character(<span class="hljs-number">100</span>:<span class="hljs-number">81</span>),nrow = <span class="hljs-number">4</span>))
+list.2</code></pre>
+<pre><code class="hljs">## $vec1
+## [1] "hi"        "ho"        "merry"     "christmas"
+## 
+## $vec2
+##  [1]  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19
+## 
+## $mat1
+##      [,1]  [,2] [,3] [,4] [,5]
+## [1,] "100" "96" "92" "88" "84"
+## [2,] "99"  "95" "91" "87" "83"
+## [3,] "98"  "94" "90" "86" "82"
+## [4,] "97"  "93" "89" "85" "81"</code></pre>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Here is a data frame.</li>
+</ol>
+<pre class="r"><code class="hljs">dfr &lt;- data.frame(letters, LETTERS, letters == LETTERS)</code></pre>
+<p>Add this data frame to the list created above.</p>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812230174" aria-expanded="false" aria-controls="acc2026052812230174">
+</button>
+</p>
+<div id="acc2026052812230174" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">list.2[[<span class="hljs-number">4</span>]] &lt;- dfr</code></pre>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Remove the the second entry in your list.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812232914" aria-expanded="false" aria-controls="acc2026052812232914">
+</button>
+</p>
+<div id="acc2026052812232914" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">list.2[-<span class="hljs-number">2</span>]</code></pre>
+<pre><code class="hljs">## $vec1
+## [1] "hi"        "ho"        "merry"     "christmas"
+## 
+## $mat1
+##      [,1]  [,2] [,3] [,4] [,5]
+## [1,] "100" "96" "92" "88" "84"
+## [2,] "99"  "95" "91" "87" "83"
+## [3,] "98"  "94" "90" "86" "82"
+## [4,] "97"  "93" "89" "85" "81"
+## 
+## [[3]]
+##    letters LETTERS letters....LETTERS
+## 1        a       A              FALSE
+## 2        b       B              FALSE
+## 3        c       C              FALSE
+## 4        d       D              FALSE
+## 5        e       E              FALSE
+## 6        f       F              FALSE
+## 7        g       G              FALSE
+## 8        h       H              FALSE
+## 9        i       I              FALSE
+## 10       j       J              FALSE
+## 11       k       K              FALSE
+## 12       l       L              FALSE
+## 13       m       M              FALSE
+## 14       n       N              FALSE
+## 15       o       O              FALSE
+## 16       p       P              FALSE
+## 17       q       Q              FALSE
+## 18       r       R              FALSE
+## 19       s       S              FALSE
+## 20       t       T              FALSE
+## 21       u       U              FALSE
+## 22       v       V              FALSE
+## 23       w       W              FALSE
+## 24       x       X              FALSE
+## 25       y       Y              FALSE
+## 26       z       Z              FALSE</code></pre>
+</div>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Create a new list that contains: a numeric vector, a character vector, and a logical vector.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812238142" aria-expanded="false" aria-controls="acc2026052812238142">
+</button>
+</p>
+<div id="acc2026052812238142" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">list.a &lt;- list(<span class="hljs-number">1</span>:<span class="hljs-number">10</span>, letters[<span class="hljs-number">1</span>:<span class="hljs-number">5</span>], c(<span class="hljs-literal">T</span>,<span class="hljs-literal">F</span>,<span class="hljs-literal">T</span>,<span class="hljs-literal">F</span>))</code></pre>
+</div>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>How long is your list, and how long are each of the elements in the list? Tip: remember you can apply a function on all elements of a matrix using the <code>apply</code> function. You can do the same for lists using <code>lapply</code>.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812237063" aria-expanded="false" aria-controls="acc2026052812237063">
+</button>
+</p>
+<div id="acc2026052812237063" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">length(list.a)
+lapply(list.a, FUN = <span class="hljs-string">"length"</span>)</code></pre>
+<pre><code class="hljs">## [1] 3
+## [[1]]
+## [1] 10
+## 
+## [[2]]
+## [1] 5
+## 
+## [[3]]
+## [1] 4</code></pre>
+</div>
+</div>
+<div id="lists" class="section level1" number="5">
+<div name="5_load" data-unique="5_load"></div><h1><span class="header-section-number">5</span> Loading data into R</h1>
+<p>Up until now we have mostly created the object we worked with on the fly from within R. The most common use-case is however to read in different data sets that are stored as files, either somewhere on a server or locally on your computer. In this exercise we will test some common ways to import data in R and also how to save data from R. After this exercise you will know how to:</p>
+<ul>
+<li>Read data from txt files and save the information as a vector, data frame or a list.</li>
+<li>Identify missing data and correctly encode this at import</li>
+<li>Check that imported objects are imported correctly</li>
+<li>Read data from online resource</li>
+<li>Write data to a file</li>
+</ul>
+<div id="read.table" class="section level1" number="2">
+<div name="3_readtable()" data-unique="3_readtable()"></div><h2><span class="header-section-number">5.1</span> <code>read.table()</code></h2>
+<p>This is the by far most common way to get data into R. As the function creates a data frame at import it will only work for data set that fits those criteria, meaning that the data needs to have a set of columns of equal length that are separated with a common string eg. tab, comma, semicolon etc.</p>
+<p>In this code block we first import the data from <a href="https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/normalized.txt">normalized.txt</a> and accept the defaults for all other arguments in the function. With this settings R will read it as a tab delimited file and will use the first row of the data as colnames (header) and the first column as rownames.</p>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812499667" aria-expanded="false" aria-controls="acc2026052812499667">
+</button>
+</p>
+<div id="acc2026052812499667" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">expr.At &lt;- read.table(<span class="hljs-string">"https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/normalized.txt"</span>)
+head(expr.At)</code></pre>
+<pre><code class="hljs">##               bZIP29_1  bZIP29_2  bZIP29_3        WT_1      WT_2       WT_3
+## AT1G01020.1  13.572739 14.167143 12.972703  14.8181738 15.904017 11.3270623
+## AT1G01030.1   1.417234  1.201454  1.385434   0.8590246  1.096829  0.8596431
+## AT1G01040.2  41.862906 41.199853 42.696566  37.5286358 34.849241 48.6456871
+## AT1G01050.1 102.422397 98.318969 92.068406 104.2104178 97.418336 86.0654463
+## AT1G01060.1   3.216031  4.004846  3.589534   3.7045434  2.642360  6.2703380
+## AT1G01070.1   8.230858 17.871625 14.924906   7.9996663  8.824486 13.8554244</code></pre>
+</div>
+</div>
+<p>One does however not have to have all data as a file an the local disk, instead one can read data from online resources. The following command will read in a file from a web server.</p>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812503034" aria-expanded="false" aria-controls="acc2026052812503034">
+</button>
+</p>
+<div id="acc2026052812503034" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">url &lt;- <span class="hljs-string">'http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data'</span>
+abalone &lt;- read.table(url, header=<span class="hljs-literal">FALSE</span> , sep=<span class="hljs-string">','</span>)
+head(abalone)</code></pre>
+<pre><code class="hljs">##   V1    V2    V3    V4     V5     V6     V7    V8 V9
+## 1  M 0.455 0.365 0.095 0.5140 0.2245 0.1010 0.150 15
+## 2  M 0.350 0.265 0.090 0.2255 0.0995 0.0485 0.070  7
+## 3  F 0.530 0.420 0.135 0.6770 0.2565 0.1415 0.210  9
+## 4  M 0.440 0.365 0.125 0.5160 0.2155 0.1140 0.155 10
+## 5  I 0.330 0.255 0.080 0.2050 0.0895 0.0395 0.055  7
+## 6  I 0.425 0.300 0.095 0.3515 0.1410 0.0775 0.120  8</code></pre>
+</div>
+</div>
+<ol style="list-style-type: decimal">
+<li>Read this <a href="https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/example.data">example data</a> to R using the <code>read.table()</code> function. This files consist of gene expression values. Once you have the object in R validate that it looks okay and export it using the <code>write.table</code> function.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812518664" aria-expanded="false" aria-controls="acc2026052812518664">
+</button>
+</p>
+<div id="acc2026052812518664" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">ed &lt;- read.table(<span class="hljs-string">"https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/example.data"</span>, sep=<span class="hljs-string">":"</span>, header = <span class="hljs-literal">T</span>)
+head(ed)
+str(ed)</code></pre>
+<pre><code class="hljs">##     bZIP29_1  bZIP29_2  bZIP29_3       WT_1      WT_2      WT_3
+## 1         NA 14.167143 12.972703  14.818174        NA        NA
+## 2   1.417234  1.201454        NA         NA  1.096829        NA
+## 3  41.862906 41.199853 42.696566  37.528636 34.849241 48.645687
+## 4 102.422397 98.318969 92.068406 104.210418 97.418336 86.065446
+## 5         NA  4.004846  3.589534   3.704543  2.642360  6.270338
+## 6   8.230858 17.871625 14.924906   7.999666        NA        NA
+## 'data.frame':    18945 obs. of  6 variables:
+##  $ bZIP29_1: num  NA 1.42 41.86 102.42 NA ...
+##  $ bZIP29_2: num  14.2 1.2 41.2 98.3 4 ...
+##  $ bZIP29_3: num  12.97 NA 42.7 92.07 3.59 ...
+##  $ WT_1    : num  14.8 NA 37.5 104.2 3.7 ...
+##  $ WT_2    : num  NA 1.1 34.85 97.42 2.64 ...
+##  $ WT_3    : num  NA NA 48.65 86.07 6.27 ...</code></pre>
+</div>
+</div>
+<p>Encode all NA values as “missing”, at export.</p>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812514248" aria-expanded="false" aria-controls="acc2026052812514248">
+</button>
+</p>
+<div id="acc2026052812514248" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">write.table(x=ed, na=<span class="hljs-string">"missing"</span>, file=<span class="hljs-string">"example_write.txt"</span>)</code></pre>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Read in the file you just created and double-check that you have the same data as earlier.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812516204" aria-expanded="false" aria-controls="acc2026052812516204">
+</button>
+</p>
+<div id="acc2026052812516204" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">df.test &lt;- read.table(<span class="hljs-string">"example_write.txt"</span>, na.strings=<span class="hljs-string">"missing"</span>)</code></pre>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Analysing genome annotation in R using read.table</li>
+</ol>
+<p>For this exercise we will load a GTF file into R and calculate some basic summary statistics from the file. In the first part we will use basic manipulations of data frames to extract the information. In the second part you get a try out a library designed to work with annotation data, that stores the information in a more complex format, that allow for easy manipulation and calculation of summaries from genome annotation files.</p>
+<p>For those not familiar with the GTF format it is a file format containing annotation information for a genome. It does not contain the actual DNA sequence of the organism, but instead refers to positions along the genome.</p>
+<p>A valid GTF file should contain the following tab delimited fields (taken from the ensembl home page).</p>
+<ol style="list-style-type: decimal">
+<li><strong>seqname</strong> - name of the chromosome or scaffold; chromosome names can be given with or without the ‘chr’ prefix.</li>
+<li><strong>source</strong> - name of the program that generated this feature, or the data source (database or project name)</li>
+<li><strong>feature</strong> - feature type name, e.g.&nbsp;gene, transcript, exon, CDS, start_codon, end_codon</li>
+<li><strong>start</strong> - Start position of the feature, with sequence numbering starting at 1.</li>
+<li><strong>end</strong> - End position of the feature, with sequence numbering starting at 1.</li>
+<li><strong>score</strong> - A floating point value.</li>
+<li><strong>strand</strong> - defined as + (forward) or - (reverse).</li>
+<li><strong>frame</strong> - One of ‘0’, ‘1’ or ‘2’. ‘0’ indicates that the first base of the feature is the first base of a codon, ‘1’ that the second base is the first base of a codon, and so on..</li>
+<li><strong>attribute</strong> - A semicolon-separated list of tag-value pairs, providing additional information about each feature.</li>
+</ol>
+<table style="width:100%;" class="table table-condensed">
+<colgroup>
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+<col width="11%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>1</th>
+<th>2</th>
+<th>3</th>
+<th>4</th>
+<th>5</th>
+<th>6</th>
+<th>7</th>
+<th>8</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>transcribed_unprocessed_pseudogene</td>
+<td>gene</td>
+<td>11869</td>
+<td>14409</td>
+<td>.</td>
+<td>+</td>
+<td>.</td>
+<td>gene_id; “ENSG00000223972”;</td>
+</tr>
+<tr class="even">
+<td>1</td>
+<td>processed_transcript</td>
+<td>transcript</td>
+<td>11869</td>
+<td>14409</td>
+<td>.</td>
+<td>+</td>
+<td>.</td>
+<td>gene_id; “ENSG00000223972”;</td>
+</tr>
+</tbody>
+</table>
+<p>The last column can contain a large number of attributes that are semicolon-separated.</p>
+<p>As these files for many organisms are large we will in this exercise use the <em>Drosophila melanogaster</em> genome annotation available at Ensembl that is small enough for analysis even on a laptop.</p>
+<p>Download the file <strong>Drosophila_melanogaster.BDGP6.86.gtf.gz</strong> to your computer using this function:</p>
+<pre class="r"><code class="hljs">download.file(<span class="hljs-string">"ftp://ftp.ensembl.org/pub/release-86/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.86.gtf.gz"</span>,<span class="hljs-string">"Drosophila_melanogaster.BDGP6.86.gtf.gz"</span>)</code></pre>
+<p>Unzip this file and keep track of where you stored it.</p>
+<p>With this done read this file into R using the function <code>read.table()</code> and add meaningful column names to the table.</p>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812545597" aria-expanded="false" aria-controls="acc2026052812545597">
+</button>
+</p>
+<div id="acc2026052812545597" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">d.gtf &lt;- read.table(<span class="hljs-string">"Drosophila_melanogaster.BDGP6.86.gtf"</span>, header=<span class="hljs-literal">FALSE</span>, comment.char=<span class="hljs-string">"#"</span>, sep=<span class="hljs-string">"\t"</span>)
+colnames(d.gtf) &lt;- c(<span class="hljs-string">"Chromosome"</span>,<span class="hljs-string">"Source"</span>,<span class="hljs-string">"Feature"</span>, <span class="hljs-string">"Start"</span>,<span class="hljs-string">"End"</span>,<span class="hljs-string">"Score"</span>,<span class="hljs-string">"Strand"</span>,<span class="hljs-string">"Frame"</span>,<span class="hljs-string">"Attribute"</span>)</code></pre>
+</div>
+</div>
+<p>Prior to any analysis you should make sure that your attempt to read in the file has worked as expected. This can for example be done by having a look at the dimension of the stored object and making sure that it has the structure you expect.</p>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812009982" aria-expanded="false" aria-controls="acc2026052812009982">
+</button>
+</p>
+<div id="acc2026052812009982" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">dim(d.gtf)
+str(d.gtf)</code></pre>
+<pre><code class="hljs">## [1] 538684      9
+## 'data.frame':    538684 obs. of  9 variables:
+##  $ Chromosome: chr  "3R" "3R" "3R" "3R" ...
+##  $ Source    : chr  "FlyBase" "FlyBase" "FlyBase" "FlyBase" ...
+##  $ Feature   : chr  "gene" "transcript" "exon" "gene" ...
+##  $ Start     : int  722370 722370 722370 835381 835381 835381 835381 835381 869486 869486 ...
+##  $ End       : int  722621 722621 722621 2503907 2503907 835491 835491 835383 869548 869548 ...
+##  $ Score     : chr  "." "." "." "." ...
+##  $ Strand    : chr  "-" "-" "-" "+" ...
+##  $ Frame     : chr  "." "." "." "." ...
+##  $ Attribute : chr  "gene_id FBgn0085804; gene_name CR41571; gene_source FlyBase; gene_biotype pseudogene;" "gene_id FBgn0085804; transcript_id FBtr0114258; gene_name CR41571; gene_source FlyBase; gene_biotype pseudogene"| __truncated__ "gene_id FBgn0085804; transcript_id FBtr0114258; exon_number 1; gene_name CR41571; gene_source FlyBase; gene_bio"| __truncated__ "gene_id FBgn0267431; gene_name CG45784; gene_source FlyBase; gene_biotype protein_coding;" ...</code></pre>
+</div>
+</div>
+<ol style="list-style-type: decimal">
+<li>How many chromosome names can be found in the annotation file?</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812003676" aria-expanded="false" aria-controls="acc2026052812003676">
+</button>
+</p>
+<div id="acc2026052812003676" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">length(levels(as.factor(d.gtf$Chromosome)))</code></pre>
+<pre><code class="hljs">## [1] 57</code></pre>
+</div>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>How many <strong>exons</strong> is there in total and per chromosome? (hint: first extract lines that have <code>feature == 'exon'</code>, and then use either <code>aggregate</code> or <code>by</code> or <code>table</code> function to summarize the data per chromosome).</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812001691" aria-expanded="false" aria-controls="acc2026052812001691">
+</button>
+</p>
+<div id="acc2026052812001691" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">d.gtf.exons &lt;- d.gtf[(d.gtf$Feature == <span class="hljs-string">'exon'</span>),]
+nrow(d.gtf.exons)
+aggregate(d.gtf.exons$Feature, by=list(d.gtf.exons$Chromosome), summary)</code></pre>
+<pre><code class="hljs">## [1] 186414
+##                      Group.1 x.Length   x.Class    x.Mode
+## 1            211000022278158        1 character character
+## 2            211000022278279        1 character character
+## 3            211000022278282        1 character character
+## 4            211000022278298        1 character character
+## 5            211000022278307        1 character character
+## 6            211000022278309        1 character character
+## 7            211000022278436        1 character character
+## 8            211000022278449        2 character character
+## 9            211000022278498        1 character character
+## 10           211000022278522        1 character character
+## 11           211000022278603        1 character character
+## 12           211000022278604        1 character character
+## 13           211000022278664        1 character character
+## 14           211000022278724        1 character character
+## 15           211000022278750        1 character character
+## 16           211000022278760        2 character character
+## 17           211000022278875        1 character character
+## 18           211000022278877        1 character character
+## 19           211000022278878        1 character character
+## 20           211000022278879        1 character character
+## 21           211000022278880        1 character character
+## 22           211000022278985        1 character character
+## 23           211000022279055        1 character character
+## 24           211000022279108        1 character character
+## 25           211000022279132        1 character character
+## 26           211000022279134        1 character character
+## 27           211000022279165        1 character character
+## 28           211000022279188        3 character character
+## 29           211000022279222        1 character character
+## 30           211000022279264        1 character character
+## 31           211000022279342        1 character character
+## 32           211000022279392        1 character character
+## 33           211000022279446        1 character character
+## 34           211000022279528        1 character character
+## 35           211000022279529        1 character character
+## 36           211000022279531        1 character character
+## 37           211000022279555        1 character character
+## 38           211000022279681        1 character character
+## 39           211000022279708        1 character character
+## 40           211000022280133        1 character character
+## 41           211000022280328        4 character character
+## 42           211000022280341        1 character character
+## 43           211000022280347        1 character character
+## 44           211000022280481        1 character character
+## 45           211000022280494        2 character character
+## 46           211000022280645        1 character character
+## 47           211000022280703        1 character character
+## 48                        2L    32747 character character
+## 49                        2R    38551 character character
+## 50                        3L    34347 character character
+## 51                        3R    43159 character character
+## 52                         4     3165 character character
+## 53 dmel_mitochondrion_genome       37 character character
+## 54                      rDNA       21 character character
+## 55       Unmapped_Scaffold_8       14 character character
+## 56                         X    34136 character character
+## 57                         Y      182 character character</code></pre>
+</div>
+</div>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812003206" aria-expanded="false" aria-controls="acc2026052812003206">
+</button>
+</p>
+<div id="acc2026052812003206" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">by(data=d.gtf$Feature, d.gtf[,<span class="hljs-string">"Chromosome"</span>], summary)</code></pre>
+<pre><code class="hljs">## d.gtf[, "Chromosome"]: 211000022278158
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278279
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278282
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278298
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278307
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278309
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278436
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278449
+##    Length     Class      Mode 
+##         4 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278498
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278522
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278603
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278604
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278664
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278724
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278750
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278760
+##    Length     Class      Mode 
+##         7 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278875
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278877
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278878
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278879
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278880
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022278985
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279055
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279108
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279132
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279134
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279165
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279188
+##    Length     Class      Mode 
+##        12 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279222
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279264
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279342
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279392
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279446
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279528
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279529
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279531
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279555
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279681
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022279708
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280133
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280328
+##    Length     Class      Mode 
+##        14 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280341
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280347
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280481
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280494
+##    Length     Class      Mode 
+##         6 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280645
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 211000022280703
+##    Length     Class      Mode 
+##         3 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 2L
+##    Length     Class      Mode 
+##     96740 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 2R
+##    Length     Class      Mode 
+##    110108 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 3L
+##    Length     Class      Mode 
+##    100745 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 3R
+##    Length     Class      Mode 
+##    125133 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: 4
+##    Length     Class      Mode 
+##      7844 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: dmel_mitochondrion_genome
+##    Length     Class      Mode 
+##       146 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: rDNA
+##    Length     Class      Mode 
+##        59 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: Unmapped_Scaffold_8
+##    Length     Class      Mode 
+##        43 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: X
+##    Length     Class      Mode 
+##     97193 character character 
+## ------------------------------------------------------------ 
+## d.gtf[, "Chromosome"]: Y
+##    Length     Class      Mode 
+##       504 character character</code></pre>
+</div>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Filter the data frame to only retain gene annotations</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812007775" aria-expanded="false" aria-controls="acc2026052812007775">
+</button>
+</p>
+<div id="acc2026052812007775" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">d.gtf.gene &lt;- d.gtf[d.gtf$Feature == <span class="hljs-string">"gene"</span>,]</code></pre>
+</div>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>What is the average gene length of in the Drosophila genome?</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812009416" aria-expanded="false" aria-controls="acc2026052812009416">
+</button>
+</p>
+<div id="acc2026052812009416" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">mean(abs(d.gtf.gene$Start - d.gtf.gene$End))</code></pre>
+<pre><code class="hljs">## [1] 5753.282</code></pre>
+</div>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>What fraction of the genes are encoded on the plus strand of the genome.</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812000756" aria-expanded="false" aria-controls="acc2026052812000756">
+</button>
+</p>
+<div id="acc2026052812000756" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">sum(d.gtf.gene$Strand == <span class="hljs-string">"+"</span>) / length(d.gtf.gene$Strand)</code></pre>
+<pre><code class="hljs">## [1] 0.5016231</code></pre>
+</div>
+</div>
+<ol start="6" style="list-style-type: decimal">
+<li>What is the median and mean length of the exons found on chromosome 3R in the data set?</li>
+</ol>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812003354" aria-expanded="false" aria-controls="acc2026052812003354">
+</button>
+</p>
+<div id="acc2026052812003354" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">d.gtf3R &lt;- d.gtf[d.gtf$Chromosome == <span class="hljs-string">"3R"</span>,]
+exon.position &lt;- d.gtf3R[d.gtf3R$Feature == <span class="hljs-string">"exon"</span>,c(<span class="hljs-string">"Start"</span>, <span class="hljs-string">"End"</span>)]   
+median(abs(exon.position$Start - exon.position$End))
+mean(abs(exon.position$Start - exon.position$End))</code></pre>
+<pre><code class="hljs">## [1] 251
+## [1] 468.6693</code></pre>
+</div>
+</div>
+<ol start="7" style="list-style-type: decimal">
+<li>Do the same calculations for the chromosomes 2L, 2R, 3L, 4, X and Y using a for loop.</li>
+</ol>
+<p>To refresh your mind the placeholders and datatype are summarized in the following table.</p>
+<table class="table table-condensed">
+<colgroup>
+<col width="15%">
+<col width="32%">
+<col width="51%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Placeholder</th>
+<th>Meaning</th>
+<th>Example Use</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>%s</code></td>
+<td>String</td>
+<td><code>sprintf("Here we %s", "R")</code> → Here we R</td>
+</tr>
+<tr class="even">
+<td><code>%d</code></td>
+<td>Integer</td>
+<td><code>sprintf("Count: %d", 5)</code> → Count: 5</td>
+</tr>
+<tr class="odd">
+<td><code>%f</code></td>
+<td>Floating-point (fixed)</td>
+<td><code>sprintf("Value: %f", 3.14)</code> → Value: 3.140000</td>
+</tr>
+<tr class="even">
+<td><code>%g</code></td>
+<td>Numeric (compact double)</td>
+<td><code>sprintf("Weight: %g g", 7.5)</code> → Weight: 7.5</td>
+</tr>
+<tr class="odd">
+<td><code>%e</code></td>
+<td>Scientific notation</td>
+<td><code>sprintf("%e", 0.00123)</code> → 1.23e-03</td>
+</tr>
+</tbody>
+</table>
+<p>
+<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812004286" aria-expanded="false" aria-controls="acc2026052812004286">
+</button>
+</p>
+<div id="acc2026052812004286" class="collapse">
+<div class="card card-body">
+<pre class="r"><code class="hljs">chr &lt;- c(<span class="hljs-string">"2L"</span>,<span class="hljs-string">"2R"</span>,<span class="hljs-string">"3L"</span>,<span class="hljs-string">"4"</span>,<span class="hljs-string">"X"</span>,<span class="hljs-string">"Y"</span>)
+<span class="hljs-keyword">for</span> (i <span class="hljs-keyword">in</span> chr) {
+  d.gtf.tmp &lt;- d.gtf[d.gtf$Chromosome == i,]
+  exon.position &lt;- d.gtf.tmp[d.gtf.tmp$Feature == <span class="hljs-string">"exon"</span>, c(<span class="hljs-string">"Start"</span>, <span class="hljs-string">"End"</span>)]   
+  exon.med &lt;- median(abs(exon.position$Start - exon.position$End))
+  exon.mean &lt;- mean(abs(exon.position$Start - exon.position$End))
+  txt &lt;- sprintf(<span class="hljs-string">"The median and mean exon length for %s is %g and %g, respectively"</span>, i, exon.med, exon.mean)
+  print(txt)
+}</code></pre>
+<pre><code class="hljs">## [1] "The median and mean exon length for 2L is 279 and 502.617, respectively"
+## [1] "The median and mean exon length for 2R is 225 and 437.187, respectively"
+## [1] "The median and mean exon length for 3L is 255 and 502.116, respectively"
+## [1] "The median and mean exon length for 4 is 198 and 429.573, respectively"
+## [1] "The median and mean exon length for X is 257 and 526.301, respectively"
+## [1] "The median and mean exon length for Y is 410.5 and 657.055, respectively"</code></pre>
+</div>
+</div>
+</div>
+<div id="cheatsheet" class="section level1" number="3">
+<div name="4_Cheatsheet" data-unique="4_Cheatsheet"></div><h2><span class="header-section-number">5.2</span> Cheatsheet</h2>
+<div id="general-helpers" class="section level2" number="4.1">
+<div name="41_General_Helpers" data-unique="41_General_Helpers"></div><h3><span class="header-section-number">5.2.1</span> General Helpers</h3>
+<table class="table table-condensed">
+<colgroup>
+<col width="19%">
+<col width="17%">
+<col width="46%">
+<col width="17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Key Points / Arguments</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>which()</code></td>
+<td>Indices of TRUE values</td>
+<td>Returns <strong>positions</strong>, not values.</td>
+<td><code>which(c(TRUE, FALSE, TRUE))  # 1 3</code></td>
+</tr>
+<tr class="even">
+<td><code>sort()</code></td>
+<td>Sort a vector</td>
+<td><code>decreasing = FALSE/TRUE</code>, <code>na.last = TRUE/FALSE/NA</code>.</td>
+<td><code>sort(c(3, 1, 2), decreasing = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td><code>abs()</code></td>
+<td>Absolute value</td>
+<td>Works on numeric vectors.</td>
+<td><code>abs(c(-3, 5, -1))  # 3 5 1</code></td>
+</tr>
+<tr class="even">
+<td><code>colnames()</code></td>
+<td>Get or set column names of a data frame, matrix, or tibble</td>
+<td>- <code>colnames(x)</code> returns the column names<br>- <code>colnames(x) &lt;- c(...)</code> sets new names<br>- Must match the number of columns</td>
+<td><code>colnames(df)</code><br><code>colnames(df) &lt;- c("id", "age", "score")</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="strings" class="section level2" number="4.2">
+<div name="42_Strings" data-unique="42_Strings"></div><h3><span class="header-section-number">5.2.2</span> Strings</h3>
+<table class="table table-condensed">
+<colgroup>
+<col width="19%">
+<col width="17%">
+<col width="46%">
+<col width="17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Key Points / Arguments</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>sub()</code></td>
+<td>Replace <strong>first</strong> match in each string</td>
+<td><code>pattern</code>, <code>replacement</code>, <code>x</code>.</td>
+<td><code>sub("cat", "dog", "catcat")  # "dogcat"</code></td>
+</tr>
+<tr class="even">
+<td><code>gsub()</code></td>
+<td>Replace <strong>all</strong> matches in each string</td>
+<td>Same args as <code>sub()</code>.</td>
+<td><code>gsub("cat", "dog", "catcat") # "dogdog"</code></td>
+</tr>
+<tr class="odd">
+<td><code>sprintf()</code></td>
+<td>Build formatted strings</td>
+<td>Use <strong>format codes</strong> like <code>%s</code> (string), <code>%d</code> (integer), <code>%f</code> (float), <code>%g</code> (general number).</td>
+<td><code>sprintf("Mean = %.2f", 3.14159)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="reading-writing-tables" class="section level2" number="4.3">
+<div name="43_Reading__Writing_Tables" data-unique="43_Reading__Writing_Tables"></div><h3><span class="header-section-number">5.2.3</span> Reading &amp; Writing Tables</h3>
+<table class="table table-condensed">
+<colgroup>
+<col width="19%">
+<col width="17%">
+<col width="46%">
+<col width="17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Key Points / Arguments</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>read.table()</code></td>
+<td>Read data from text file into a data frame</td>
+<td>Common args: <code>file</code>, <code>sep</code> (column separator, e.g.&nbsp;<code>","</code> or <code>"\t"</code>), <code>header</code> (first row has names?), <code>na.strings</code> (what to treat as NA), <code>stringsAsFactors</code> (old R &lt; 4.0).</td>
+<td><code>df &lt;- read.table("data.txt", sep = "\t", header = TRUE, na.strings = "NA")</code></td>
+</tr>
+<tr class="even">
+<td><code>write.table()</code></td>
+<td>Write data frame to text file</td>
+<td>Common args: <code>x</code> (data), <code>file</code>, <code>sep</code>, <code>row.names</code>, <code>col.names</code>, <code>quote</code>.</td>
+<td><code>write.table(df, "out.txt", sep = "\t", row.names = FALSE)</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="factors" class="section level2" number="4.4">
+<div name="44_Factors" data-unique="44_Factors"></div><h3><span class="header-section-number">5.2.4</span> Factors</h3>
+<table class="table table-condensed">
+<colgroup>
+<col width="19%">
+<col width="17%">
+<col width="46%">
+<col width="17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Key Points / Arguments</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>as.factor()</code></td>
+<td>Convert to factor (categorical)</td>
+<td>Useful for groupings, modelling, plotting.</td>
+<td><code>group &lt;- as.factor(c("A", "B", "A"))</code></td>
+</tr>
+<tr class="even">
+<td><code>levels()</code></td>
+<td>Get or set factor levels</td>
+<td><code>levels(x)</code> or <code>levels(x) &lt;- ...</code>.</td>
+<td><code>levels(group)  # "A" "B"</code><br><code>levels(group) &lt;- c("ctrl", "treat")</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="aggregation-summary" class="section level2" number="4.5">
+<div name="45_Aggregation__Summary" data-unique="45_Aggregation__Summary"></div><h3><span class="header-section-number">5.2.5</span> Aggregation &amp; Summary</h3>
+<table class="table table-condensed">
+<colgroup>
+<col width="19%">
+<col width="17%">
+<col width="46%">
+<col width="17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Function</th>
+<th>Purpose</th>
+<th>Key Points / Arguments</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>aggregate()</code></td>
+<td>Apply a function by group(s)</td>
+<td><code>aggregate(x ~ group, data, FUN)</code> or <code>aggregate(x, by = list(g1, g2), FUN)</code>.</td>
+<td><code>aggregate(mpg ~ cyl, data = mtcars, mean)</code></td>
+</tr>
+<tr class="even">
+<td><code>mean()</code></td>
+<td>Average</td>
+<td><code>na.rm = TRUE</code> to ignore NA.</td>
+<td><code>mean(c(1, 2, NA), na.rm = TRUE)</code></td>
+</tr>
+<tr class="odd">
+<td><code>median()</code></td>
+<td>Median</td>
+<td>Also has <code>na.rm = TRUE</code>.</td>
+<td><code>median(c(1, 100, 2))</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="loops" class="section level2" number="4.6">
+<div name="46_Loops" data-unique="46_Loops"></div><h3><span class="header-section-number">5.2.6</span> Loops</h3>
+<table class="table table-condensed">
+<colgroup>
+<col width="17%">
+<col width="17%">
+<col width="47%">
+<col width="17%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Keyword</th>
+<th>Purpose</th>
+<th>Key Points / Arguments</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>for</code></td>
+<td>Repeat code for each element in a sequence</td>
+<td>Syntax: <code>for (name in sequence) { ... }</code>.</td>
+<td><code>for (i in 1:3) { print(i) }</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="small-combined-example" class="section level2" number="4.7">
+<div name="47_Small_Combined_Example" data-unique="47_Small_Combined_Example"></div><h3><span class="header-section-number">5.2.7</span> Small Combined Example</h3>
+<pre class="r"><code class="hljs"><span class="hljs-comment"># Read data</span>
+df &lt;- read.table(<span class="hljs-string">"data.txt"</span>, sep = <span class="hljs-string">","</span>, header = <span class="hljs-literal">TRUE</span>, na.strings = <span class="hljs-string">""</span>)
+
+<span class="hljs-comment"># Convert a column to factor and inspect levels</span>
+df$group &lt;- as.factor(df$group)
+levels(df$group)
+
+<span class="hljs-comment"># Aggregate mean by group</span>
+agg &lt;- aggregate(value ~ group, data = df, mean)
+
+<span class="hljs-comment"># Print a formatted summary line</span>
+sprintf(<span class="hljs-string">"Group %s has mean value %.2f"</span>, agg$group[<span class="hljs-number">1</span>], agg$value[<span class="hljs-number">1</span>])
+
+<span class="hljs-comment"># Write results</span>
+write.table(agg, <span class="hljs-string">"summary.txt"</span>, sep = <span class="hljs-string">"\t"</span>, row.names = <span class="hljs-literal">FALSE</span>)</code></pre>
+</div>
+
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3,h4",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+
+
+</body></html>
