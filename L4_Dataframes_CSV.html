@@ -945,13 +945,17 @@ geneC,treatment,21.3</code></pre>
 <p>R will normally read <code>NA</code> as a missing value. You can check whether a particular value is missing with <code>is.na()</code>. For example:</p>
 <pre class="r"><code class="hljs">is.na(data["AT1G13130.1", "WT_3"])</code></pre>
 <pre><code class="hljs">## [1] TRUE</code></pre>
+<p>When handling numeric data, R does not count <code>NA</code> values as either high or low and as a result returns them all. 
+For example, expressions such as <code>data[data$bZIP29_1 &lt; 0.1, ]</code> return all <code>NA</code>s alongside the actual numeric results.
+For selecting only the non-missing data you can use the <code>which()</code> command, automatically excluding the NAs. </p>
+
 <p>You can count missing values with:</p>
 <pre class="r"><code class="hljs">sum(is.na(data$expression))</code></pre>
 <p></p>
 
 <div class="boxy boxy-lightbulb">
 <ol start="5" style="list-style-type: none">
-<li><strong>A9.2: </strong>How many missing values there are in the <code>bZIP29_3</code> column?</li>
+<li><strong>A9.2: </strong>How many missing values are there in the <code>bZIP29_3</code> column?</li>
 </ol>
 <p>
 <!-- 
