@@ -414,8 +414,7 @@ div.tocify {
 <div id="introduction" class="section level1" number="1">
 <div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
 <p>A data set that has more than one dimension is conceptually hard to
-store as a vector. For these two-dimensional data sets the solution is to instead use matrices or data frames. As with vectors, all values
-in a matrix have to be of the same type (e.g.&nbsp;you cannot mix characters and numerics in the same matrix. I mean, you can, but they will get coerced to characters). For data frames this homogeneity is not a requirement and different columns can have different data types, but all columns in a data frame must have the same number of entries. In addition to these, R also have objects named lists that can store any type of data set and are not restricted by types or dimensions.</p>
+store as a vector. For these two-dimensional data sets the solution is to instead use matrices or data frames. Different columns in a data frame can have different data types, but all columns in a data frame must have the same number of entries. In biology, tabular data is often stored as CSV files and imported in R as dataframes.</p>
 <p>In this exercise you will learn how to:</p>
 <ul>
 <li>Create, do basic math, summarize and subset data frames</li>
