@@ -9,14 +9,14 @@
 
 
 
-<title>R lab: Data Frames & CSV</title>
+<title>R lab: Data visualization</title>
 
-<script src="./L4_Dataframes_CSV_files/jquery-3.6.0.min.js"></script><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
+<script src="./L5_Data_visualization_files/jquery-3.6.0.min.js"></script><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link href="./L4_Dataframes_CSV_files/bootstrap.min.css" rel="stylesheet">
-<script src="./L4_Dataframes_CSV_files/bootstrap.min.js"></script>
-<script src="./L4_Dataframes_CSV_files/html5shiv.min.js"></script>
-<script src="./L4_Dataframes_CSV_files/respond.min.js"></script>
+<link href="./L5_Data_visualization_files/bootstrap.min.css" rel="stylesheet">
+<script src="./L5_Data_visualization_files/bootstrap.min.js"></script>
+<script src="./L5_Data_visualization_files/html5shiv.min.js"></script>
+<script src="./L5_Data_visualization_files/respond.min.js"></script>
 <style>h1 {font-size: 34px;}
        h1.title {font-size: 38px;}
        h2 {font-size: 30px;}
@@ -26,14 +26,14 @@
        h6 {font-size: 12px;}
        code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
        pre:not([class]) { background-color: white }</style>
-<script src="./L4_Dataframes_CSV_files/jquery-ui.min.js"></script>
-<link href="./L4_Dataframes_CSV_files/jquery.tocify.css" rel="stylesheet">
-<script src="./L4_Dataframes_CSV_files/jquery.tocify.js"></script>
-<script src="./L4_Dataframes_CSV_files/tabsets.js"></script>
-<link href="./L4_Dataframes_CSV_files/textmate.css" rel="stylesheet">
-<script src="./L4_Dataframes_CSV_files/highlight.js"></script>
-<link href="./L4_Dataframes_CSV_files/all.min.css" rel="stylesheet">
-<link href="./L4_Dataframes_CSV_files/v4-shims.min.css" rel="stylesheet">
+<script src="./L5_Data_visualization_files/jquery-ui.min.js"></script>
+<link href="./L5_Data_visualization_files/jquery.tocify.css" rel="stylesheet">
+<script src="./L5_Data_visualization_files/jquery.tocify.js"></script>
+<script src="./L5_Data_visualization_files/tabsets.js"></script>
+<link href="./L5_Data_visualization_files/textmate.css" rel="stylesheet">
+<script src="./L5_Data_visualization_files/highlight.js"></script>
+<link href="./L5_Data_visualization_files/all.min.css" rel="stylesheet">
+<link href="./L5_Data_visualization_files/v4-shims.min.css" rel="stylesheet">
 <link id="font-awesome-1-attachment" rel="attachment" href="https://nbisweden.github.io/workshop-r/2611/site_libs/font-awesome-6.4.2/fonts/fontawesome-webfont.ttf">
 
 <style type="text/css">
@@ -61,7 +61,7 @@ if (window.hljs) {
 
 
 
-<link rel="stylesheet" href="./L4_Dataframes_CSV_files/lab.css" type="text/css">
+<link rel="stylesheet" href="./L5_Data_visualization_files/lab.css" type="text/css">
 
 
 
@@ -290,7 +290,7 @@ div.tocify {
 
 
 
-<script type="text/javascript" src="./L4_Dataframes_CSV_files/MathJax.js"></script><style>body {margin-left: 30px; padding-top: 64.9844px; padding-bottom: 40px; }
+<script type="text/javascript" src="./L5_Data_visualization_files/MathJax.js"></script><style>body {margin-left: 30px; padding-top: 64.9844px; padding-bottom: 40px; }
 .section h1{ padding-top: 64.9844px; margin-top: -64.9844px; }
 .section h2{ padding-top: 64.9844px; margin-top: -64.9844px; }
 .section h3{ padding-top: 64.9844px; margin-top: -64.9844px; }
@@ -404,7 +404,7 @@ div.tocify {
 
 
 
-<h1 class="title toc-ignore">Data Frames & CSV</h1>
+<h1 class="title toc-ignore">Data visualization</h1>
 
 </div>
 
@@ -413,14 +413,27 @@ div.tocify {
 <p><br></p>
 <div id="introduction" class="section level1" number="1">
 <div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
-<p>A data set that has more than one dimension is conceptually hard to
-store as a vector. For these two-dimensional data sets the solution is to instead use matrices or data frames. Different columns in a data frame can have different data types, but all columns in a data frame must have the same number of entries. In biology, tabular data is often stored as CSV files and imported in R as dataframes.</p>
+<p>...</p>
+<p>You do not need to memorise the syntax or understand every argument used by <code>ggplot2</code>. 
+  The goal is to become comfortable enough to read, modify, and create basic plots.</p>
 <p>In this exercise you will learn how to:</p>
 <ul>
-<li>Create, do basic math, summarize and subset data frames</li>
-<li>Read and write CSV files, analyze the information and identify missing data</li>
+<li>Create and interpret basic plots in R</li>
+<li>Customise and export basic plots in R</li>
 </ul>
+<p>We have installed the <code>ggplot2</code> package in the very beginning of this course. 
+  You only need to install it once, but <strong>load</strong> each time you start a new R session - the same way as other programs on your computer.</p>
+<p>Start by loading the package with:</p>
+<pre class="r"><code class="hljs">library(ggplot2)</code></pre>
+
 </div>
+
+
+
+
+
+
+
 <div id="dataframes" class="section level1" number="2">
 <div name="2_Dataframes" data-unique="2_Dataframes"></div><h1><span class="header-section-number">2</span> Dataframes</h1>
 <p>Even though vectors are the basic data structures of R, data frames are very central as they are the most common way to import data into R (e.g.&nbsp;<code>read.table()</code> will create a data frame). A data frame consists of a set of equally long vectors. As data frames can contain several different data types the command <code>str()</code> is very useful to get an overview of data frames.</p>
