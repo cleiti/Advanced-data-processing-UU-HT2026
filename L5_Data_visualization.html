@@ -413,7 +413,7 @@ div.tocify {
 <p><br></p>
 <div id="introduction" class="section level1" number="1">
 <div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
-<p>...</p>
+<p>A table can tell us the values in a dataset, but a plot can tell a better story. In this lab we will use <code>ggplot2</code>, a widely used R package for creating plots.</p>
 <p>You do not need to memorise the syntax or understand every argument used by <code>ggplot2</code>. 
   The goal is to become comfortable enough to read, modify, and create basic plots.</p>
 <p>In this exercise you will learn how to:</p>
@@ -425,1372 +425,211 @@ div.tocify {
   You only need to install it once, but <strong>load</strong> each time you start a new R session - the same way as other programs on your computer.</p>
 <p>Start by loading the package with:</p>
 <pre class="r"><code class="hljs">library(ggplot2)</code></pre>
-
 </div>
 
 
+<div id="basic_syntax" class="section level1" number="1">
+<div name="basic_syntax" data-unique="basic_syntax"></div><h1><span class="header-section-number">2</span> The basics</h1>
+<p>All <code>ggplot2</code> commands will look something like this:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = variable)) + geom_...</code></pre>
+<p>This line has three main parts:</p>
+<ul>
+<li><code>data</code> = the <strong>dataframe</strong> containing your data.</li>
+<li><code>aes()</code> (from "aesthetics") = the variables you want to plot = names of one or several columns in your dataframe.</li>
+<li><code>geom_...</code> (from "geometry") = type of plot, for example a line, scatterplot, or boxplot.</li>
+</ul>
+<p>For example:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = height)) +
+    geom_histogram()</code></pre>
+<p>Means approximately: Take <code>data</code>, use <code>height</code> for the x-axis, and draw a histogram.</p>
+<p> Your figure can consist of one or several plots ("geoms"): for example displaying both your individual observations and their summary:</p>
+<p><img src="./L5_Data_visualization_files/plot_ex_scatter_box.png" width="384" style="display: block; margin: auto auto auto 0;"></p>
+<p>This is why the command has a plus sign - you can keep adding new plots, or any other elements of the plot, using <code>+</code>.</p>
+</div>
 
 
+<div id="scatter" class="section level1" number="1">
+<div name="scatter" data-unique="scatter"></div><h1><span class="header-section-number">3</span> Scatter plots</h1>
+<p>A scatter plot shows individual observations as points. We can create some example data:</p>
+<pre class="r"><code class="hljs">data <- data.frame(
+    expression = c(4.2, 5.1, 8.7, 7.9, 3.8, 9.1),
+    score = c(2.1, 3.4, 5.8, 5.1, 1.9, 6.2)
+)</code></pre>
+<p>And plot it:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = expression, y = score)) +
+    geom_point()</code></pre>
+<p>Each row in the dataframe becomes one point.</p>
 
-
-
-<div id="dataframes" class="section level1" number="2">
-<div name="2_Dataframes" data-unique="2_Dataframes"></div><h1><span class="header-section-number">2</span> Dataframes</h1>
-<p>Even though vectors are the basic data structures of R, data frames are very central as they are the most common way to import data into R (e.g.&nbsp;<code>read.table()</code> will create a data frame). A data frame consists of a set of equally long vectors. As data frames can contain several different data types the command <code>str()</code> is very useful to get an overview of data frames.</p>
-<pre class="r"><code class="hljs">vector1 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">10</span>
-vector2 &lt;- letters[<span class="hljs-number">1</span>:<span class="hljs-number">10</span>]
-vector3 &lt;- rnorm(<span class="hljs-number">10</span>, sd = <span class="hljs-number">10</span>)
-dfr &lt;- data.frame(vector1, vector2, vector3)
-str(dfr)</code></pre>
-<pre><code class="hljs">## 'data.frame':    10 obs. of  3 variables:
-##  $ vector1: int  1 2 3 4 5 6 7 8 9 10
-##  $ vector2: chr  "a" "b" "c" "d" ...
-##  $ vector3: num  -4.52 -6.62 3.36 3.52 -15.85 ...</code></pre>
-<p>In the above example, we can see that the dataframe <strong>dfr</strong> contains 10 observations for three variables that all have different classes, column 1 is an integer vector, column 2 a character vector, and column 3 a numeric vector.</p>
-
-
-<div id="exercise-1" class="section level2" number="2.1">
-<div name="21_Exercise" data-unique="21_Exercise"></div><h2><span class="header-section-number">2.1</span> Exercise</h2>
-<p><strong>Important:</strong> In the example above the <code>vector3</code> column is filled with normally distributed <strong>random</strong> variables using <code>rnorm()</code>. This means that the dataframe you create will be different from this one, and <strong>your results will not be identical to the answers provided below.</strong> Use them as a guidance, not for blind copying.</p> 
-</p>
-
-
-<ol style="list-style-type: decimal">
-<li>Figure out how many columns and rows are present in the data frame.</li>
+<ol start="1" style="list-style-type: decimal">
+<li>Create the scatter plot above, with:</li>
+<ul>
+<li><code>expression</code> on the x-axis</li>
+<li><code>score</code> on the y-axis</li>
+</ul>
 </ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812232478" aria-expanded="false" aria-controls="acc2026052812232478">
-</button>
-</p>
-<div id="acc2026052812232478" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dim(dfr)
-<span class="hljs-comment"># or</span>
-ncol(dfr)
-nrow(dfr)</code></pre>
-<pre><code class="hljs">## [1] 10  3
-## [1] 3
-## [1] 10</code></pre>
-</div>
-</div>
-
 
 <ol start="2" style="list-style-type: decimal">
-<li>Print the first 5 and then the last 5 rows of the dataframe.</li>
+<li>Plot functions, in this case <code>geom_point()</code>, have their own parameters. Let's try changing the point size on our plot:</li>
+<pre class="r"><code class="hljs">geom_point(size = 3)</code></pre>
+<p>Try a few different values.</p>
+<li>Point size is not the only thing you can choose. Try changing the point transparency with:</li>
+<pre class="r"><code class="hljs">alpha = 0.5</code></pre>
+<p>Can you change <em>both</em> point size and transparency at the same time?</p>
 </ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but1" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but1" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">head(dfr, 5)
-tail(dfr, 5)
-</code></pre>
-<pre><code class="hljs">##     vector1 vector2     vector3
-## 1       1       a -11.6563320
-## 2       2       b  -4.0735121
-## 3       3       c   5.6328098
-## 4       4       d   0.1474836
-## 5       5       e   4.1878406
 
-##    vector1 vector2      vector3
-## 6        6       f -2.035192639
-## 7        7       g -9.643378415
-## 8        8       h -5.144312238
-## 9        9       i  0.008366121
-## 10      10       j -8.855386095</code></pre>
-</div>
-</div>
-
-<ol start="3" style="list-style-type: decimal">
-<li>Find out the names of all columns in the dataframe.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but2" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but2" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">colnames(dfr)</code></pre>
-<pre><code class="hljs">## [1] "vector1" "vector2" "vector3"</code></pre>
-</div>
-</div>
+<p>We can also change the color of the points based on another variable. Add a group to the example data:</p>
+<pre class="r"><code class="hljs">data$group <- c("A", "A", "B", "B", "A", "B")</code></pre>
+<p>Now we can use <code>colour = group</code> to tell ggplot2 to use different colours for the different groups:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = expression, y = score, colour = group)) +
+  geom_point()</code></pre>
+<p>This is called <strong>mapping</strong> a variable to an aesthetic (in this case, color).</p>
 
 <ol start="4" style="list-style-type: decimal">
-<li>You can select columns from a data frame using either their name or position. Select and print a single column using its name, then using it's position.</li>
+<li>Modify the plot with the code above, so that the points are coloured according to <code>group</code>.</li>
+</ol>
+
+<div class="boxy boxy-lightbulb">
+<ol start="5" style="list-style-type: none">
+<li><strong>A10.1: </strong>In the following code, identify:</li>
+<ul>
+<li>dataframe used</li>
+<li>type of plot</li>
+<li>x-axis variable</li>
+<li>y-axis variable</li>
+<li>variable controlling point colour</li>
+</ul>
+<pre class="r"><code class="hljs">ggplot(sex_expr, aes(x = XIST, y = y_score, colour = label)) +
+    geom_point()</code></pre>
 </ol>
 <p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but4" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but4" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr$vector2
-# Another way to select a column by name: 
-dfr[, "vector2"]
-
-dfr[, 2]
-</code></pre>
-<pre><code class="hljs">## [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"
-## [1] "a" "b" "c" "d" "e" "f" "g" "h" "i" "j"</code></pre>
-</div>
 </div>
 
+</div>
+
+
+<div id="bar" class="section level1" number="1">
+<div name="bar" data-unique="bar"></div><h1><span class="header-section-number">4</span> Bar plots</h1>
+<p>Bar plots are useful for showing counts of observations in categories. Create some example data:</p>
+<pre class="r"><code class="hljs">samples <- data.frame(
+  histology = c("A", "A", "A", "B", "B", "C"),
+  sex = c("F", "M", "F", "M", "M", "F")
+)</code></pre>
+
+<p>Try plotting how many observations belong to each category:</p>
+<pre class="r"><code class="hljs">ggplot(samples, aes(x = histology)) +
+  geom_bar()</code></pre>
+
+<p>Try coloring the bars according to <code>sex</code>:</p>
+<pre class="r"><code class="hljs">ggplot(samples, aes(x = histology, fill = sex)) +
+  geom_bar()</code></pre>
+<p>Notice that for the bars, <code>fill</code> is used instead of <code>colour</code>.</p>
+
+<p>As you might have noticed, when you try to show more groups by coloring them (here: sex), by default the bars for the different groups are stacked.</p>
+<p>We can instead put them next to each other:</p>
+<pre class="r"><code class="hljs">ggplot(samples, aes(x = histology, fill = sex)) +
+  geom_bar(position = "dodge")</code></pre>
 
 <ol start="5" style="list-style-type: decimal">
-<li>Now print the last two columns from the <strong>dfr</strong> data frame, using both ways to select them.</li>
+<li>Create a side-by-side bar plot showing the number of male and female samples in each histology category.</li>
 </ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but5" aria-expanded="false" aria-controls="acc2026052812234508">
-</button>
-</p>
-<div id="but5" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr[,2:3]
-dfr[,c("vector2", "vector3")]</code></pre>
-<pre><code class="hljs">##    vector2    vector3
-## 1        a  -11.656332038
-## 2        b  -4.073512117
-## 3        c   5.632809772
-## 4        d   0.147483614
-## 5        e   4.187840559
-## 6        f   -2.035192639
-## 7        g   -9.643378415
-## 8        h   -5.144312238
-## 9        i   0.008366121
-## 10       j   -8.855386095
-
-##    vector2    vector3
-## 1        a  -11.656332038
-## 2        b  -4.073512117
-## 3        c   5.632809772
-## 4        d   0.147483614
-## 5        e   4.187840559
-## 6        f   -2.035192639
-## 7        g   -9.643378415
-## 8        h   -5.144312238
-## 9        i   0.008366121
-## 10       j   -8.855386095</code></pre>
-</div>
-</div>
 
 <div class="boxy boxy-lightbulb">
-<ol start="6" style="list-style-type: none">
-<li><strong>A8.1: </strong>Select rows 3–8 and columns 1–2 of the dataframe.</li>
+<ol start="5" style="list-style-type: none">
+<li><strong>A10.2: </strong> Create a side-by-side bar plot of patient sex, <strong>colored by</strong> their histology. 
+  Tip: you need to change something in <code>aes()</code>.</li>
 </ol>
 <p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but6" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but6" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr[3:8, 1:2]</code></pre>
-<pre><code class="hljs">##    vector1 vector2
-## 3       3       c
-## 4       4       d
-## 5       5       e
-## 6       6       f
-## 7       7       g
-## 8       8       h</code></pre>
--->
 </div>
+
 </div>
-</div>
+
+
+<div id="box" class="section level1" number="1">
+<div name="box" data-unique="box"></div><h1><span class="header-section-number">5</span> Box plots</h1>
+<p>A boxplot summarises the distribution of numerical values within one or more groups. For example for this data:</p>
+<pre class="r"><code class="hljs">data <- data.frame(
+    group = c("A", "A", "A", "A", "B", "B", "B", "B"),
+    value = c(4, 5, 5, 7, 8, 9, 10, 12)
+)</code></pre>
+<p>We can create a boxplot:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = group, y = value)) +
+    geom_boxplot()</code></pre>
+<p>Each box represents the distribution of values in one group. Boxplots are particularly useful when comparing a numerical measurement between several groups.</p>
 
 <ol start="6" style="list-style-type: decimal">
-<li>Print all rows where the value in <strong>vector3</strong> is positive.</li>
+<li>Create a boxplot showing <code>value</code> for each <code>group</code>.</li>
+<li>Try changing the box width using <code>geom_boxplot(width = 0.5)</code>.</li>
 </ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but7" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but7" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr[dfr$vector3 > 0, ]</code></pre>
-<pre><code class="hljs">##    vector1 vector2     vector3
-## 3       3       c 5.632809772
-## 4       4       d 0.147483614
-## 5       5       e 4.187840559
-## 9       9       i 0.008366121</code></pre>
-</div>
-</div>
 
-<ol start="7" style="list-style-type: decimal">
-<li>Print all letters in the <strong>vector2</strong> column of the data frame where the <strong>vector3</strong> column has a positive value.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but8" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but8" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr[dfr$vector3>0, "vector2"]</code></pre>
-<pre><code class="hljs">## [1] "c" "d" "e" "i"</code></pre>
-<p>Can you change one word in the line above to select <code>vector2</code> using its position instead of name?</p>
-</div>
-</div>
-
-<div class="boxy boxy-lightbulb">
-<ol start="9" style="list-style-type: none">
-<li><strong>A8.2: </strong>Select only the <strong>vector2</strong> and <strong>vector3</strong> columns from the rows where <strong>vector3</strong> is positive.</li>
-</ol>
-<p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but10" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but10" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr[dfr$vector3 > 0, c("vector2", "vector3")]</code></pre>
-<pre><code class="hljs">##      vector2     vector3
-## 3       c 5.632809772
-## 4       d 0.147483614
-## 5       e 4.187840559
-## 9       i 0.008366121</code></pre>
--->
-</div>
-
+<p>A boxplot summarises the data, but sometimes we also want to see the individual observations. We can add them with <code>geom_jitter()</code>:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = group, y = value)) +
+    geom_boxplot() +
+    geom_jitter()</code></pre>
+<p><code>geom_jitter()</code> moves points slightly sideways so that observations with similar values do not completely overlap. The combination of <code>geom_boxplot()</code> and <code>geom_jitter()</code> is very common.</p>
 
 <ol start="8" style="list-style-type: decimal">
-<li>Count rows where <code>vector3</code> is positive.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but11" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but11" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">sum(dfr$vector3 > 0)</code></pre>
-<pre><code class="hljs">## [1] 4</code></pre>
-</div>
-</div>
-
-
-<ol start="9" style="list-style-type: decimal">
-<li>Use <code>table()</code> to count how many times each value occurs in <strong>vector2</strong></li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but12" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but12" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">table(dfr$vector2)</code></pre>
-<pre><code class="hljs">## a b c d e f g h i j 
-## 1 1 1 1 1 1 1 1 1 1 </code></pre>
-</div>
-</div>
-
-<div class="boxy boxy-lightbulb">
-<ol start="10" style="list-style-type: none">
-<li><strong>A8.3: </strong>Use <code>table()</code> to count how many rows have a positive versus negative value in <strong>vector3</strong>.</li>
-</ol>
-<p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but13" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but13" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">table(dfr$vector3 > 0)</code></pre>
-<pre><code class="hljs">## FALSE  TRUE 
-##     6     4 </code></pre>
--->
-</div>
-
-<ol start="10" style="list-style-type: decimal">
-<li>Rename one column in the dataframe. Print all column names: can you see the new name? Remember, now you have to use the new names!</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but14" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but14" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">colnames(dfr)[colnames(dfr) == "vector2"] <- "letter"
-# Or using the column's position instead of name:
-colnames(dfr)[2] <- "letter"
-
-colnames(dfr)</code></pre>
-<pre><code class="hljs">## [1] "vector1" "letter"  "vector3"</code></pre>
-</div>
-</div>
-
-<ol start="11" style="list-style-type: decimal">
-<li>Rename all columns using <code> colnames()</code>. Now, print the first 3 rows, do you see the new names?</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but15" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but15" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">colnames(dfr) <- c("number", "letter", "value")
-head(dfr, 3)</code></pre>
-<pre><code class="hljs">##    number letter       value
-## 1      1      a -11.6563320
-## 2      2      b  -4.0735121
-## 3      3      c   5.6328098</code></pre>
-<p>The number of names must match the number of columns.</p>
-</div>
-</div>
-
-<div class="boxy boxy-lightbulb">
-<ol start="15" style="list-style-type: none">
-<li><strong>A8.4: </strong>Rename all rows using <code> rownames()</code> and print the last 4 rows this time. What changed?</li>
-</ol>
-<p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but16" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but16" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">rownames(dfr) <- c("sample1", "sample2", "sample3", "sample4", "sample5", "sample6", "sample7", "sample8", "sample9", "sample10")
-tail(dfr, 4)</code></pre>
-<pre><code class="hljs">##          number letter        value
-## sample7       7      g -9.643378415
-## sample8       8      h -5.144312238
-## sample9       9      i  0.008366121
-## sample10     10      j -8.855386095</code></pre>
-<p>The number of names must match the number of rows.</p>
--->
-</div>
-
-<ol start="12" style="list-style-type: decimal">
-<li>Give the dataframe row names identical to values in one of its columns. Print rows 3-4 to check your work.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but17" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but17" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">rownames(dfr) <- dfr$letter
-dfr[3:4,]</code></pre>
-<pre><code class="hljs">##   number letter     value
-## c      3      c 5.6328098
-## d      4      d 0.1474836</code></pre>
-</div>
-</div>
-
-<ol start="13" style="list-style-type: decimal">
-<li>Create a new column that contains all values from one of the numeric columns, multiplied by 2. Use <code>str()</code> to check your work.
-</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but18" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but18" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr$double_num <- dfr$number * 2
-str(dfr)</code></pre>
-<pre><code class="hljs">## 'data.frame':    10 obs. of  4 variables:
-##  $ number     : int  1 2 3 4 5 6 7 8 9 10
-##  $ letter     : chr  "a" "b" "c" "d" ...
-##  $ value      : num  -11.656 -4.074 5.633 0.147 4.188 ...
-##  $ double_num: num  2 4 6 8 10 12 14 16 18 20 </code></pre>
-</div>
-</div>
-
-<ol start="14" style="list-style-type: decimal">
-<li>Now remove that column from the dataframe. Check the dataframe's dimensions: how many columns do you have?</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but19" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but19" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dfr$double_num <- NULL
-dim(dfr)</code></pre>
-<pre><code class="hljs">## [1] 10  3</code></pre>
-</div>
-</div>
-
-<div class="boxy boxy-lightbulb">
-<ol start="19" style="list-style-type: none">
-<li><strong>A8.5: </strong>Change the value of a particular cell in the dataframe. Print that whole row to check your work.</li>
-</ol>
-<p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but20" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but20" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs"># For example, changing value in column value, row 2:
-dfr[2, "value"] <- 100
-dfr[2, ]</code></pre>
-<pre><code class="hljs">##   number letter value
-## b      2      b   100</code></pre>
--->
-</div>
-
-
-
-<div id="lists" class="section level1" number="3">
-<div name="3_load" data-unique="3_load"></div><h1><span class="header-section-number">3</span> Working with CSV files</h1>
-<p>Up until now we have mostly created the object we worked with on the fly from within R. The most common use-case is however to read in different data sets that are stored as files. In this exercise we will learn to work with CSV files.</p>
-
-<div name="csv" data-unique="csv"></div><h2><span class="header-section-number">3.1</span> What is a CSV file?</h2>
-<p>CSV stands for <strong>Comma-Separated Values</strong>. It is a simple text format for storing tabular data. For example:</p>
-<pre><code class="hljs">gene,condition,expression
-geneA,control,12.4
-geneB,control,8.7
-geneC,treatment,21.3
-geneD,treatment,15.8</code></pre>
-<p>Each line represents one row, and commas separate the columns.</p>
-<p>A CSV file can therefore represent a table such as the dataframes you have just been working with. CSV files are common because they are: </p>
-<li>simple</li>
-<li>human-readable</li>
-<li>supported by many programs</li>
-<li>easy to exchange between different programming languages and software</li>
-<p></p>
-<p>A CSV file does not contain R-specific information. When R reads it, R has to determine what type of data each column contains.</p>
-<ol start="1" style="list-style-type: decimal">
-<li>Download the file <code>gene_expression.csv</code> from the course webpage and put it in the same folder as your R script. </li>
-</ol>
-<p>It is a gene expression matrix for <em>Arabidopsis thaliana</em>, or thale cress, comparing expression of <em>Arabidopsis</em> genes (rows) between six samples (columns): three wild-type and three mutants with the altered <em>bZIP29</em> gene. Don't worry about the biological interpretations, today we're only getting familiar with the file format.</p>
-
-
-<div name="wd" data-unique="wd"></div><h2><span class="header-section-number">3.2</span> Where is R looking for the file?</h2>
-<p>When you load the file, R needs to know where the file is. It looks in the <strong>working directory</strong>.</p>
-<p>You can see the current working directory with:</p>
-<pre class="r"><code class="hljs">getwd()</code></pre>
-<p>You can then see the files R can currently access with:</p>
-<pre class="r"><code class="hljs">list.files()</code></pre>
-<p>If <code>gene_expression.csv</code> appears in the result of <code>list.files()</code>, R should be able to find it using the code above.</p>
-<p>If it is not in the right folder, you can put the file manually in the working directory (now that you know where that is on your computer).</p>
-<p>Alternatively, you can change the working directory of R, using <code>setwd(path)</code>, inserting the path to your file inside the path argument, in quotation marks.</p>
-<p>For example, on my computer leading R to my downloads folder would looks like this: </p>
-<pre class="r"><code class="hljs">setwd("/Users/julsu256/Downloads")</code></pre>
-<p>A final and possibly best way to show R where to look for your file is to write it's full location instead of just the file's name. For example, instead of</p>
-<pre class="r"><code class="hljs">read.csv("gene_expression.csv")</code></pre>
-<p>You can write</p>
-<pre class="r"><code class="hljs">read.csv("/Users/julsu256/Downloads/gene_expression.csv")</code></pre>
-
-<ol start="2" style="list-style-type: decimal">
-<li>Use one of the methods above to give R access to your <code>gene_expression.csv</code> file.</li>
+<li>Create a boxplot with the individual observations shown on top.</li>
+<li>Try changing the width parameter of the jitter plot using <code>geom_jitter(width = 0.15)</code>. What does this do?</li>
 </ol>
 
-
-<div name="load" data-unique="load"></div><h2><span class="header-section-number">3.3</span> Working with the CSV file</h2>
-<p>Now we can finally can load our gene expression file with:</p>
-<pre class="r"><code class="hljs">data <- read.csv("gene_expression.csv", row.names = 1)</code></pre>
-<p>This reads the CSV file and stores the resulting <strong>dataframe</strong> in <code>data</code>. <code>row.names= 1</code> tells R that the first column in our file contains the row names, in this case gene names.</p>
-<p>From now, everything you learned about dataframes can be applied to this data.</p>
-<p>You can check that the loading worked, two ways:</p>
-<pre class="r"><code class="hljs">data
-head(data)</code></pre>
-
-<div class="boxy boxy-lightbulb">
-<ol start="3" style="list-style-type: none">
-<li><strong>A9.1: </strong>Load <code>gene_expression.csv</code> into R and display the dataframe. How many rows and columns does the dataframe contain?</li>
-</ol>
-<p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but31" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but31" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">nrow(data)
-ncol(data)</code></pre>
-<pre><code class="hljs">## [1] 18945
-## [1] 6
-</code></pre>
--->
-</div>
-
-<p>Using <code>data</code>:</p>
-
-<ol start="3" style="list-style-type: decimal">
-<li>Print the <code>WT_1</code>column</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but32" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but32" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">data$WT_1</code></pre>
-</div>
-</div>
-
-<ol start="4" style="list-style-type: decimal">
-<li>Print only the rows (genes) where expression (value) in <code>bZIP29_1</code> column is smaller than 0.1. 
-Use <code>which()</code> around your column selection, we will explain why in a second.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but33" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but33" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">data[which(data$bZIP29_1 &lt; 0.1), ]</code></pre>
-<pre><code class="hljs">##              bZIP29_1   bZIP29_2   bZIP29_3      WT_1      WT_2      WT_3
-## AT1G13130.1 0.05450899 2.7533316  2.4559972 0.21475614 0.00000000  NA
-## AT1G32350.1 0.05450899 0.1501817 19.1441829 0.85902457 0.00000000 18.3559089
-## AT1G61130.1 0.00000000 0.7008480  0.6297429 0.16106711 0.34899097  0.8596431
-## AT1G70880.1 0.05450899 1.1013326  1.0075886 0.05368904 0.09971170  0.7079414
-## AT2G17600.1 0.05450899 0.1501817  0.1889229 0.75164650 0.74783779  0.6068069
-## AT2G18370.1 0.05450899 0.7509086  0.6297429 0.10737807 0.14956756  1.5170173
-## AT2G44340.1 0.00000000 0.8510298  0.5667686 0.10737807 0.19942341  1.1630466
-## AT3G01345.1 0.05450899 0.1501817  0.6927171 1.23484782 1.34610802  1.2641811
-## AT3G48580.1 0.05450899 0.5506663  0.5667686 0.69795746 0.24927926  0.5562397
-## AT4G19810.1 0.05450899 0.5506663  1.8892286 0.21475614 0.04985585  2.2755259
-## AT4G34320.1 0.05450899 1.5518778  1.4484086 0.64426843 0.00000000  1.7192862</code></pre>
-</div>
-</div>
-
-<div name="NA" data-unique="NA"></div><h2><span class="header-section-number">3.4</span> Missing values</h2>
-<p>Real datasets often contain missing values.</p>
-<p>In R, a missing value is usually represented by <code>NA</code>. For example:</p>
-<pre><code class="hljs">gene,condition,expression
-geneA,control,12.4
-geneB,control,NA
-geneC,treatment,21.3</code></pre>
-<p>R will normally read <code>NA</code> as a missing value. You can check whether a particular value is missing with <code>is.na()</code>. For example:</p>
-<pre class="r"><code class="hljs">is.na(data["AT1G13130.1", "WT_3"])</code></pre>
-<pre><code class="hljs">## [1] TRUE</code></pre>
-<p>When handling numeric data, R does not count <code>NA</code> values as either high or low and as a result returns them all. 
-For example, expressions such as <code>data[data$bZIP29_1 &lt; 0.1, ]</code> return all <code>NA</code>s alongside the actual numeric results.
-For selecting only the non-missing data you can use the <code>which()</code> command, automatically excluding the NAs. </p>
-
-<p>You can count missing values with:</p>
-<pre class="r"><code class="hljs">sum(is.na(data$expression))</code></pre>
-<p></p>
+<p>We can also use a variable to determine the colour inside the boxes:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = group, y = value, fill = group)) +
+    geom_boxplot()</code></pre>
+<p>And here we can <strong>choose a predefined colour palette</strong>:</p>
+<pre class="r"><code class="hljs">ggplot(data, aes(x = group, y = value, fill = group)) +
+    geom_boxplot() +
+    scale_fill_brewer(palette = "Set2")</code></pre>
+<p>You do not need to memorise the palette names, when you need one they're easy to look up.</p>
 
 <div class="boxy boxy-lightbulb">
 <ol start="5" style="list-style-type: none">
-<li><strong>A9.2: </strong>How many missing values are there in the <code>bZIP29_3</code> column?</li>
+<li><strong>A11.1: </strong> Even if you're not plotting the individual observations, <code>geom_boxplot()</code> will often include a couple lone points. Why do you think that happens?</li>
+<li><strong>A11.2: </strong> Create a boxplot with boxes filled with color, and the individual observations shown on top.</li>
+<li>Try writing the two <code>geom</code> commands in the opposite order. What changes?</li>
 </ol>
 <p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but34" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but34" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">sum(is.na(data$bZIP29_3))</code></pre>
-<pre><code class="hljs">## [1] 190</code></pre>
--->
 </div>
 
-
-<div name="save" data-unique="save"></div><h2><span class="header-section-number">3.5</span> Saving data as CSV</h2>
-<p>Since you can read a CSV file as a dataframe, you can also save a dataframe as a CSV file.</p>
-<p>For example:</p>
-<pre class="r"><code class="hljs">write.csv(data, "my_data.csv", row.names = TRUE)</code></pre>
-<p>This creates a file called <code>my_data.csv</code> in your working directory, or in the specified directory if you add it to the filename, the same way as before.</p>
-<p><code>row.names = TRUE</code> adds the dataframe's row names as an extra column to be stored in the CSV file. If your dataframe has meaningful rownames, like the gene names in our expression matrix, you should use this.</p>
+<p>A more realistic example of the kind of plot you will see later is:</p>
+<pre class="r"><code class="hljs">ggplot(
+    cdf[!is.na(cdf[[age_var]]), ],
+    aes(x = histology, y = .data[[age_var]], fill = histology)
+) +
+    geom_boxplot(
+        width = 0.5,
+        outlier.shape = NA,
+        alpha = 0.7
+    ) +
+    geom_jitter(
+        width = 0.15,
+        size = 1.4,
+        alpha = 0.6
+    ) +
+    scale_fill_brewer(palette = "Set2")</code></pre>
+<p>This looks more complicated than our earlier examples, but no worries! Let's break it down into pieces you recognize:</p>
+<pre class="r"><code class="hljs">ggplot(DATA, aes(x = CATEGORY, y = NUMBER, fill = CATEGORY)) +
+    geom_boxplot(...) +
+    geom_jitter(...) +
+    scale_fill_brewer(...)</code></pre>
+<p>You're already familiar with several useful parameters used here, such as <code>size</code>, <code>width</code> and <code>alpha</code>.</p>
+<p>A new useful option is <code>outlier.shape</code>. 
+  You can choose the shape used for outliers on the boxplot, but the most common use of this parameter is <code>outlier.shape = NA</code>.</p>
 
 <div class="boxy boxy-lightbulb">
 <ol start="5" style="list-style-type: none">
-<li><strong>A9.3: </strong>What would <code>row.names = FALSE</code>do in the code above? When shold you choose it?</li>
+<li><strong>A11.3: </strong>Add the <code>outlier.shape</code> parameter to your  boxplot code from above. Try some numeric values for this parameter, for example <code>1</code>, <code>2</code>, and <code>3</code>.
+  Now try using <code>NA</code> instead. What does the it do? Why?</li>
 </ol>
 <p>
 </div>
 
-<ol start="5" style="list-style-type: decimal">
-<li>Modify <code>data</code> by adding a new column, for example one where all values from the <code>WT_2</code> column are divided by ten. 
-Then <strong>save</strong> the modified dataframe as <code>gene_expression_modified.csv</code> .</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but35" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but35" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">data$WT_2_0.1 <- data$WT_2 / 10
-write.csv(data, "gene_expression_modified.csv", row.names = TRUE)</code></pre>
-<p>Check that the new file appears in your chosen directory.</p>
-</div>
-</div>
+<p><strong>Congratulations!</strong> You have now learned all the basics of working with R. In the next labs, you'll get to try your hand on some real RNA sequencing data.</p>
 
-<div class="boxy boxy-lightbulb">
-<ol start="6" style="list-style-type: none">
-<li><strong>A9.4: </strong>A useful habit is to check that a file you created can actually be read again. Load your saved CSV into a new object. How can you verify that your new column was saved correctly? This can be done in several ways.</li>
-</ol>
-<p>
-<!-- 
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but36" aria-expanded="false" aria-controls="acc2026052812238634">
-</button>
-</p>
-<div id="but36" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">data_modified <- read.csv("gene_expression_modified.csv", row.names = 1)
-head(data_modified)</code></pre>
-<pre><code class="hljs">##              bZIP29_1   bZIP29_2   bZIP29_3      WT_1      WT_2      WT_3    WT_2_0.1
-## AT1G01020.1  13.572739 14.167143 12.972703  14.8181738 15.904017 11.3270623 1.5904017
-## AT1G01030.1   1.417234  1.201454  1.385434   0.8590246  1.096829  0.8596431 0.1096829
-## AT1G01040.2  41.862906 41.199853 42.696566  37.5286358 34.849241 48.6456871 3.4849241
-## AT1G01050.1 102.422397 98.318969 92.068406 104.2104178 97.418336 86.0654463 9.7418336
-## AT1G01060.1   3.216031  4.004846  3.589534   3.7045434  2.642360  6.2703380 0.2642360
-## AT1G01070.1   8.230858 17.871625 14.924906   7.9996663  8.824486 13.8554244 0.8824486</code></pre>
--->
 </div>
 
 
-<!-- 
-<div id="read.table" class="section level1" number="2">
-<div name="3_readtable()" data-unique="3_readtable()"></div><h2><span class="header-section-number">3.1</span> <code>read.table()</code></h2>
-<p>This is the by far most common way to get data into R. As the function creates a data frame at import it will only work for data set that fits those criteria, meaning that the data needs to have a set of columns of equal length that are separated with a common string eg. tab, comma, semicolon etc.</p>
-<p>In this code block we first import the data from <a href="https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/normalized.txt">normalized.txt</a> and accept the defaults for all other arguments in the function. With this settings R will read it as a tab delimited file and will use the first row of the data as colnames (header) and the first column as rownames.</p>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812499667" aria-expanded="false" aria-controls="acc2026052812499667">
-</button>
-</p>
-<div id="acc2026052812499667" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">expr.At &lt;- read.table(<span class="hljs-string">"https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/normalized.txt"</span>)
-head(expr.At)</code></pre>
-<pre><code class="hljs">##               bZIP29_1  bZIP29_2  bZIP29_3        WT_1      WT_2       WT_3
-## AT1G01020.1  13.572739 14.167143 12.972703  14.8181738 15.904017 11.3270623
-## AT1G01030.1   1.417234  1.201454  1.385434   0.8590246  1.096829  0.8596431
-## AT1G01040.2  41.862906 41.199853 42.696566  37.5286358 34.849241 48.6456871
-## AT1G01050.1 102.422397 98.318969 92.068406 104.2104178 97.418336 86.0654463
-## AT1G01060.1   3.216031  4.004846  3.589534   3.7045434  2.642360  6.2703380
-## AT1G01070.1   8.230858 17.871625 14.924906   7.9996663  8.824486 13.8554244</code></pre>
-</div>
-</div>
-<p>One does however not have to have all data as a file an the local disk, instead one can read data from online resources. The following command will read in a file from a web server.</p>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812503034" aria-expanded="false" aria-controls="acc2026052812503034">
-</button>
-</p>
-<div id="acc2026052812503034" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">url &lt;- <span class="hljs-string">'http://archive.ics.uci.edu/ml/machine-learning-databases/abalone/abalone.data'</span>
-abalone &lt;- read.table(url, header=<span class="hljs-literal">FALSE</span> , sep=<span class="hljs-string">','</span>)
-head(abalone)</code></pre>
-<pre><code class="hljs">##   V1    V2    V3    V4     V5     V6     V7    V8 V9
-## 1  M 0.455 0.365 0.095 0.5140 0.2245 0.1010 0.150 15
-## 2  M 0.350 0.265 0.090 0.2255 0.0995 0.0485 0.070  7
-## 3  F 0.530 0.420 0.135 0.6770 0.2565 0.1415 0.210  9
-## 4  M 0.440 0.365 0.125 0.5160 0.2155 0.1140 0.155 10
-## 5  I 0.330 0.255 0.080 0.2050 0.0895 0.0395 0.055  7
-## 6  I 0.425 0.300 0.095 0.3515 0.1410 0.0775 0.120  8</code></pre>
-</div>
-</div>
-<ol style="list-style-type: decimal">
-<li>Read this <a href="https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/example.data">example data</a> to R using the <code>read.table()</code> function. This files consist of gene expression values. Once you have the object in R validate that it looks okay and export it using the <code>write.table</code> function.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812518664" aria-expanded="false" aria-controls="acc2026052812518664">
-</button>
-</p>
-<div id="acc2026052812518664" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">ed &lt;- read.table(<span class="hljs-string">"https://raw.githubusercontent.com/NBISweden/workshop-r/master/data/lab_loadingdata/example.data"</span>, sep=<span class="hljs-string">":"</span>, header = <span class="hljs-literal">T</span>)
-head(ed)
-str(ed)</code></pre>
-<pre><code class="hljs">##     bZIP29_1  bZIP29_2  bZIP29_3       WT_1      WT_2      WT_3
-## 1         NA 14.167143 12.972703  14.818174        NA        NA
-## 2   1.417234  1.201454        NA         NA  1.096829        NA
-## 3  41.862906 41.199853 42.696566  37.528636 34.849241 48.645687
-## 4 102.422397 98.318969 92.068406 104.210418 97.418336 86.065446
-## 5         NA  4.004846  3.589534   3.704543  2.642360  6.270338
-## 6   8.230858 17.871625 14.924906   7.999666        NA        NA
-## 'data.frame':    18945 obs. of  6 variables:
-##  $ bZIP29_1: num  NA 1.42 41.86 102.42 NA ...
-##  $ bZIP29_2: num  14.2 1.2 41.2 98.3 4 ...
-##  $ bZIP29_3: num  12.97 NA 42.7 92.07 3.59 ...
-##  $ WT_1    : num  14.8 NA 37.5 104.2 3.7 ...
-##  $ WT_2    : num  NA 1.1 34.85 97.42 2.64 ...
-##  $ WT_3    : num  NA NA 48.65 86.07 6.27 ...</code></pre>
-</div>
-</div>
-<p>Encode all NA values as “missing”, at export.</p>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812514248" aria-expanded="false" aria-controls="acc2026052812514248">
-</button>
-</p>
-<div id="acc2026052812514248" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">write.table(x=ed, na=<span class="hljs-string">"missing"</span>, file=<span class="hljs-string">"example_write.txt"</span>)</code></pre>
-</div>
-</div>
-<ol start="2" style="list-style-type: decimal">
-<li>Read in the file you just created and double-check that you have the same data as earlier.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812516204" aria-expanded="false" aria-controls="acc2026052812516204">
-</button>
-</p>
-<div id="acc2026052812516204" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">df.test &lt;- read.table(<span class="hljs-string">"example_write.txt"</span>, na.strings=<span class="hljs-string">"missing"</span>)</code></pre>
-</div>
-</div>
-<ol start="3" style="list-style-type: decimal">
-<li>Analysing genome annotation in R using read.table</li>
-</ol>
-<p>For this exercise we will load a GTF file into R and calculate some basic summary statistics from the file. In the first part we will use basic manipulations of data frames to extract the information. In the second part you get a try out a library designed to work with annotation data, that stores the information in a more complex format, that allow for easy manipulation and calculation of summaries from genome annotation files.</p>
-<p>For those not familiar with the GTF format it is a file format containing annotation information for a genome. It does not contain the actual DNA sequence of the organism, but instead refers to positions along the genome.</p>
-<p>A valid GTF file should contain the following tab delimited fields (taken from the ensembl home page).</p>
-<ol style="list-style-type: decimal">
-<li><strong>seqname</strong> - name of the chromosome or scaffold; chromosome names can be given with or without the ‘chr’ prefix.</li>
-<li><strong>source</strong> - name of the program that generated this feature, or the data source (database or project name)</li>
-<li><strong>feature</strong> - feature type name, e.g.&nbsp;gene, transcript, exon, CDS, start_codon, end_codon</li>
-<li><strong>start</strong> - Start position of the feature, with sequence numbering starting at 1.</li>
-<li><strong>end</strong> - End position of the feature, with sequence numbering starting at 1.</li>
-<li><strong>score</strong> - A floating point value.</li>
-<li><strong>strand</strong> - defined as + (forward) or - (reverse).</li>
-<li><strong>frame</strong> - One of ‘0’, ‘1’ or ‘2’. ‘0’ indicates that the first base of the feature is the first base of a codon, ‘1’ that the second base is the first base of a codon, and so on..</li>
-<li><strong>attribute</strong> - A semicolon-separated list of tag-value pairs, providing additional information about each feature.</li>
-</ol>
-<table style="width:100%;" class="table table-condensed">
-<colgroup>
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-<col width="11%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>1</th>
-<th>2</th>
-<th>3</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>8</th>
-<th>9</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>1</td>
-<td>transcribed_unprocessed_pseudogene</td>
-<td>gene</td>
-<td>11869</td>
-<td>14409</td>
-<td>.</td>
-<td>+</td>
-<td>.</td>
-<td>gene_id; “ENSG00000223972”;</td>
-</tr>
-<tr class="even">
-<td>1</td>
-<td>processed_transcript</td>
-<td>transcript</td>
-<td>11869</td>
-<td>14409</td>
-<td>.</td>
-<td>+</td>
-<td>.</td>
-<td>gene_id; “ENSG00000223972”;</td>
-</tr>
-</tbody>
-</table>
-<p>The last column can contain a large number of attributes that are semicolon-separated.</p>
-<p>As these files for many organisms are large we will in this exercise use the <em>Drosophila melanogaster</em> genome annotation available at Ensembl that is small enough for analysis even on a laptop.</p>
-<p>Download the file <strong>Drosophila_melanogaster.BDGP6.86.gtf.gz</strong> to your computer using this function:</p>
-<pre class="r"><code class="hljs">download.file(<span class="hljs-string">"ftp://ftp.ensembl.org/pub/release-86/gtf/drosophila_melanogaster/Drosophila_melanogaster.BDGP6.86.gtf.gz"</span>,<span class="hljs-string">"Drosophila_melanogaster.BDGP6.86.gtf.gz"</span>)</code></pre>
-<p>Unzip this file and keep track of where you stored it.</p>
-<p>With this done read this file into R using the function <code>read.table()</code> and add meaningful column names to the table.</p>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812545597" aria-expanded="false" aria-controls="acc2026052812545597">
-</button>
-</p>
-<div id="acc2026052812545597" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">d.gtf &lt;- read.table(<span class="hljs-string">"Drosophila_melanogaster.BDGP6.86.gtf"</span>, header=<span class="hljs-literal">FALSE</span>, comment.char=<span class="hljs-string">"#"</span>, sep=<span class="hljs-string">"\t"</span>)
-colnames(d.gtf) &lt;- c(<span class="hljs-string">"Chromosome"</span>,<span class="hljs-string">"Source"</span>,<span class="hljs-string">"Feature"</span>, <span class="hljs-string">"Start"</span>,<span class="hljs-string">"End"</span>,<span class="hljs-string">"Score"</span>,<span class="hljs-string">"Strand"</span>,<span class="hljs-string">"Frame"</span>,<span class="hljs-string">"Attribute"</span>)</code></pre>
-</div>
-</div>
-<p>Prior to any analysis you should make sure that your attempt to read in the file has worked as expected. This can for example be done by having a look at the dimension of the stored object and making sure that it has the structure you expect.</p>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812009982" aria-expanded="false" aria-controls="acc2026052812009982">
-</button>
-</p>
-<div id="acc2026052812009982" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">dim(d.gtf)
-str(d.gtf)</code></pre>
-<pre><code class="hljs">## [1] 538684      9
-## 'data.frame':    538684 obs. of  9 variables:
-##  $ Chromosome: chr  "3R" "3R" "3R" "3R" ...
-##  $ Source    : chr  "FlyBase" "FlyBase" "FlyBase" "FlyBase" ...
-##  $ Feature   : chr  "gene" "transcript" "exon" "gene" ...
-##  $ Start     : int  722370 722370 722370 835381 835381 835381 835381 835381 869486 869486 ...
-##  $ End       : int  722621 722621 722621 2503907 2503907 835491 835491 835383 869548 869548 ...
-##  $ Score     : chr  "." "." "." "." ...
-##  $ Strand    : chr  "-" "-" "-" "+" ...
-##  $ Frame     : chr  "." "." "." "." ...
-##  $ Attribute : chr  "gene_id FBgn0085804; gene_name CR41571; gene_source FlyBase; gene_biotype pseudogene;" "gene_id FBgn0085804; transcript_id FBtr0114258; gene_name CR41571; gene_source FlyBase; gene_biotype pseudogene"| __truncated__ "gene_id FBgn0085804; transcript_id FBtr0114258; exon_number 1; gene_name CR41571; gene_source FlyBase; gene_bio"| __truncated__ "gene_id FBgn0267431; gene_name CG45784; gene_source FlyBase; gene_biotype protein_coding;" ...</code></pre>
-</div>
-</div>
-<ol style="list-style-type: decimal">
-<li>How many chromosome names can be found in the annotation file?</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812003676" aria-expanded="false" aria-controls="acc2026052812003676">
-</button>
-</p>
-<div id="acc2026052812003676" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">length(levels(as.factor(d.gtf$Chromosome)))</code></pre>
-<pre><code class="hljs">## [1] 57</code></pre>
-</div>
-</div>
-<ol start="2" style="list-style-type: decimal">
-<li>How many <strong>exons</strong> is there in total and per chromosome? (hint: first extract lines that have <code>feature == 'exon'</code>, and then use either <code>aggregate</code> or <code>by</code> or <code>table</code> function to summarize the data per chromosome).</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812001691" aria-expanded="false" aria-controls="acc2026052812001691">
-</button>
-</p>
-<div id="acc2026052812001691" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">d.gtf.exons &lt;- d.gtf[(d.gtf$Feature == <span class="hljs-string">'exon'</span>),]
-nrow(d.gtf.exons)
-aggregate(d.gtf.exons$Feature, by=list(d.gtf.exons$Chromosome), summary)</code></pre>
-<pre><code class="hljs">## [1] 186414
-##                      Group.1 x.Length   x.Class    x.Mode
-## 1            211000022278158        1 character character
-## 2            211000022278279        1 character character
-## 3            211000022278282        1 character character
-## 4            211000022278298        1 character character
-## 5            211000022278307        1 character character
-## 6            211000022278309        1 character character
-## 7            211000022278436        1 character character
-## 8            211000022278449        2 character character
-## 9            211000022278498        1 character character
-## 10           211000022278522        1 character character
-## 11           211000022278603        1 character character
-## 12           211000022278604        1 character character
-## 13           211000022278664        1 character character
-## 14           211000022278724        1 character character
-## 15           211000022278750        1 character character
-## 16           211000022278760        2 character character
-## 17           211000022278875        1 character character
-## 18           211000022278877        1 character character
-## 19           211000022278878        1 character character
-## 20           211000022278879        1 character character
-## 21           211000022278880        1 character character
-## 22           211000022278985        1 character character
-## 23           211000022279055        1 character character
-## 24           211000022279108        1 character character
-## 25           211000022279132        1 character character
-## 26           211000022279134        1 character character
-## 27           211000022279165        1 character character
-## 28           211000022279188        3 character character
-## 29           211000022279222        1 character character
-## 30           211000022279264        1 character character
-## 31           211000022279342        1 character character
-## 32           211000022279392        1 character character
-## 33           211000022279446        1 character character
-## 34           211000022279528        1 character character
-## 35           211000022279529        1 character character
-## 36           211000022279531        1 character character
-## 37           211000022279555        1 character character
-## 38           211000022279681        1 character character
-## 39           211000022279708        1 character character
-## 40           211000022280133        1 character character
-## 41           211000022280328        4 character character
-## 42           211000022280341        1 character character
-## 43           211000022280347        1 character character
-## 44           211000022280481        1 character character
-## 45           211000022280494        2 character character
-## 46           211000022280645        1 character character
-## 47           211000022280703        1 character character
-## 48                        2L    32747 character character
-## 49                        2R    38551 character character
-## 50                        3L    34347 character character
-## 51                        3R    43159 character character
-## 52                         4     3165 character character
-## 53 dmel_mitochondrion_genome       37 character character
-## 54                      rDNA       21 character character
-## 55       Unmapped_Scaffold_8       14 character character
-## 56                         X    34136 character character
-## 57                         Y      182 character character</code></pre>
-</div>
-</div>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812003206" aria-expanded="false" aria-controls="acc2026052812003206">
-</button>
-</p>
-<div id="acc2026052812003206" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">by(data=d.gtf$Feature, d.gtf[,<span class="hljs-string">"Chromosome"</span>], summary)</code></pre>
-<pre><code class="hljs">## d.gtf[, "Chromosome"]: 211000022278158
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278279
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278282
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278298
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278307
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278309
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278436
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278449
-##    Length     Class      Mode 
-##         4 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278498
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278522
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278603
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278604
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278664
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278724
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278750
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278760
-##    Length     Class      Mode 
-##         7 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278875
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278877
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278878
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278879
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278880
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022278985
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279055
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279108
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279132
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279134
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279165
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279188
-##    Length     Class      Mode 
-##        12 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279222
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279264
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279342
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279392
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279446
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279528
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279529
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279531
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279555
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279681
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022279708
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280133
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280328
-##    Length     Class      Mode 
-##        14 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280341
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280347
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280481
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280494
-##    Length     Class      Mode 
-##         6 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280645
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 211000022280703
-##    Length     Class      Mode 
-##         3 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 2L
-##    Length     Class      Mode 
-##     96740 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 2R
-##    Length     Class      Mode 
-##    110108 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 3L
-##    Length     Class      Mode 
-##    100745 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 3R
-##    Length     Class      Mode 
-##    125133 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: 4
-##    Length     Class      Mode 
-##      7844 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: dmel_mitochondrion_genome
-##    Length     Class      Mode 
-##       146 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: rDNA
-##    Length     Class      Mode 
-##        59 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: Unmapped_Scaffold_8
-##    Length     Class      Mode 
-##        43 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: X
-##    Length     Class      Mode 
-##     97193 character character 
-## ------------------------------------------------------------ 
-## d.gtf[, "Chromosome"]: Y
-##    Length     Class      Mode 
-##       504 character character</code></pre>
-</div>
-</div>
-<ol start="3" style="list-style-type: decimal">
-<li>Filter the data frame to only retain gene annotations</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812007775" aria-expanded="false" aria-controls="acc2026052812007775">
-</button>
-</p>
-<div id="acc2026052812007775" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">d.gtf.gene &lt;- d.gtf[d.gtf$Feature == <span class="hljs-string">"gene"</span>,]</code></pre>
-</div>
-</div>
-<ol start="4" style="list-style-type: decimal">
-<li>What is the average gene length of in the Drosophila genome?</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812009416" aria-expanded="false" aria-controls="acc2026052812009416">
-</button>
-</p>
-<div id="acc2026052812009416" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">mean(abs(d.gtf.gene$Start - d.gtf.gene$End))</code></pre>
-<pre><code class="hljs">## [1] 5753.282</code></pre>
-</div>
-</div>
-<ol start="5" style="list-style-type: decimal">
-<li>What fraction of the genes are encoded on the plus strand of the genome.</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812000756" aria-expanded="false" aria-controls="acc2026052812000756">
-</button>
-</p>
-<div id="acc2026052812000756" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">sum(d.gtf.gene$Strand == <span class="hljs-string">"+"</span>) / length(d.gtf.gene$Strand)</code></pre>
-<pre><code class="hljs">## [1] 0.5016231</code></pre>
-</div>
-</div>
-<ol start="6" style="list-style-type: decimal">
-<li>What is the median and mean length of the exons found on chromosome 3R in the data set?</li>
-</ol>
-<p>
-<button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812003354" aria-expanded="false" aria-controls="acc2026052812003354">
-</button>
-</p>
-<div id="acc2026052812003354" class="collapse">
-<div class="card card-body">
-<pre class="r"><code class="hljs">d.gtf3R &lt;- d.gtf[d.gtf$Chromosome == <span class="hljs-string">"3R"</span>,]
-exon.position &lt;- d.gtf3R[d.gtf3R$Feature == <span class="hljs-string">"exon"</span>,c(<span class="hljs-string">"Start"</span>, <span class="hljs-string">"End"</span>)]   
-median(abs(exon.position$Start - exon.position$End))
-mean(abs(exon.position$Start - exon.position$End))</code></pre>
-<pre><code class="hljs">## [1] 251
-## [1] 468.6693</code></pre>
-</div>
-</div>
-</div>
--->
 
 
-
-<!-- 
-<div id="cheatsheet" class="section level1" number="3">
-<div name="4_Cheatsheet" data-unique="4_Cheatsheet"></div><h2><span class="header-section-number">3.2</span> Cheatsheet</h2>
-<div id="general-helpers" class="section level2" number="4.1">
-<div name="41_General_Helpers" data-unique="41_General_Helpers"></div><h3><span class="header-section-number">3.2.1</span> General Helpers</h3>
-<table class="table table-condensed">
-<colgroup>
-<col width="19%">
-<col width="17%">
-<col width="46%">
-<col width="17%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Purpose</th>
-<th>Key Points / Arguments</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>which()</code></td>
-<td>Indices of TRUE values</td>
-<td>Returns <strong>positions</strong>, not values.</td>
-<td><code>which(c(TRUE, FALSE, TRUE))  # 1 3</code></td>
-</tr>
-<tr class="even">
-<td><code>sort()</code></td>
-<td>Sort a vector</td>
-<td><code>decreasing = FALSE/TRUE</code>, <code>na.last = TRUE/FALSE/NA</code>.</td>
-<td><code>sort(c(3, 1, 2), decreasing = TRUE)</code></td>
-</tr>
-<tr class="odd">
-<td><code>abs()</code></td>
-<td>Absolute value</td>
-<td>Works on numeric vectors.</td>
-<td><code>abs(c(-3, 5, -1))  # 3 5 1</code></td>
-</tr>
-<tr class="even">
-<td><code>colnames()</code></td>
-<td>Get or set column names of a data frame, matrix, or tibble</td>
-<td>- <code>colnames(x)</code> returns the column names<br>- <code>colnames(x) &lt;- c(...)</code> sets new names<br>- Must match the number of columns</td>
-<td><code>colnames(df)</code><br><code>colnames(df) &lt;- c("id", "age", "score")</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="strings" class="section level2" number="4.2">
-<div name="42_Strings" data-unique="42_Strings"></div><h3><span class="header-section-number">3.2.2</span> Strings</h3>
-<table class="table table-condensed">
-<colgroup>
-<col width="19%">
-<col width="17%">
-<col width="46%">
-<col width="17%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Purpose</th>
-<th>Key Points / Arguments</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>sub()</code></td>
-<td>Replace <strong>first</strong> match in each string</td>
-<td><code>pattern</code>, <code>replacement</code>, <code>x</code>.</td>
-<td><code>sub("cat", "dog", "catcat")  # "dogcat"</code></td>
-</tr>
-<tr class="even">
-<td><code>gsub()</code></td>
-<td>Replace <strong>all</strong> matches in each string</td>
-<td>Same args as <code>sub()</code>.</td>
-<td><code>gsub("cat", "dog", "catcat") # "dogdog"</code></td>
-</tr>
-<tr class="odd">
-<td><code>sprintf()</code></td>
-<td>Build formatted strings</td>
-<td>Use <strong>format codes</strong> like <code>%s</code> (string), <code>%d</code> (integer), <code>%f</code> (float), <code>%g</code> (general number).</td>
-<td><code>sprintf("Mean = %.2f", 3.14159)</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="reading-writing-tables" class="section level2" number="4.3">
-<div name="43_Reading__Writing_Tables" data-unique="43_Reading__Writing_Tables"></div><h3><span class="header-section-number">3.2.3</span> Reading &amp; Writing Tables</h3>
-<table class="table table-condensed">
-<colgroup>
-<col width="19%">
-<col width="17%">
-<col width="46%">
-<col width="17%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Purpose</th>
-<th>Key Points / Arguments</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>read.table()</code></td>
-<td>Read data from text file into a data frame</td>
-<td>Common args: <code>file</code>, <code>sep</code> (column separator, e.g.&nbsp;<code>","</code> or <code>"\t"</code>), <code>header</code> (first row has names?), <code>na.strings</code> (what to treat as NA), <code>stringsAsFactors</code> (old R &lt; 4.0).</td>
-<td><code>df &lt;- read.table("data.txt", sep = "\t", header = TRUE, na.strings = "NA")</code></td>
-</tr>
-<tr class="even">
-<td><code>write.table()</code></td>
-<td>Write data frame to text file</td>
-<td>Common args: <code>x</code> (data), <code>file</code>, <code>sep</code>, <code>row.names</code>, <code>col.names</code>, <code>quote</code>.</td>
-<td><code>write.table(df, "out.txt", sep = "\t", row.names = FALSE)</code></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div id="aggregation-summary" class="section level2" number="4.5">
-<div name="45_Aggregation__Summary" data-unique="45_Aggregation__Summary"></div><h3><span class="header-section-number">3.2.4</span> Aggregation &amp; Summary</h3>
-<table class="table table-condensed">
-<colgroup>
-<col width="19%">
-<col width="17%">
-<col width="46%">
-<col width="17%">
-</colgroup>
-<thead>
-<tr class="header">
-<th>Function</th>
-<th>Purpose</th>
-<th>Key Points / Arguments</th>
-<th>Example</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td><code>aggregate()</code></td>
-<td>Apply a function by group(s)</td>
-<td><code>aggregate(x ~ group, data, FUN)</code> or <code>aggregate(x, by = list(g1, g2), FUN)</code>.</td>
-<td><code>aggregate(mpg ~ cyl, data = mtcars, mean)</code></td>
-</tr>
-<tr class="even">
-<td><code>mean()</code></td>
-<td>Average</td>
-<td><code>na.rm = TRUE</code> to ignore NA.</td>
-<td><code>mean(c(1, 2, NA), na.rm = TRUE)</code></td>
-</tr>
-<tr class="odd">
-<td><code>median()</code></td>
-<td>Median</td>
-<td>Also has <code>na.rm = TRUE</code>.</td>
-<td><code>median(c(1, 100, 2))</code></td>
-</tr>
-</tbody>
-</table>
-<div id="small-combined-example" class="section level2" number="4.7">
-<div name="47_Small_Combined_Example" data-unique="47_Small_Combined_Example"></div><h3><span class="header-section-number">3.2.5</span> Small Combined Example</h3>
-<pre class="r"><code class="hljs"><span class="hljs-comment"># Read data</span>
-df &lt;- read.table(<span class="hljs-string">"data.txt"</span>, sep = <span class="hljs-string">","</span>, header = <span class="hljs-literal">TRUE</span>, na.strings = <span class="hljs-string">""</span>)
-
-<span class="hljs-comment"># Convert a column to factor and inspect levels</span>
-df$group &lt;- as.factor(df$group)
-levels(df$group)
-
-<span class="hljs-comment"># Aggregate mean by group</span>
-agg &lt;- aggregate(value ~ group, data = df, mean)
-
-<span class="hljs-comment"># Print a formatted summary line</span>
-sprintf(<span class="hljs-string">"Group %s has mean value %.2f"</span>, agg$group[<span class="hljs-number">1</span>], agg$value[<span class="hljs-number">1</span>])
-
-<span class="hljs-comment"># Write results</span>
-write.table(agg, <span class="hljs-string">"summary.txt"</span>, sep = <span class="hljs-string">"\t"</span>, row.names = <span class="hljs-literal">FALSE</span>)</code></pre>
-</div>
--->
 
 </div>
 </div>
