@@ -9,7 +9,7 @@
 
 
 
-<title>R lab: Data visualization</title>
+<title>L5: Data visualization</title>
 
 <script src="./L5_Data_visualization_files/jquery-3.6.0.min.js"></script><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -442,7 +442,7 @@ div.tocify {
 <pre class="r"><code class="hljs">ggplot(data, aes(x = height)) +
     geom_histogram()</code></pre>
 <p>Means approximately: Take <code>data</code>, use <code>height</code> for the x-axis, and draw a histogram.</p>
-<p> Your figure can consist of one or several plots ("geoms"): for example displaying both your individual observations and their summary:</p>
+<p> Your figure can consist of one or several plots ("geoms"), for example displaying both your individual observations and their summary:</p>
 <p><img src="./L5_Data_visualization_files/plot_ex_scatter_box.png" width="384" style="display: block; margin: auto auto auto 0;"></p>
 <p>This is why the command has a plus sign - you can keep adding new plots, or any other elements of the plot, using <code>+</code>.</p>
 </div>
@@ -479,7 +479,7 @@ div.tocify {
 
 <p>We can also change the color of the points based on another variable. Add a group to the example data:</p>
 <pre class="r"><code class="hljs">data$group <- c("A", "A", "B", "B", "A", "B")</code></pre>
-<p>Now we can use <code>colour = group</code> to tell ggplot2 to use different colours for the different groups:</p>
+<p>Now we can use <code>colour = group</code> to tell R to use different colours for the different groups:</p>
 <pre class="r"><code class="hljs">ggplot(data, aes(x = expression, y = score, colour = group)) +
   geom_point()</code></pre>
 <p>This is called <strong>mapping</strong> a variable to an aesthetic (in this case, color).</p>
@@ -611,8 +611,8 @@ div.tocify {
     geom_boxplot(...) +
     geom_jitter(...) +
     scale_fill_brewer(...)</code></pre>
-<p>You're already familiar with several useful parameters used here, such as <code>size</code>, <code>width</code> and <code>alpha</code>.</p>
-<p>A new useful option is <code>outlier.shape</code>. 
+<p>You're already familiar with several parameters used here, such as <code>size</code>, <code>width</code> and <code>alpha</code>. 
+  A new useful option is <code>outlier.shape</code>. 
   You can choose the shape used for outliers on the boxplot, but the most common use of this parameter is <code>outlier.shape = NA</code>.</p>
 
 <div class="boxy boxy-lightbulb">

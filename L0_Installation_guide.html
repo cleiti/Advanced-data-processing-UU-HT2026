@@ -9,7 +9,7 @@
 
 
 
-<title>Installation instructions</title>
+<title>L0: Installation instructions</title>
 
 <script src="./L0_Installation_guide_files/jquery-3.6.0.min.js"></script><link type="text/css" rel="stylesheet" id="dark-mode-custom-link"><link type="text/css" rel="stylesheet" id="dark-mode-general-link"><style lang="en" type="text/css" id="dark-mode-custom-style"></style><style lang="en" type="text/css" id="dark-mode-native-style"></style><style lang="en" type="text/css" id="dark-mode-native-sheet"></style>
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -341,34 +341,48 @@ $(document).ready(function () {
 <!-- rmd lab header -->
 <p><br></p>
 <p>This course is aimed towards biologists and other life sciences students with none or limited experience with R programming or programming in general.</p>
-<div id="section" class="section level1 tabset tabset-fade">
-<p><br></p>
 
-<p><strong>Install R statistical software</strong></p>
-<p>Go to <a href="https://cloud.r-project.org/">r-project.org</a> and choose the link appropriate for your operating system.</p>
+<div id="R" class="section level1" number="1"></div>
+<div name="R" data-unique="R"></div><h1><span class="header-section-number">1</span> Install R statistical software</h1>
+<p>Go to <a href="https://cloud.r-project.org/">r-project.org</a> and choose the link appropriate for your computer's operating system.</p>
 <p><img src="./L0_Installation_guide_files/r-download.png" class="fancyimage"></p>
 <div class="boxy boxy-lightbulb">
 <p><strong>Installation details</strong></p>
-<p><strong>Windows:</strong> Click <strong>Download R for Windows</strong> &gt; <strong>base</strong> &gt; <strong>Download R X.X.X for Windows</strong>. This should download an .exe file. It is recommended that you DO NOT install to <code>C:\Program Files\R\</code>. Instead, install to <code>C:\R\</code>. It is also recommended that you install Rtools for building R packages from source code. Click <strong>Download R for Windows</strong> &gt; <strong>Rtools</strong>.</p>
-<p><strong>Mac:</strong> Click <strong>Download R for (Mac) OS X</strong> &gt; <strong>R-X.X.X.pkg</strong> that will download R to your computer. If you are not sure what version of Mac OS you are running, click the apple on the top left of your screen and select <strong>About this mac</strong> (Om den här datorn). In case you are running something older than 10.9, you should instead pick the “R-X.X.X-snowleopard.pkg” to install. Note that this will not give you the latest version of R, but it will be sufficient for most sections of the course. You can then double-click the downloaded package that will prompt you with some questions for installation details. Stick with the default settings and you should be fine.</p>
-<p><strong>Linux:</strong> Click <strong>Download R for Linux</strong> then pick your distribution of Linux. On most distributions, this will be via a software install system like <code>yum</code> or <code>apt-get</code>. If you run this make sure that you update your information to the installer first, otherwise you might end up installing at outdated version of R. For some systems you might need to install not only <strong>r-base</strong>, but also <strong>r-devel</strong> or you will lack important features of your R installation. When installing R packages, you might need to install OS specific packages before. These are displayed during R package installation.</p>
+<p><strong>Windows:</strong> Click <strong>Download R for Windows</strong> &gt; <strong>base</strong> &gt; <strong>Download R X.X.X for Windows</strong>. 
+  This should download an .exe file. Double-click it to start the installation.
+  It is recommended that you DO NOT install to <code>C:\Program Files\R\</code>. 
+  Instead, install to <code>C:\R\</code>.</p>
+<p><strong>Mac:</strong> Click <strong>Download R for (Mac) OS X</strong> &gt; <strong>R-X.X.X.pkg</strong> that will download R to your computer. 
+  If you are not sure what version of Mac OS you are running, click the apple on the top left of your screen and select <strong>About this mac</strong> (Om den här datorn) and look for a number at the end of the line <strong>macOS</strong>. 
+  In case you are running something older than 10.9, you should instead pick the “R-X.X.X-snowleopard.pkg” to install. 
+  Note that this will not give you the latest version of R, but will be sufficient for this course. 
+  You can then double-click the downloaded package to start the installation. 
+  If you're prompted with some questions for installation details, stick with the default settings and you'll be fine.</p>
+<p><strong>Linux:</strong> If you are running a Linux distribution you probably won't need these instructions :) 
+  But just in case: click <strong>Download R for Linux</strong> then pick your distribution. 
+  On most distributions, this will be via a software install system like <code>yum</code> or <code>apt-get</code>. 
+  If you run this make sure that you update your information to the installer first, otherwise you might end up installing at outdated version of R.</p>
 </div>
-<p><br></p>
-<p><a href="https://rstudio.com/products/rstudio/download/#download"><img src="./L0_Installation_guide_files/rstudio.png"></a></p>
-<p><strong>Install <a href="https://posit.co/downloads">RStudio</a></strong></p>
-<p>Choose based on your OS.</p>
-<p>RStudio provides you with tools like code editor with highlighting, project management, version control, package building, debugger, profiler and more. Start up RStudio to check that everything has been installed correctly. If not, contact us and we can help you out.</p>
-<p>You can also watch <a href="https://www.youtube.com/watch?v=FIrsOBy5k58">this video</a> for an introduction to using RStudio</p>
-<p><br></p>
-<p><strong>Install R packages</strong></p>
-<p>Packages are collections of additional functions and tools that we will use during the course.</p>
-<p>Before the course, please install the following package. In RStudio, copy and paste the code below into the Console and press Enter:</p>
-<pre class="r"><code class="hljs">install.packages("ggplot2")</code></pre>
-<p>You only need to install a package once. If R asks you to choose a CRAN mirror, select one close to your location (for example, Sweden).</p>
-<p>This package already includes many other packages you will need. We will show you how to load and use the packages during the course.</p>
-<p><br></p>
-<p>Congratulations! You're ready to write your first line of code.</p>
 
+<div id="Rst" class="section level1" number="2"></div>
+<div name="Rst" data-unique="Rst"></div><h1><span class="header-section-number">2</span> Install RStudio</h1>
+<p><a href="https://rstudio.com/products/rstudio/download/#download"><img src="./L0_Installation_guide_files/rstudio.png"></a></p>
+<p>RStudio provides a user-friendly interface for writing and running R code, managing projects, viewing plots, and working with data.</p>
+<p>Choose a download link from <a href="https://posit.co/downloads">here</a> based on your computer's operating system.</p>
+<p>Start up RStudio to check that everything has been installed correctly. If not, contact us and we can help you out.</p>
+  We <strong>strongly</strong> recommend watching <a href="https://www.youtube.com/watch?v=FIrsOBy5k58">this video</a> for an introduction to using RStudio.
+  You need it for the next step, and it will make your life much easier in the upcoming days!</p>
+
+<div id="pkg" class="section level1" number="3"></div>
+<div name="pkg" data-unique="pkg"></div><h1><span class="header-section-number">3</span> Install R packages</h1>
+<p>Packages are collections of additional functions and tools that we will use during the course.</p>
+<p>Right now you only need to install one package. In RStudio, copy and paste the code below into the Console and press Enter:</p>
+<pre class="r"><code class="hljs">install.packages("ggplot2")</code></pre>
+<p>You only need to install a package once. If R asks you to choose a "CRAN mirror", select one close to your location (for example, Sweden).</p>
+<p>This package already includes many other packages you will need. We will show you how to load and use the packages during the course.</p>
+
+<div name="end" data-unique="end"></div><h2>Congratulations! You're ready to write your first line of code.</h2>
+</div>
 </div>
 
 <script>
