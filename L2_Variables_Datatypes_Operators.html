@@ -412,18 +412,21 @@ div.tocify {
 
 <!-- rmd lab header -->
 <p><br></p>
-<div id="introduction" class="section level1" number="1">
-<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Learning outcomes</h1>
 <p>There are different data types used in R. The type of a variable will
 for example determine what kind of operators that can be done on it. At the end of
-this exercise you should know:</p>
-<ul>
+this lab you should know:</p>
+<ol>
 <li>What are the data types commonly used in R and how to create them</li>
 <li>What are variables and how they relate to data types</li>
 <li>What basic operators you can find in R and how to use them</li>
-</ul>
-<div id="data-types" class="section level2" number="1.1">
-<div name="11_Data_types" data-unique="11_Data_types"></div><h2><span class="header-section-number">1.1</span> Data types</h2>
+</ol>
+<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
+A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
+
+<div name="11_Data_types" data-unique="11_Data_types"></div><h1><span class="header-section-number">2</span> Data types</h1>
 <p>From the lecture you might remember that all elements in any data structures found in R will be of a certain type (or have a certain class). The four most commonly used data types in R are: logical, integer and double (collectively called numeric), and character. The names hint at what they are.</p>
 <ul>
 <li><strong>Logical</strong> = <code>TRUE</code> or <code>FALSE</code> (or <code>NA</code>), can also be abbreviated <code>T</code> or <code>F</code></li>
@@ -436,9 +439,9 @@ this exercise you should know:</p>
 <p>If you are used to tools like Microsoft Excel or Google Sheets you might think “why do I have to think of data types? Excel does everything for me!” But remember, Excel is also doing guesswork behind the scenes, and they can get it wrong. For e.g.&nbsp;Excel will often automatically remove leading zeros from numerical values, if your values represent post codes or other IDs this could corrupt your data. It’s always best to know for sure.</p>
 </blockquote>
 <p><strong>Bonus:</strong> Complex numbers have both a real and imaginary part (e.g.&nbsp;3 + 4i); <code>i</code>s a special number defined as the square root of –1., for example. We normally cannot take √(–1), so mathematicians introduced a new idea: of using <code>i</code>, in this example`. It is mostly used in engineering and physics.</p>
-</div>
-<div id="basic-r-operators" class="section level2" number="1.3">
-<div name="13_Basic_R_operators" data-unique="13_Basic_R_operators"></div><h2><span class="header-section-number">1.2</span> Basic R operators</h2>
+
+
+<div name="13_Basic_R_operators" data-unique="13_Basic_R_operators"></div><h1><span class="header-section-number">3</span> Basic R operators</h1>
 <p>As in other programming languages there are a set of basic operators in R.</p>
 <table class="table table-condensed">
 <thead>
@@ -530,16 +533,18 @@ this exercise you should know:</p>
 </tr>
 </tbody>
 </table>
-<div id="exercises" class="section level1" number="2">
-<div name="2_Exercises" data-unique="2_Exercises"></div><h1><span class="header-section-number">2</span> Exercises</h1>
+
+
+
+<div name="21_Working_with_variables" data-unique="21_Working_with_variables"></div><h1><span class="header-section-number">4</span> Exercises: Working with variables</h1>
 <div class="boxy boxy-lightbulb">
 <p>In all exercises during this course, it is important that you try to figure out what the expected result would be, prior to running the commands. You should then verify that this will indeed be the
 result by running the command. In case there is a discrepancy between your expectations and the actual output make sure you understand why before you move forward. If you cannot figure out
 how to, or which command to run you can click the key to reveal example code including expected output. If you are trying out things on your own have a hard time understanding what is going on, ask the TAs or someone sitting next to you who might have wrapped their head around the issue.</p>
 <p>Also note that in many cases there are multiple solutions that solve the problem equally well.</p>
 </div>
-<div id="working-with-variables" class="section level2" number="2.1">
-<div name="21_Working_with_variables" data-unique="21_Working_with_variables"></div><h2><span class="header-section-number">2.1</span> Working with variables</h2>
+
+
 <p>Open Rstudio and make sure to set your working directory (either in console or in Rmd <code>setwd("path/to/my/folder/")</code>. Double check that you do not have stored objects in your current session with the following command. This will list all objects that you have in
 your current R session.</p>
 <pre class="r"><code class="hljs">ls()</code></pre>

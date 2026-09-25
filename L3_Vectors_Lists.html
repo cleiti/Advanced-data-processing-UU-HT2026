@@ -410,15 +410,20 @@ div.tocify {
 
 <!-- rmd lab header -->
 <p><br></p>
-<div id="introduction" class="section level1" number="1">
-<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
-<p>There are several different data structures that are commonly used in R. The different data structures can be seen as different ways to organise data. In this exercise we will focus on vectors, which are the base data structure in R, and will also get an overview of the key data types (classes) that are found in R. At the end of this exercise you should know:</p>
-<ul>
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Learning outcomes</h1>
+<p>There are several different data structures that are commonly used in R. The different data structures can be seen as different ways to organise data. 
+  In this lab we will focus on vectors, which are the base data structure in R, and will also get an overview of the key data types (classes) that are found in R. 
+  At the end of this lab you should know:</p>
+<ol>
 <li>How to create, do basic math, summarize and subset vectors</li>
 <li>How to create, do basic math, summarize and subset lists</li>
-</ul>
-<div id="vectors-in-r" class="section level2" number="1.2">
-<div name="12_Vectors_in_R" data-unique="12_Vectors_in_R"></div><h2><span class="header-section-number">1.1</span> Vectors in R</h2>
+</ol>
+<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
+A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
+
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">2</span> Vectors in R</h1>
 <p>The most basic data structure in R are vectors. Vectors are 1-dimensional data structures that contain only one type of data (e.g.&nbsp;all entries must have the same class). To create a vector in R one can use the function <code>c()</code> (combine) as seen below. This example will create a vector named <code>example.vector</code> with 3 elements in it.</p>
 <pre class="r"><code class="hljs">example.vector &lt;- c(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>)</code></pre>
 <p>If you need more information about the function <code>c()</code> you can always use the built-in manual in R. Typing <code>?c()</code> will bring up the documentation for the function <code>c()</code>.</p>
@@ -445,9 +450,9 @@ class(vec)</code></pre>
 <p>If you for any reason want to have more information about any object you have stored in your R session the command <code>str()</code> is very helpful.</p>
 <pre class="r"><code class="hljs">str(example.vector)</code></pre>
 <pre><code class="hljs">##  num [1:3] 10 20 30</code></pre>
-</div>
-<div id="basic-r-operators" class="section level2" number="1.3">
-<div name="13_Basic_R_operators" data-unique="13_Basic_R_operators"></div><h2><span class="header-section-number">1.2</span> Reminder: Basic R operators</h2>
+
+
+<div name="13_Basic_R_operators" data-unique="13_Basic_R_operators"></div><h2><span class="header-section-number">2.1</span> Reminder: Basic R operators</h2>
 <table class="table table-condensed">
 <thead>
 <tr class="header">
@@ -546,12 +551,13 @@ class(vec)</code></pre>
 <pre><code class="hljs">## [1] 60</code></pre>
 <p>To learn more about a function use the built in R manual as described earlier. If you do not know the name of a function that you believe should be found in R, use the function <code>help.search()</code> or use Google to try and identify the name of the command.</p>
 </div>
-</div>
-<div id="exercise" class="section level1" number="2">
-<div name="2_Exercise" data-unique="2_Exercise"></div><h1><span class="header-section-number">2</span> Exercise</h1>
+
+
+<div name="2_Exercise" data-unique="2_Exercise"></div><h2><span class="header-section-number">2.2</span> Exercises</h2>
 <p>In all exercises on this course it is important that you try to figure out what you expect the result to be before you run the commands in R. You should then verify that this will indeed be the result by running the command in an R session. In case there is a discrepancy between your expectations and the actual output make sure you understand why before you move forward. If you can not figure out how to, or which command to run you can click the button to reveal example code including expected output. Also note that in many cases there are multiple solutions that solve the problem equally well.</p>
-<div id="create-and-modify-vectors" class="section level2" number="2.1">
-<div name="21_Create_and_modify_vectors" data-unique="21_Create_and_modify_vectors"></div><h2><span class="header-section-number">2.1</span> Create and modify vectors</h2>
+
+
+<div name="21_Create_and_modify_vectors" data-unique="21_Create_and_modify_vectors"></div><h3><span class="header-section-number">2.2.1</span> Create and modify vectors</h3>
 <p>Open R-studio and create two numeric vectors named x and y that are of equal length. Use these vectors to answer the questions below.</p>
 <pre class="r"><code class="hljs">x &lt;- c(<span class="hljs-number">2</span>, <span class="hljs-number">4</span> ,<span class="hljs-number">7</span>)
 y &lt;- c(<span class="hljs-number">1</span>, <span class="hljs-number">5</span>, <span class="hljs-number">11</span>)</code></pre>
@@ -718,7 +724,7 @@ vec.tmp2</code></pre>
 
 
 <div class="boxy boxy-lightbulb">
-<ol start="12" style="list-style-type: decimal">
+<ol start="12" style="list-style-type: none">
 <li><strong>A6.1: </strong>What will be the result of the following calculations?
 <ul>
 <li><code>c(1, 3, 5) + c(2, 4, 6)</code></li>
@@ -732,9 +738,7 @@ vec.tmp2</code></pre>
 
 
 
-</div>
-<div id="modify-and-subset-vectors" class="section level2" number="2.2">
-<div name="22_Modify_and_subset_vectors" data-unique="22_Modify_and_subset_vectors"></div><h2><span class="header-section-number">2.2</span> Modify and subset vectors</h2>
+<div name="22_Modify_and_subset_vectors" data-unique="22_Modify_and_subset_vectors"></div><h3><span class="header-section-number">2.2.2</span> Modify and subset vectors</h3>
 <p>Create a new character vector that contains the following words and save it using a suitable name:
 <code>apple, banana, orange, kiwi, potato</code>.</p>
 <p>
@@ -776,6 +780,7 @@ veggies[<span class="hljs-number">1</span>:<span class="hljs-number">4</span>]  
 ## [1] "apple"  "banana" "orange" "kiwi"</code></pre>
 </div>
 </div>
+
 <ol start="3" style="list-style-type: decimal">
 <li>Do the same selection as in question 2 without using index positions.</li>
 </ol>
@@ -1011,9 +1016,6 @@ median(norm.rand, na.rm = <span class="hljs-literal">TRUE</span>)  </code></pre>
 </div>
 
 
-</div>
-</div>
-<div id="lists" class="section level1" number="3">
 <div name="3_Lists" data-unique="3_Lists"></div><h1><span class="header-section-number">3</span> Lists</h1>
 <p>The last data structure that we will explore are <strong>lists</strong>, which are very flexible data structures. Lists can combine elements of different types and they do not have to be of equal dimensions. The elements of a list can be pretty much anything, including vectors, matrices, data frames, and even other lists. The drawback with a flexible structure is that it requires a bit more work to interact with.</p>
 <p>The syntax to create a list is similar to creation of the other data structures in R.</p>
@@ -1097,8 +1099,8 @@ str(mylist[[<span class="hljs-number">1</span>]])</code></pre>
 <p>This means that the syntax to extract a specific value from a data structure stored in a list can be daunting. Below we extract the second column of a data frame stored at position 4 in the list <strong>mylist</strong>.</p>
 <pre class="r"><code class="hljs">mylist[[<span class="hljs-number">4</span>]][,<span class="hljs-number">2</span>]</code></pre>
 <pre><code class="hljs">##  [1]  91  92  93  94  95  96  97  98  99 100</code></pre>
-<div id="exercise-2" class="section level2" number="3.1">
-<div name="31_Exercise" data-unique="31_Exercise"></div><h2><span class="header-section-number">3.1</span> Exercise</h2>
+
+<div name="31_Exercise" data-unique="31_Exercise"></div><h2><span class="header-section-number">3.1</span> Exercises</h2>
 <ol style="list-style-type: decimal">
 <li>Create a list containing 1 character vector, a numeric vector, and a character matrix.</li>
 </ol>

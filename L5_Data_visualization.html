@@ -411,25 +411,26 @@ div.tocify {
 
 <!-- rmd lab header -->
 <p><br></p>
-<div id="introduction" class="section level1" number="1">
-<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Learning outcomes</h1>
 <p>A table can tell us the values in a dataset, but a plot can tell a better story. In this lab we will use <code>ggplot2</code>, a widely used R package for creating plots.</p>
 <p>You do not need to memorise the syntax or understand every argument used by <code>ggplot2</code>. 
   The goal is to become comfortable enough to read, modify, and create basic plots.</p>
-<p>In this exercise you will learn how to:</p>
-<ul>
+<p>In this lab you will learn how to:</p>
+<ol>
 <li>Create and interpret basic plots in R</li>
 <li>Customise and export basic plots in R</li>
-</ul>
+</ol>
+<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
+A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
+
+
+<div name="basic_syntax" data-unique="basic_syntax"></div><h1><span class="header-section-number">2</span> The basics</h1>
 <p>We have installed the <code>ggplot2</code> package in the very beginning of this course. 
   You only need to install it once, but <strong>load</strong> each time you start a new R session - the same way as other programs on your computer.</p>
 <p>Start by loading the package with:</p>
 <pre class="r"><code class="hljs">library(ggplot2)</code></pre>
-</div>
-
-
-<div id="basic_syntax" class="section level1" number="1">
-<div name="basic_syntax" data-unique="basic_syntax"></div><h1><span class="header-section-number">2</span> The basics</h1>
 <p>All <code>ggplot2</code> commands will look something like this:</p>
 <pre class="r"><code class="hljs">ggplot(data, aes(x = variable)) + geom_...</code></pre>
 <p>This line has three main parts:</p>
@@ -445,10 +446,8 @@ div.tocify {
 <p> Your figure can consist of one or several plots ("geoms"), for example displaying both your individual observations and their summary:</p>
 <p><img src="./L5_Data_visualization_files/plot_ex_scatter_box.png" width="384" style="display: block; margin: auto auto auto 0;"></p>
 <p>This is why the command has a plus sign - you can keep adding new plots, or any other elements of the plot, using <code>+</code>.</p>
-</div>
 
 
-<div id="scatter" class="section level1" number="1">
 <div name="scatter" data-unique="scatter"></div><h1><span class="header-section-number">3</span> Scatter plots</h1>
 <p>A scatter plot shows individual observations as points. We can create some example data:</p>
 <pre class="r"><code class="hljs">data <- data.frame(
@@ -504,10 +503,7 @@ div.tocify {
 <p>
 </div>
 
-</div>
 
-
-<div id="bar" class="section level1" number="1">
 <div name="bar" data-unique="bar"></div><h1><span class="header-section-number">4</span> Bar plots</h1>
 <p>Bar plots are useful for showing counts of observations in categories. Create some example data:</p>
 <pre class="r"><code class="hljs">samples <- data.frame(
@@ -541,10 +537,7 @@ div.tocify {
 <p>
 </div>
 
-</div>
 
-
-<div id="box" class="section level1" number="1">
 <div name="box" data-unique="box"></div><h1><span class="header-section-number">5</span> Box plots</h1>
 <p>A boxplot summarises the distribution of numerical values within one or more groups. For example for this data:</p>
 <pre class="r"><code class="hljs">data <- data.frame(
@@ -622,9 +615,10 @@ div.tocify {
 </ol>
 <p>
 </div>
-
+<p><br></p>
 <p><strong>Congratulations!</strong> You have now learned all the basics of working with R. In the next labs, you'll get to try your hand on some real RNA sequencing data.</p>
-
+<p><br></p>
+<p><br></p>
 </div>
 
 

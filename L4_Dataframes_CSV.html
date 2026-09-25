@@ -411,17 +411,21 @@ div.tocify {
 
 <!-- rmd lab header -->
 <p><br></p>
-<div id="introduction" class="section level1" number="1">
-<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Introduction</h1>
+<div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Learning outcomes</h1>
 <p>A data set that has more than one dimension is conceptually hard to
 store as a vector. For these two-dimensional data sets the solution is to instead use matrices or data frames. Different columns in a data frame can have different data types, but all columns in a data frame must have the same number of entries. In biology, tabular data is often stored as CSV files and imported in R as dataframes.</p>
-<p>In this exercise you will learn how to:</p>
-<ul>
+<p>In this lab you will learn how to:</p>
+<ol>
 <li>Create, do basic math, summarize and subset data frames</li>
 <li>Read and write CSV files, analyze the information and identify missing data</li>
-</ul>
-</div>
-<div id="dataframes" class="section level1" number="2">
+</ol>
+<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
+A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
+
+
+
 <div name="2_Dataframes" data-unique="2_Dataframes"></div><h1><span class="header-section-number">2</span> Dataframes</h1>
 <p>Even though vectors are the basic data structures of R, data frames are very central as they are the most common way to import data into R (e.g.&nbsp;<code>read.table()</code> will create a data frame). A data frame consists of a set of equally long vectors. As data frames can contain several different data types the command <code>str()</code> is very useful to get an overview of data frames.</p>
 <pre class="r"><code class="hljs">vector1 &lt;- <span class="hljs-number">1</span>:<span class="hljs-number">10</span>
@@ -435,9 +439,7 @@ str(dfr)</code></pre>
 ##  $ vector3: num  -4.52 -6.62 3.36 3.52 -15.85 ...</code></pre>
 <p>In the above example, we can see that the dataframe <strong>dfr</strong> contains 10 observations for three variables that all have different classes, column 1 is an integer vector, column 2 a character vector, and column 3 a numeric vector.</p>
 
-
-<div id="exercise-1" class="section level2" number="2.1">
-<div name="21_Exercise" data-unique="21_Exercise"></div><h2><span class="header-section-number">2.1</span> Exercise</h2>
+<div name="21_Exercise" data-unique="21_Exercise"></div><h2><span class="header-section-number">2.1</span> Exercises</h2>
 <p><strong>Important:</strong> In the example above the <code>vector3</code> column is filled with normally distributed <strong>random</strong> variables using <code>rnorm()</code>. This means that the dataframe you create will be different from this one, and <strong>your results will not be identical to the answers provided below.</strong> Use them as a guidance, not for blind copying.</p> 
 </p>
 
@@ -818,8 +820,6 @@ dfr[2, ]</code></pre>
 </div>
 
 
-
-<div id="lists" class="section level1" number="3">
 <div name="3_load" data-unique="3_load"></div><h1><span class="header-section-number">3</span> Working with CSV files</h1>
 <p>Up until now we have mostly created the object we worked with on the fly from within R. The most common use-case is however to read in different data sets that are stored as files. In this exercise we will learn to work with CSV files.</p>
 
@@ -832,10 +832,14 @@ geneC,treatment,21.3
 geneD,treatment,15.8</code></pre>
 <p>Each line represents one row, and commas separate the columns.</p>
 <p>A CSV file can therefore represent a table such as the dataframes you have just been working with. CSV files are common because they are: </p>
+<p>
+<ul>
 <li>simple</li>
 <li>human-readable</li>
 <li>supported by many programs</li>
 <li>easy to exchange between different programming languages and software</li>
+</ul>
+</p>
 <p></p>
 <p>A CSV file does not contain R-specific information. When R reads it, R has to determine what type of data each column contains.</p>
 <ol start="1" style="list-style-type: decimal">
