@@ -564,10 +564,8 @@ dfr[,c("vector2", "vector3")]</code></pre>
 </div>
 </div>
 
-<div class="boxy boxy-lightbulb">
-<ol start="6" style="list-style-type: none">
-<li><strong>A8.1: </strong>Select rows 3–8 and columns 1–2 of the dataframe.</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A8.1: </strong>Select rows 3–8 and columns 1–2 of the dataframe.</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but6" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -584,8 +582,6 @@ dfr[,c("vector2", "vector3")]</code></pre>
 ## 7       7       g
 ## 8       8       h</code></pre>
 -->
-</div>
-</div>
 </div>
 
 <ol start="6" style="list-style-type: decimal">
@@ -621,10 +617,8 @@ dfr[,c("vector2", "vector3")]</code></pre>
 </div>
 </div>
 
-<div class="boxy boxy-lightbulb">
-<ol start="9" style="list-style-type: none">
-<li><strong>A8.2: </strong>Select only the <strong>vector2</strong> and <strong>vector3</strong> columns from the rows where <strong>vector3</strong> is positive.</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A8.2: </strong>Select only the <strong>vector2</strong> and <strong>vector3</strong> columns from the rows where <strong>vector3</strong> is positive.</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but10" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -672,10 +666,8 @@ dfr[,c("vector2", "vector3")]</code></pre>
 </div>
 </div>
 
-<div class="boxy boxy-lightbulb">
-<ol start="10" style="list-style-type: none">
-<li><strong>A8.3: </strong>Use <code>table()</code> to count how many rows have a positive versus negative value in <strong>vector3</strong>.</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A8.3: </strong>Use <code>table()</code> to count how many rows have a positive versus negative value in <strong>vector3</strong>.</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but13" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -726,10 +718,8 @@ head(dfr, 3)</code></pre>
 </div>
 </div>
 
-<div class="boxy boxy-lightbulb">
-<ol start="15" style="list-style-type: none">
-<li><strong>A8.4: </strong>Rename all rows using <code> rownames()</code> and print the last 4 rows this time. What changed?</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A8.4: </strong>Rename all rows using <code> rownames()</code> and print the last 4 rows this time. What changed?</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but16" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -800,10 +790,8 @@ dim(dfr)</code></pre>
 </div>
 </div>
 
-<div class="boxy boxy-lightbulb">
-<ol start="19" style="list-style-type: none">
-<li><strong>A8.5: </strong>Change the value of a particular cell in the dataframe. Print that whole row to check your work.</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A8.5: </strong>Change the value of a particular cell in the dataframe. Print that whole row to check your work.</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but20" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -878,10 +866,8 @@ geneD,treatment,15.8</code></pre>
 <pre class="r"><code class="hljs">data
 head(data)</code></pre>
 
-<div class="boxy boxy-lightbulb">
-<ol start="3" style="list-style-type: none">
-<li><strong>A9.1: </strong>Load <code>gene_expression.csv</code> into R and display the dataframe. How many rows and columns does the dataframe contain?</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A9.1: </strong>Load <code>gene_expression.csv</code> into R and display the dataframe. How many rows and columns does the dataframe contain?</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but31" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -956,10 +942,8 @@ For selecting only the non-missing data you can use the <code>which()</code> com
 <pre class="r"><code class="hljs">sum(is.na(data$expression))</code></pre>
 <p></p>
 
-<div class="boxy boxy-lightbulb">
-<ol start="5" style="list-style-type: none">
-<li><strong>A9.2: </strong>How many missing values are there in the <code>bZIP29_3</code> column?</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A9.2: </strong>How many missing values are there in the <code>bZIP29_3</code> column?</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but34" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -980,10 +964,8 @@ For selecting only the non-missing data you can use the <code>which()</code> com
 <p>This creates a file called <code>my_data.csv</code> in your working directory, or in the specified directory if you add it to the filename, the same way as before.</p>
 <p><code>row.names = TRUE</code> adds the dataframe's row names as an extra column to be stored in the CSV file. If your dataframe has meaningful rownames, like the gene names in our expression matrix, you should use this.</p>
 
-<div class="boxy boxy-lightbulb">
-<ol start="5" style="list-style-type: none">
-<li><strong>A9.3: </strong>What would <code>row.names = FALSE</code>do in the code above? When shold you choose it?</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A9.3: </strong>What would <code>row.names = FALSE</code>do in the code above? When shold you choose it?</p>
 <p>
 </div>
 
@@ -1003,10 +985,9 @@ write.csv(data, "gene_expression_modified.csv", row.names = TRUE)</code></pre>
 </div>
 </div>
 
-<div class="boxy boxy-lightbulb">
-<ol start="6" style="list-style-type: none">
-<li><strong>A9.4: </strong>A useful habit is to check that a file you created can actually be read again. Load your saved CSV into a new object. How can you verify that your new column was saved correctly? This can be done in several ways.</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A9.4: </strong>A useful habit is to check that a file you created can actually be read again. Load your saved CSV into a new object. 
+  How can you verify that your new column was saved correctly? This can be done in several ways.</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but36" aria-expanded="false" aria-controls="acc2026052812238634">

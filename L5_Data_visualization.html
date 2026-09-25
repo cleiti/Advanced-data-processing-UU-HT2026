@@ -487,9 +487,8 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
 <li>Modify the plot with the code above, so that the points are coloured according to <code>group</code>.</li>
 </ol>
 
-<div class="boxy boxy-lightbulb">
-<ol start="5" style="list-style-type: none">
-<li><strong>A10.1: </strong>In the following code, identify:</li>
+<div class="boxy  ">
+<p><strong>A10.1: </strong>In the following code, identify:</p>
 <ul>
 <li>dataframe used</li>
 <li>type of plot</li>
@@ -499,7 +498,6 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
 </ul>
 <pre class="r"><code class="hljs">ggplot(sex_expr, aes(x = XIST, y = y_score, colour = label)) +
     geom_point()</code></pre>
-</ol>
 <p>
 </div>
 
@@ -529,11 +527,9 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
 <li>Create a side-by-side bar plot showing the number of male and female samples in each histology category.</li>
 </ol>
 
-<div class="boxy boxy-lightbulb">
-<ol start="5" style="list-style-type: none">
-<li><strong>A10.2: </strong> Create a side-by-side bar plot of patient sex, <strong>colored by</strong> their histology. 
-  Tip: you need to change something in <code>aes()</code>.</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A10.2: </strong> Create a side-by-side bar plot of patient sex, <strong>colored by</strong> their histology. 
+  Tip: you need to change something in <code>aes()</code>.</p>
 <p>
 </div>
 
@@ -574,12 +570,10 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
     scale_fill_brewer(palette = "Set2")</code></pre>
 <p>You do not need to memorise the palette names, when you need one they're easy to look up.</p>
 
-<div class="boxy boxy-lightbulb">
-<ol start="5" style="list-style-type: none">
-<li><strong>A11.1: </strong> Even if you're not plotting the individual observations, <code>geom_boxplot()</code> will often include a couple lone points. Why do you think that happens?</li>
-<li><strong>A11.2: </strong> Create a boxplot with boxes filled with color, and the individual observations shown on top.</li>
-<li>Try writing the two <code>geom</code> commands in the opposite order. What changes?</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A11.1: </strong> Even if you're not plotting the individual observations, <code>geom_boxplot()</code> will often include a couple lone points. Why do you think that happens?</p>
+<p><strong>A11.2: </strong> Create a boxplot with boxes filled with color, and the individual observations shown on top.</p>
+<p>Try writing the two <code>geom</code> commands in the opposite order. What changes?</p>
 <p>
 </div>
 
@@ -608,16 +602,14 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
   A new useful option is <code>outlier.shape</code>. 
   You can choose the shape used for outliers on the boxplot, but the most common use of this parameter is <code>outlier.shape = NA</code>.</p>
 
-<div class="boxy boxy-lightbulb">
-<ol start="5" style="list-style-type: none">
-<li><strong>A11.3: </strong>Add the <code>outlier.shape</code> parameter to your  boxplot code from above. Try some numeric values for this parameter, for example <code>1</code>, <code>2</code>, and <code>3</code>.
-  Now try using <code>NA</code> instead. What does the it do? Why?</li>
-</ol>
+<div class="boxy  ">
+<p><strong>A11.3: </strong>Add the <code>outlier.shape</code> parameter to your  boxplot code from above. Try some numeric values for this parameter, for example <code>1</code>, <code>2</code>, and <code>3</code>.
+  Now try using <code>NA</code> instead. What does the it do? Why?</p>
 <p>
 </div>
-<p><br></p>
-<p><strong>Congratulations!</strong> You have now learned all the basics of working with R. In the next labs, you'll get to try your hand on some real RNA sequencing data.</p>
-<p><br></p>
+
+<div name="end" data-unique="end"></div><h2> Congratulations! </h2>
+<p>You have now learned all the basics of working with R. In the next labs, you'll get to try your hand on some real RNA sequencing data.</p>
 <p><br></p>
 </div>
 
