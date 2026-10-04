@@ -419,9 +419,10 @@ store as a vector. For these two-dimensional data sets the solution is to instea
 <li>Create, do basic math, summarize and subset data frames</li>
 <li>Read and write CSV files, analyze the information and identify missing data</li>
 </ol>
-<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
-When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
-A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+<p><strong>Assignment submission:</strong> You can find assignments in green boxes below. 
+Create a new script file for this lab (call it<code>lab4.R</code>), write your answers to the assignment questions as <strong>comments</strong> in the script. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the whiteboard at the end of the queue. 
+A teacher will come by to check your work. While waiting you can start working on the next assignment, or if you're feeling brave, the next lab! 
 Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
 
 
@@ -507,7 +508,7 @@ tail(dfr, 5)
 </div>
 
 <ol start="4" style="list-style-type: decimal">
-<li>You can select columns from a data frame using either their name or position. Select and print a single column using its name, then using it's position.</li>
+<li>You can select columns from a data frame using either their name or position. Select and print a single column using its name, then using its position.</li>
 </ol>
 <p>
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#but4" aria-expanded="false" aria-controls="acc2026052812238634">
@@ -845,7 +846,7 @@ geneD,treatment,15.8</code></pre>
 <p>If <code>gene_expression.csv</code> appears in the result of <code>list.files()</code>, R should be able to find it using the code above.</p>
 <p>If it is not in the right folder, you can put the file manually in the working directory (now that you know where that is on your computer).</p>
 <p>Alternatively, you can change the working directory of R, using <code>setwd(path)</code>, inserting the path to your file inside the path argument, in quotation marks.</p>
-<p>For example, on my computer leading R to my downloads folder would looks like this: </p>
+<p>For example, on my computer leading R to my downloads folder would look like this: </p>
 <pre class="r"><code class="hljs">setwd("/Users/julsu256/Downloads")</code></pre>
 <p>A final and possibly best way to show R where to look for your file is to write it's full location instead of just the file's name. For example, instead of</p>
 <pre class="r"><code class="hljs">read.csv("gene_expression.csv")</code></pre>
@@ -858,7 +859,7 @@ geneD,treatment,15.8</code></pre>
 
 
 <div name="load" data-unique="load"></div><h2><span class="header-section-number">3.3</span> Working with the CSV file</h2>
-<p>Now we can finally can load our gene expression file with:</p>
+<p>Now we can finally load our gene expression file with:</p>
 <pre class="r"><code class="hljs">data <- read.csv("gene_expression.csv", row.names = 1)</code></pre>
 <p>This reads the CSV file and stores the resulting <strong>dataframe</strong> in <code>data</code>. <code>row.names= 1</code> tells R that the first column in our file contains the row names, in this case gene names.</p>
 <p>From now, everything you learned about dataframes can be applied to this data.</p>
@@ -965,7 +966,7 @@ For selecting only the non-missing data you can use the <code>which()</code> com
 <p><code>row.names = TRUE</code> adds the dataframe's row names as an extra column to be stored in the CSV file. If your dataframe has meaningful rownames, like the gene names in our expression matrix, you should use this.</p>
 
 <div class="boxy  ">
-<p><strong>A9.3: </strong>What would <code>row.names = FALSE</code>do in the code above? When shold you choose it?</p>
+<p><strong>A9.3: </strong>What would <code>row.names = FALSE</code>do in the code above? When should you choose it?</p>
 <p>
 </div>
 

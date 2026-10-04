@@ -418,28 +418,30 @@ for example determine what kind of operators that can be done on it. At the end 
 this lab you should know:</p>
 <ol>
 <li>What are the data types commonly used in R and how to create them</li>
-<li>What are variables and how they relate to data types</li>
 <li>What basic operators you can find in R and how to use them</li>
+<li>What are variables and how they relate to data types</li>
 </ol>
-<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
-When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
-A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+<p><strong>Assignment submission:</strong> You can find assignments in green boxes below. 
+Create a new script file for this lab (call it<code>lab2.R</code>), write your answers to the assignment questions as <strong>comments</strong> in the script. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the whiteboard at the end of the queue. 
+A teacher will come by to check your work. While waiting you can start working on the next assignment, or if you're feeling brave, the next lab! 
 Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
 
 <div name="11_Data_types" data-unique="11_Data_types"></div><h1><span class="header-section-number">2</span> Data types</h1>
-<p>From the lecture you might remember that all elements in any data structures found in R will be of a certain type (or have a certain class). The four most commonly used data types in R are: logical, integer and double (collectively called numeric), and character. The names hint at what they are.</p>
+<p>From the lecture you might remember that all elements in any data structures found in R will be of a certain type. The four most commonly used data types in R are: logical, integer and double (collectively called numeric), and character. The names hint at what they are.</p>
 <ul>
-<li><strong>Logical</strong> = <code>TRUE</code> or <code>FALSE</code> (or <code>NA</code>), can also be abbreviated <code>T</code> or <code>F</code></li>
+<li><strong>Logical</strong> = <code>TRUE</code> or <code>FALSE</code> (or <code>NA</code>)</li>
 <li><strong>Integer</strong> = Numbers that can be represented without fractional component</li>
 <li><strong>Double</strong> = Numbers with a fractional component, and special values like <code>Inf</code>, <code>-Inf</code>, and <code>NaN</code></li>
 <li><strong>Character</strong> = Any string of text. Special characters must be escaped with <code>\</code></li>
 </ul>
-<p>Often, the class of an entry is automatically determined by R. For example if you save the value 5.1 as a variable, R will recognize it as numeric (double). If you instead have a text string like “hello world” it will have the class character. Below you will also see examples of how you can specify the class yourself, and not rely on R guessing it correctly.</p>
+<p>Often, the data type of an entry is automatically determined by R. 
+  For example if you save the value 5.1 as a variable, R will recognize it as numeric (double). 
+  If you instead have a text string like “hello world” it will have the type character. 
+  Below you will also see examples of how you can specify the type yourself, and not rely on R guessing it correctly.</p>
 <blockquote>
-<p>If you are used to tools like Microsoft Excel or Google Sheets you might think “why do I have to think of data types? Excel does everything for me!” But remember, Excel is also doing guesswork behind the scenes, and they can get it wrong. For e.g.&nbsp;Excel will often automatically remove leading zeros from numerical values, if your values represent post codes or other IDs this could corrupt your data. It’s always best to know for sure.</p>
+<p>If you are used to tools like Microsoft Excel or Google Sheets you might think “why do I have to think of data types? Excel does everything for me!” But remember, Excel is also doing guesswork behind the scenes, and they can get it wrong. For example&nbsp;Excel will often automatically remove leading zeros from numerical values, if your values represent post codes or other IDs this could corrupt your data. It’s always best to know for sure.</p>
 </blockquote>
-<p><strong>Bonus:</strong> Complex numbers have both a real and imaginary part (e.g.&nbsp;3 + 4i); <code>i</code>s a special number defined as the square root of –1., for example. We normally cannot take √(–1), so mathematicians introduced a new idea: of using <code>i</code>, in this example`. It is mostly used in engineering and physics.</p>
-
 
 <div name="13_Basic_R_operators" data-unique="13_Basic_R_operators"></div><h1><span class="header-section-number">3</span> Basic R operators</h1>
 <p>As in other programming languages there are a set of basic operators in R.</p>
@@ -514,21 +516,21 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
 <td><code>FALSE</code></td>
 </tr>
 <tr class="odd">
-<td><code>x &amp; y</code></td>
-<td>Vectorized logical AND</td>
-<td><code>c(T,F) &amp; c(T,T)</code></td>
-<td><code>TRUE FALSE</code></td>
+<td><code>!x</code></td>
+<td>Logical NOT </td>
+<td><code>1 != 2</code></td>
+<td><code>TRUE</code></td>
 </tr>
 <tr class="even">
-<td><code>x | y</code></td>
-<td>Vectorized logical OR</td>
-<td><code>c(T,F) | c(T,T)</code></td>
-<td><code>TRUE TRUE</code></td>
+<td><code>x &amp; y</code></td>
+<td>Logical AND </td>
+<td><code>(2 > 1) & (2 < 5)</code></td>
+<td><code>TRUE</code></td>
 </tr>
 <tr class="odd">
-<td><code>!x</code></td>
-<td>Logical not</td>
-<td><code>1 != 2</code></td>
+<td><code>x | y</code></td>
+<td>Logical OR </td>
+<td><code>(2 > 5) | (2 < 5)</code></td>
 <td><code>TRUE</code></td>
 </tr>
 </tbody>
@@ -544,7 +546,7 @@ how to, or which command to run you can click the key to reveal example code inc
 <p>Also note that in many cases there are multiple solutions that solve the problem equally well.</p>
 </div>
 
-
+<!-- 
 <p>Open Rstudio and make sure to set your working directory (either in console or in Rmd <code>setwd("path/to/my/folder/")</code>. Double check that you do not have stored objects in your current session with the following command. This will list all objects that you have in
 your current R session.</p>
 <pre class="r"><code class="hljs">ls()</code></pre>
@@ -569,7 +571,7 @@ your current R session.</p>
 ## [73] "X"             "X.2"</code></pre>
 <p>In case you have objects that you want to remove from the current session you can do so with the <code>rm()</code> function. This command will remove all objects available in your current environment.</p>
 <pre class="r"><code class="hljs">rm(list = ls())</code></pre>
-<p>This command uses commands that we have not talked about yet. If you do not understand how it works now, you will do so after tomorrows lectures and exercises.</p>
+<p>This command uses commands that we have not talked about yet. If you do not understand how it works now, you will do so after tomorrows lectures and exercises.</p> -->
 <ol style="list-style-type: decimal">
 <li>Create variables <em>var1</em> and <em>var2</em> and initialize them with two integers of choice.</li>
 </ol>
@@ -602,7 +604,7 @@ var3</code></pre>
 </div>
 
 <ol start="2" style="list-style-type: decimal">
-<li>Check the class and type for var1, var2 and var3</li>
+<li>Check the data type for var1, var2 and var3</li>
 </ol>
 <p>
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812233240" aria-expanded="false" aria-controls="acc2026052812233240">
@@ -610,10 +612,8 @@ var3</code></pre>
 </p>
 <div id="acc2026052812233240" class="collapse">
 <div class="card card-body">
-<pre class="r"><code class="hljs">class(var1)
-typeof(var1)</code></pre>
-<pre><code class="hljs">## [1] "numeric"
-## [1] "double"</code></pre>
+<pre class="r"><code class="hljs">typeof(var1)</code></pre>
+<pre><code class="hljs">## [1] "double"</code></pre>
 </div>
 </div>
 <p>
@@ -690,7 +690,7 @@ as.double(text1)</code></pre>
 
 
 <ol start="6" style="list-style-type: decimal">
-<li>Create two character variables containing a text of choice. Check the class, and type of the first one.</li>
+<li>Create a variable containing a text of choice. Check it's data type.</li>
 </ol>
 <p>
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812235080" aria-expanded="false" aria-controls="acc2026052812235080">
@@ -699,12 +699,9 @@ as.double(text1)</code></pre>
 <div id="acc2026052812235080" class="collapse">
 <div class="card card-body">
 <pre class="r"><code class="hljs">text1 &lt;- <span class="hljs-string">"test1"</span>
-text2 &lt;- <span class="hljs-string">"test2"</span>
 
-class(text1)
 typeof(text1)</code></pre>
-<pre><code class="hljs">## [1] "character"
-## [1] "character"</code></pre>
+<pre><code class="hljs">## [1] "character"</code></pre>
 </div>
 </div>
 

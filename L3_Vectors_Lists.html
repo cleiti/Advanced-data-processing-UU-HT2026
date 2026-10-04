@@ -418,9 +418,10 @@ div.tocify {
 <li>How to create, do basic math, summarize and subset vectors</li>
 <li>How to create, do basic math, summarize and subset lists</li>
 </ol>
-<p><strong>Assignment submission:</strong> Write your answers to the assignment questions as <strong>comments</strong> in your code. 
-When you are done with one or several assignments, write your name and the assignments you want graded on the board in the queue. 
-A teacher will come by to check your work. While waiting you can starting working on the next assignment, or if you're feeling brave, the next lab! 
+<p><strong>Assignment submission:</strong> You can find assignments in green boxes below. 
+Create a new script file for this lab (call it<code>lab3.R</code>), write your answers to the assignment questions as <strong>comments</strong> in the script. 
+When you are done with one or several assignments, write your name and the assignments you want graded on the whiteboard at the end of the queue. 
+A teacher will come by to check your work. While waiting you can start working on the next assignment, or if you're feeling brave, the next lab! 
 Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
 
 <div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">2</span> Vectors in R</h1>
@@ -433,7 +434,7 @@ Once your assignments for today’s lab(s) have been graded, you are free to lea
 <p>If we for some reason only wanted to extract the value 10 from this vector we can use the fact that we know it is the first position to do so.</p>
 <pre class="r"><code class="hljs">example.vector[<span class="hljs-number">1</span>]</code></pre>
 <pre><code class="hljs">## [1] 10</code></pre>
-<p>Since a vector can only contain one data type, all members need to be of the same type. If you try to combine data of different types into the same vector, R will not warn you, but instead coerce (transform) all values to the most flexible type (From least to most flexible: Logical, integer, double, character). For e.g., adding a number to a logical vector will turn the whole vector to a numeric vector.</p>
+<p>Since a vector can only contain one data type, all members need to be of the same type. If you try to combine data of different types into the same vector, R will not warn you, but instead coerce (transform) all values to the most flexible type (From least to most flexible: Logical, integer, double, character). For example, adding a number to a logical vector will turn the whole vector to a numeric vector.</p>
 <pre class="r"><code class="hljs">vec &lt;- c(<span class="hljs-literal">T</span>,<span class="hljs-literal">F</span>,<span class="hljs-literal">T</span>,<span class="hljs-literal">T</span>)
 vec
 class(vec)
@@ -701,7 +702,7 @@ vec.tmp2</code></pre>
 </div>
 </div>
 <ol start="11" style="list-style-type: decimal">
-<li>Create a vector that contain all numbers from 1 to 17, where each number occurs the the same number of times as the number itself e.g.&nbsp;1, 2, 2, 3, 3, 3…</li>
+<li>Create a vector that contains all numbers from 1 to 17, where each number occurs the same number of times as the number itself e.g.&nbsp;1, 2, 2, 3, 3, 3…</li>
 </ol>
 <p>
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812069524" aria-expanded="false" aria-controls="acc2026052812069524">
@@ -921,7 +922,7 @@ letters[-length(letters)]  </code></pre>
 </div>
 </div>
 <ol start="12" style="list-style-type: decimal">
-<li>Create a numeric vector by sampling 100 numbers from a normal distribution with mean 2 and standard deviation 4. Hint! Check the function <code>rnorm()</code>.</li>
+<li>Create a numeric vector by sampling 100 numbers from a normal distribution with mean 2 and standard deviation 4. Hint! Check the function <code>rnorm()</code> (Note that it creates <strong>randomized</strong> values, so they will be a little different each time you run <code>rnorm()</code>).</li>
 </ol>
 <p>
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812068308" aria-expanded="false" aria-controls="acc2026052812068308">
@@ -1120,7 +1121,7 @@ list.2</code></pre>
 </div>
 </div>
 <ol start="2" style="list-style-type: decimal">
-<li>Here is a data frame (which is basically a table). Don't worry about it now, we'll learn more about data frames on the next lecture</li>
+<li>Here is a data frame (which is basically a table). Don't worry about it now, we'll learn more about data frames in the next lecture</li>
 </ol>
 <pre class="r"><code class="hljs">dfr &lt;- data.frame(letters, LETTERS, letters == LETTERS)</code></pre>
 <p>Add this data frame to the list created above.</p>
@@ -1200,8 +1201,7 @@ list.2</code></pre>
 </div>
 -->
 <p><strong>A7.3: </strong>How long is your list, and how long are each of the elements in the list? 
-  Tip: remember you can apply a function on all elements of a matrix using the <code>apply</code> function. 
-  You can do the same for lists using <code>lapply</code>.</p>
+  Tip: You can quickly apply the same function on all elements of a list with function <code>lapply</code>, used like this: <code>lapply(mylist, func)</code>. What function would you apply to all vectors in your list to figure out how long they are?</p>
 <p>
 <!-- 
 <button class="btn btn-sm btn-primary btn-collapse btn-collapse-normal collapsed" type="button" data-toggle="collapse" data-target="#acc2026052812237063" aria-expanded="false" aria-controls="acc2026052812237063">
