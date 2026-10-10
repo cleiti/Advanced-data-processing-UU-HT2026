@@ -412,7 +412,7 @@ div.tocify {
 <p><br></p>
 <div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">1</span> Learning outcomes</h1>
 <p>There are several different data structures that are commonly used in R. The different data structures can be seen as different ways to organise data. 
-  In this lab we will focus on vectors, which are the base data structure in R, and will also get an overview of the key data types (classes) that are found in R. 
+  In this lab we will focus on vectors, which are the base data structure in R, and will also get an overview of the key data types that are found in R. 
   At the end of this lab you should know:</p>
 <ol>
 <li>How to create, do basic math, summarize and subset vectors</li>
@@ -425,29 +425,29 @@ A teacher will come by to check your work. While waiting you can start working o
 Once your assignments for today’s lab(s) have been graded, you are free to leave.</p>
 
 <div name="1_Introduction" data-unique="1_Introduction"></div><h1><span class="header-section-number">2</span> Vectors in R</h1>
-<p>The most basic data structure in R are vectors. Vectors are 1-dimensional data structures that contain only one type of data (e.g.&nbsp;all entries must have the same class). To create a vector in R one can use the function <code>c()</code> (combine) as seen below. This example will create a vector named <code>example.vector</code> with 3 elements in it.</p>
+<p>The most basic data structure in R are vectors. Vectors are 1-dimensional data structures that contain only one type of data. To create a vector in R one can use the function <code>c()</code> (combine) as seen below. This example will create a vector named <code>example.vector</code> with 3 elements in it.</p>
 <pre class="r"><code class="hljs">example.vector &lt;- c(<span class="hljs-number">10</span>, <span class="hljs-number">20</span>, <span class="hljs-number">30</span>)</code></pre>
 <p>If you need more information about the function <code>c()</code> you can always use the built-in manual in R. Typing <code>?c()</code> will bring up the documentation for the function <code>c()</code>.</p>
 <p>Once you have created this vector in R, you can see its contents by simply typing its name in the R console and pressing return/enter.</p>
 <pre class="r"><code class="hljs">example.vector</code></pre>
 <pre><code class="hljs">## [1] 10 20 30</code></pre>
-<p>If we for some reason only wanted to extract the value 10 from this vector we can use the fact that we know it is the first position to do so.</p>
+<p>If we only wanted to extract the value 10 from this vector we can use the fact that we know it is the first position to do so.</p>
 <pre class="r"><code class="hljs">example.vector[<span class="hljs-number">1</span>]</code></pre>
 <pre><code class="hljs">## [1] 10</code></pre>
 <p>Since a vector can only contain one data type, all members need to be of the same type. If you try to combine data of different types into the same vector, R will not warn you, but instead coerce (transform) all values to the most flexible type (From least to most flexible: Logical, integer, double, character). For example, adding a number to a logical vector will turn the whole vector to a numeric vector.</p>
 <pre class="r"><code class="hljs">vec &lt;- c(<span class="hljs-literal">T</span>,<span class="hljs-literal">F</span>,<span class="hljs-literal">T</span>,<span class="hljs-literal">T</span>)
 vec
-class(vec)
+typeof(vec)
 vec &lt;- c(vec,<span class="hljs-number">2</span>)
 vec
-class(vec)</code></pre>
+typeof(vec)</code></pre>
 <pre><code class="hljs">## [1]  TRUE FALSE  TRUE  TRUE
 ## [1] "logical"
 ## [1] 1 0 1 1 2
-## [1] "numeric"</code></pre>
+## [1] "double"</code></pre>
 <p>To check what data type an object is, run the R built-in function <code>class()</code>, with the object as the only parameter.</p>
-<pre class="r"><code class="hljs">class(example.vector)</code></pre>
-<pre><code class="hljs">## [1] "numeric"</code></pre>
+<pre class="r"><code class="hljs">typeof(example.vector)</code></pre>
+<pre><code class="hljs">## [1] "double"</code></pre>
 <p>If you for any reason want to have more information about any object you have stored in your R session the command <code>str()</code> is very helpful.</p>
 <pre class="r"><code class="hljs">str(example.vector)</code></pre>
 <pre><code class="hljs">##  num [1:3] 10 20 30</code></pre>
